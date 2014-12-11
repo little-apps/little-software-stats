@@ -1139,3 +1139,126 @@ if ( !function_exists( 'lss_exit' ) ) {
 			exit();
 	}	
 }
+
+if ( defined( 'LSS_API' ) ) {
+	if ( !function_exists( 'parse_data' ) ) {
+		/**
+		 * Parses data
+		 * @param array $data Array containing parsed data
+		 * @return int Returns status code
+		 */
+		function parse_data( $data ) { 
+		    global $api;
+		    
+		    $ret = '';
+		    
+		    if ( isset( $data['ID'] ) )
+		        $data['ID'] = strtoupper( $data['ID'] );
+		    
+		    if ( isset( $data['ss'] ) )
+		        $data['ss'] = strtoupper( $data['ss'] );
+		    
+		    switch ( $data['tp'] ) {
+		        // Start App
+		        case "strApp": 
+		            $ret = $api->start_app( $data['aid'], $data['aver'], $data['ID'], $data['ss'], $data['ts'],
+		                    $data['osv'], $data['ossp'], $data['osar'], $data['osjv'],
+		                    $data['osnet'], $data['osnsp'], $data['oslng'], $data['osscn'],
+		                    $data['cnm'], $data['cbr'], $data['cfr'], $data['ccr'],
+		                    $data['car'], $data['mtt'], $data['mfr'], $data['dtt'], $data['dfr'] );
+		            break;
+		        // Stop App
+		        case "stApp":
+		            $ret = $api->stop_app( $data['ts'], $data['ss'] );
+		            break;
+		        // Event
+		        case "ev":
+		            $ret = $api->event( $data['ts'], $data['ss'], $data['ca'], $data['nm'] );
+		            break;
+		        // Event Value
+		        case "evV":
+		            $ret = $api->event_value( $data['ts'], $data['ss'], $data['ca'], $data['nm'], $data['vl'] );
+		            break;
+		        // Event Period
+		        case "evP":
+		            $ret = $api->event_period( $data['ts'], $data['ss'], $data['ca'], $data['nm'], $data['tm'], $data['ec'] );
+		            break;
+		        // Log
+		        case "lg":
+		            $ret = $api->log( $data['ts'], $data['ss'], $data['ms'] );
+		            break;
+		        // Custom Data
+		        case "ctD":
+		            $ret = $api->custom_data( $data['ts'], $data['ss'], $data['nm'], $data['vl'] );
+		            break;
+		        // Exception
+		        case "exC":
+		            $ret = $api->exception( $data['ts'], $data['ss'], $data['msg'], $data['stk'], $data['src'], $data['tgs'] );
+		            break;
+		        // Install
+		        case "ist":
+		            $ret = $api->install( $data['ts'], $data['ss'], $data['aid'], $data['aver'] );
+		            break;
+		        // Uninstall
+		        case "ust":
+		            $ret = $api->uninstall( $data['ts'], $data['ss'], $data['aid'], $data['aver'] );
+		            break;
+		        // No event found
+		        default:
+		            break;
+		    }
+		    
+		    return $ret;
+		}
+	}
+
+	if ( !function_exists('get_error' ) ) {
+		/**
+		 * Gets error response for specified error code
+		 * @global string $type Type of format being used (xml or json)
+		 * @param int $error_code Error code
+		 * @return boolean|string Returns error code and message as XML or JSON or false if the error code wasn't found
+		 */
+		function get_error( $error_code ) {
+		    global $type;
+		    
+		    if ( !is_numeric( $error_code ) )
+		        return false;
+		    
+		    $error_code = intval( $error_code );
+		    
+		    $errors = array(
+		        1 => 'Success',
+		        -8 => 'Empty POST data',
+		        -9 => 'Invalid JSON/XML string',
+		        -10 => 'Missing required data',
+		        -11 => 'Application ID not found',
+		        -12 => 'User ID not found',
+		        -13 => 'Use POST request',
+		        -14 => 'Application version not found',
+		        -15 => 'Invalid event data'
+		    );
+		    
+		    if ( !array_key_exists( $error_code, $errors ) )
+		        return false;
+
+		    if ( $type == 'json' ) {
+		        header( "Content-Type: text/json" );
+		        
+		        return json_encode( array(
+		            'status_code' => $error_code,
+		            'status_message' => $errors[$error_code]
+		        ) );
+		    } else {
+		        header( "Content-Type: text/xml" );
+		        
+		        $status = new SimpleXMLElement( '<Status/>' );
+		        $status->addChild( 'Code', $error_code );
+		        $status->addChild( 'Message', $errors[$error_code] );
+		        
+		        return $status->asXML();
+		    }
+		}
+	}
+
+}
