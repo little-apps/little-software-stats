@@ -145,13 +145,23 @@ class MySQL {
         }
 
         if ( !$this->db_link ) {
-            die( __( 'Could not connect to server, error: ' ) . $this->last_error() );
-            return false;
+        	if ( defined( 'LSS_API' ) ) {
+				$message = get_error( -7 );
+			} else {
+				$message = __( 'Could not connect to server, error: ' ) . $this->last_error();
+			}
+        	
+            lss_exit( $message );
         }
 
-        if( !$this->use_db() ) {
-            die( __( 'Cannot select database, error: ' ) . $this->last_error() );
-            return false;
+        if ( !$this->use_db() ) {
+        	if ( defined( 'LSS_API' ) ) {
+				$message = get_error( -7 );
+			} else {
+				$message = __( 'Cannot select database, error: ' ) . $this->last_error();
+			}
+        	
+            lss_exit( $message );
         }
 
         return true;

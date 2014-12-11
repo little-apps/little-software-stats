@@ -1229,6 +1229,7 @@ if ( defined( 'LSS_API' ) ) {
 		    
 		    $errors = array(
 		        1 => 'Success',
+		        -7 => 'Unable to connect to database',
 		        -8 => 'Empty POST data',
 		        -9 => 'Invalid JSON/XML string',
 		        -10 => 'Missing required data',
