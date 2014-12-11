@@ -1,0 +1,11 @@
+inc/config.php
+inc/config-readonly.php
+cron/*
+database backup/*.*
+template files/*.*
+tests/*.*
+*.mwb
+.htaccess
+.bzr/*
+.bzrignore
+Thumbs.db

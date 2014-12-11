@@ -1,0 +1,37 @@
+Microsoft IIS URL Rewrite
+---------------
+
+This page will guide you through setting up URL rewrites with Little Software Stats. 
+
+### Requirements ###
+
+ - Microsoft IIS Server 7 or higher
+ - Little Software Stats
+ - URL Rewrite Module Go Live
+
+### Steps ###
+
+ 1. Go to the IIS Manager
+ 2. Select the website where Little Software Stats is installed
+ 3. In the list of icons, locate URL Rewrite and click on it
+ 4. On the right hand side under Actions, click on Add Rule
+ 5. Locate Blank Rule and select it, then click OK. If there are more than one Blank Rule options, select the one listed under Inbound Rules.
+ 6. For the Name, enter "Little Software Stats (Website)" (without the quotes).
+ 7. Ensure Requested URL is set to "Matches the pattern" and Using is set to "Regular Expressions".
+ 8. For the Pattern, enter "^([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)$" (without the quotes).
+ 9. Ensure "Ignore Case" is checked
+ 10. Under Action, ensure Action Type is set to Rewrite.
+ 11. For the Rewrite Rule, enter "index.php?id={R:1}&ver={R:2}&graphBy={R:3}&page={R:4}&start={R:5}&end={R:6}" (without the quotes) and ensure Append Query String is checked.
+ 12. Click Apply on the right hand side to save the rule.
+ 13. Click Back To Rules to go back.
+ 14. On the right hand side under Actions, click on Add Rule.
+ 15. Locate Blank Rule and select it, then click OK. If there are more than one Blank Rule options, select the one listed under Inbound Rules.
+ 16. For the Name, enter "Little Software Stats (API)" (without the quotes).
+ 17. Ensure Requested URL is set to "Matches the pattern" and Using is set to "Regular Expressions".
+ 18. For the Pattern, enter "^api.(xml|json)$" (without the quotes).
+ 19. Ensure Ignore Case is checked
+ 20. Under Action, ensure Action Type is set to Rewrite.
+ 21. For the Rewrite Rule, enter "api.php?type={R:1}" (without the quotes) and ensure Append Query String is checked.
+ 22. Click Apply on the right hand side to save the rule.
+ 23. The rewrite rules should now be setup. You can test them by going to the settings in Little Software Stats and enabling "URL Rewrite".
+

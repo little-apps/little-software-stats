@@ -9,12 +9,12 @@ Little Software Stats is the first free and open source application that allows 
 
 The following is required to run Little URL Shortener properly:
 
-* Web server (See notes)
-* [PHP v5.3](http://php.net/) or higher (See notes)
+* Web server (See [notes](#notes))
+* [PHP v5.3](http://php.net/) or higher (See [notes](#notes))
 * [MySQL](http://www.mysql.com/) or [MariaDB](https://www.mariadb.org) v5.5 or higher
 * PHP extensions:
- * [Original MySQL API](http://php.net/manual/en/book.mysql.php) (See notes)
- * [MySQL Improved](http://php.net/manual/en/book.mysqli.php) (See notes)
+ * [Original MySQL API](http://php.net/manual/en/book.mysql.php) (See [notes](#notes))
+ * [MySQL Improved](http://php.net/manual/en/book.mysqli.php) (See [notes](#notes))
  * [GD (Image Processing)](http://php.net/manual/en/book.image.php)
  * [Hash](http://php.net/manual/en/book.hash.php)
  * [Session](http://php.net/manual/en/book.session.php)
@@ -27,9 +27,13 @@ The following is required to run Little URL Shortener properly:
  * URL rewrite support with the web server is recommended, but not required
  * PHP v5 or higher will work, but PHP v5.3 or higher is recommended.
  * MySQL Improved will be used if it is installed (as the original MySQL API is deprecated). If it is not installed, the original MySQL API will be used instead.
+ * The appropriate web server and memory needed will depend on the scale of your software. For example, if your using Little Software Stats with a highly used software program then you may want to consider running Nginx or Lighttpd with lots of RAM. You should consider using something like suPHP which runs PHP at the user-level instead of the root user or the default PHP user.
 
 ### Installation ###
-To install Little Software Stats, simply navigate to the "install/" folder in your web browser and follow the steps (for example, http://www.mywebsite.com/install/). 
+1. Upload and extract Little Software Stats to your web server
+2. Create a MySQL database with a user that has full privileges to access and modify it
+3. Go to http://example.com/install/ and follow the steps
+4. Integrate Little Software Stats with your software and track your users
 
 ### Example ###
 
@@ -40,10 +44,10 @@ If you would like to see Little Software Stats in action, please check out [demo
  * First public release
  
 ### To Do ###
- * Removed unneeded JavaScript files
+ * Remove unneeded JavaScript files
  * Translations for various languages
  * Composer support
- * Updated PHPMailer
+ * Update PHPMailer
  * SQLite support (through PDO)
  * Smarty integration
  * Pluggable (support for plugins)
@@ -57,7 +61,7 @@ If you would like to see Little Software Stats in action, please check out [demo
  * Two factor authentication support (Google Authenticator, Authy, etc)
 
 ### License ###
-Little Software Stats is licensed under the [GNU General Public License](http://www.gnu.org/licenses/gpl.html).
+Little Software Stats itself is licensed under the GNU General Public License v3 and the Little Software Stats libraries are licensed under the GNU Lesser General Public License. 
 
 ### Show Your Support ###
 Little Apps relies on people like you to keep our software running. If you would like to show your support for Little Software Stats, then you can [make a donation](https://www.little-apps.com/?donate) using PayPal, Payza or Bitcoins. Please note that any amount helps (even just $1).
@@ -82,3 +86,7 @@ Little Apps would like to thank the following for helping Little Software Stats:
  * [GeoIPs API by Bianet Solution Ltd.](http://www.geoips.com/en)
  * [Minify by Steve Clay and Ryan](https://code.google.com/p/minify/)
  * [reCAPTCHA by Google](http://www.google.com/recaptcha/intro/index.html)
+ 
+### More Info ###
+
+For more information, please visit [http://www.little-software-stats.com](http://www.little-software-stats.com)

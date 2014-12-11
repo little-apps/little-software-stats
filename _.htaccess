@@ -1,0 +1,29 @@
+##
+# Little Software Stats .htaccess file
+#
+# An open source program that allows developers to keep track of how their software is being used
+#
+# @package		Little Software Stats
+# @author		Little Apps
+# @copyright    Copyright (c) 2011, Little Apps
+# @license		http://www.gnu.org/licenses/gpl.html GNU General Public License v3
+# @link		    http://little-apps.org
+# @since		Version 0.1
+##
+
+# Prevent directory indexing
+Options -Indexes 
+
+# Turn on mod_rewrite
+RewriteEngine On
+
+# The path to your Little Software Stats installation
+# (Comment this if its installed in the root directory of your website)
+RewriteBase /stats/
+
+# Clean URLs for easier navigation
+# http://[...]/<APPLICATION ID>/<VERSION>/<DAY,WEEK,MONTH>/<PAGE>/<START DATE>/<END DATE>
+RewriteRule ^([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)/([^/]*)$ index.php?id=$1&ver=$2&graphBy=$3&page=$4&start=$5&end=$6
+
+# XML or JSON API
+RewriteRule ^api.(xml|json)$ api.php?type=$1
