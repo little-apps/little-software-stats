@@ -1227,6 +1227,9 @@ if ( defined( 'LSS_API' ) ) {
 		    
 		    $error_code = intval( $error_code );
 		    
+		    if (!isset($type)) 
+		    	$type = ( ( isset( $_GET['type'] ) ) ? ( strtolower( $_GET['type'] ) ) : ( 'json' ) );
+		    
 		    $errors = array(
 		        1 => 'Success',
 		        -7 => 'Unable to connect to database',
