@@ -15,11 +15,14 @@
 
 if ( !defined( 'LSS_LOADED' ) ) die( 'This page cannot be loaded directly' );
 
-session_start();
+if ( !defined( 'LSS_API' ) ) { // Sessions aren't used with API
+	session_start();
 
-if ( !session_id() ) {
-    die( 'PHP Session could not be started.' );
+	if ( !session_id() ) {
+	    die( 'PHP Session could not be started.' );
+	}
 }
+
 
 if ( !defined( 'ROOTDIR' ) )
     define( 'ROOTDIR', realpath( dirname( __FILE__ ) . '/../' ) );
