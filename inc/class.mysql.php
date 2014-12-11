@@ -134,24 +134,31 @@ class MySQL {
 
         if ( $this->mysqli_loaded ) {
             if ( $persistant )
-                $this->db_link = new mysqli( 'p:' . $this->hostname, $this->username, $this->password );
+                $this->db_link = @mysqli_connect( 'p:' . $this->hostname, $this->username, $this->password );
             else
-                $this->db_link = new mysqli( $this->hostname, $this->username, $this->password );
+                $this->db_link = @mysqli_connect( $this->hostname, $this->username, $this->password );
         } else {
             if ( $persistant )
                 $this->db_link = @mysql_pconnect( $this->hostname, $this->username, $this->password );
             else
                 $this->db_link = @mysql_connect( $this->hostname, $this->username, $this->password );
         }
+        
+        $is_connected = ( $this->db_link ? true : false );
+        
+        if ( $is_connected && $this->mysqli_loaded )
+        	$is_connected = ( $this->db_link->connect_errno == 0 ? true : false );
 
-        if ( !$this->db_link ) {
+        if ( !$is_connected ) {
+        	$this->db_link = false;
+        	
         	if ( defined( 'LSS_API' ) ) {
 				$message = get_error( -7 );
 			} else {
 				$message = __( 'Could not connect to server, error: ' ) . $this->last_error();
 			}
         	
-            lss_exit( $message );
+        	die($message);
         }
 
         if ( !$this->use_db() ) {
@@ -161,7 +168,7 @@ class MySQL {
 				$message = __( 'Cannot select database, error: ' ) . $this->last_error();
 			}
         	
-            lss_exit( $message );
+            die( $message );
         }
 
         return true;
@@ -788,10 +795,12 @@ class MySQL {
 	* @return
 	*/
     public function close() {
-		if ( $this->mysqli_loaded ) {
-			$this->db_link->close();
-		} else {
-			mysql_close( $this->db_link );
+    	if ( $this->db_link ) {
+			if ( $this->mysqli_loaded ) {
+				$this->db_link->close();
+			} else {
+				mysql_close( $this->db_link );
+			}
 		}
 	}
 }
