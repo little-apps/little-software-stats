@@ -581,8 +581,10 @@ if ( !function_exists( 'get_page_url' ) ) {
      * Outputs page URL
      * @param string $page Page
      * @param bool $echo If true it echoes URL, otherwise, it returns the URL
+     * @param boolean $encode_html If true, encodes HTML characters (default is true)
+     * @return string If $echo is false, returns URL. Otherwise, it is echoed and not returned.
      */
-    function get_page_url( $page, $echo = true ) {
+    function get_page_url( $page, $echo = true, $encode_html = true ) {
         global $sanitized_input, $site_url;
 
         $id = $sanitized_input['id'];
@@ -597,6 +599,9 @@ if ( !function_exists( 'get_page_url' ) ) {
             $url .= '/'.$id.'/'.$ver.'/'.$graph_by.'/'.$page.'/'.$start.'/'.$end;
         else    
             $url .= '/index.php?id='.$id.'&ver='.$ver.'&graphBy='.$graph_by.'&page='.$page.'&start='.$start.'&end='.$end;
+            
+        if ( $encode_html )
+        	$url = htmlspecialchars( $url );
 
         if ( $echo )
             echo $url;
