@@ -132,7 +132,7 @@ $app_data_exists = ( $db->select_count( 'sessions', '*', array( 'ApplicationId' 
 		                    <div class="nav-divider">&nbsp;</div>
 		                    <a href="<?php echo get_page_url( 'settings' ); ?>" title="<?php _e( 'Settings' ); ?>" id="settings"><img src="<?php file_url( '/images/shared/nav/nav_settings.png' ); ?>" width="72" height="14" alt="" /></a>
 		                    <div class="nav-divider">&nbsp;</div>
-		                    <a href="<?php file_url( 'login.php' ) . "?action=logout"; ?>" title="<?php _e( 'Logout' ); ?>" id="logout"><img src="<?php file_url( '/images/shared/nav/nav_logout.gif' ); ?>" width="64" height="14" alt="" /></a>
+		                    <a href="<?php file_url( 'login.php', '?action=logout' ); ?>" title="<?php _e( 'Logout' ); ?>" id="logout"><img src="<?php file_url( '/images/shared/nav/nav_logout.gif' ); ?>" width="64" height="14" alt="" /></a>
 		                    <div class="clear">&nbsp;</div>
 
 

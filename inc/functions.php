@@ -609,21 +609,43 @@ if ( !function_exists( 'get_file_url' ) ) {
     /**
      * Returns file URL
      * @param string $file Relative path of file
+     * @param array|string $query If not empty, the query (including the ?) is appended to the file URL. If it is an array and not empty, it is converted to an array with http_build_query(). (default is a empty string)
+     * @param boolean $encode_html If true, encodes HTML characters (default is true)
      * @return string File URL
      */
-    function get_file_url( $file ) {
+    function get_file_url( $file, $query = '', $encode_html = true ) {
         global $site_url;
 
         if ( !file_exists( SITE_PATH . '/' . ltrim( $file, '/' ) ) )
             return '';
+            
+        $query_str = '';
+            
+        if ( !empty( $query ) ) {
+			if ( is_array( $query ) )
+				$query_str = http_build_query( $query );
+			else if ( is_string( $query ) )
+				$query_str = $query;
+		}
+            
+        if ( $encode_html )
+        	$ret = htmlspecialchars( $site_url . '/' . ltrim( $file, '/' ) . $query_str );
+        else
+        	$ret = $site_url . '/' . ltrim( $file, '/' ) . $query_str;
 
-        return $site_url . '/' . ltrim( $file, '/' );
+        return $ret;
     }
 }
 
 if ( !function_exists( 'file_url' ) ) {
-    function file_url( $file ) {
-        echo get_file_url( $file );
+	/**
+     * Echoes file URL
+     * @param string $file Relative path of file
+     * @param array|string $query If not empty, the query (including the ?) is appended to the file URL. If it is an array and not empty, it is converted to an array with http_build_query(). (default is a empty string)
+     * @param boolean $encode_html If true, encodes HTML characters (default is true)
+     */
+    function file_url( $file, $query = '', $encode_html = true ) {
+        echo get_file_url( $file, $query, $encode_html );
     }
 }
 
@@ -994,6 +1016,8 @@ if ( !function_exists( 'show_msg_box' ) ) {
         $ret = '';
 
         if ( in_array( $type, $valid_types ) && ( is_string( $type ) ) ) {
+        	$text = htmlspecialchars( $text );
+        	
             $ret = "<div id=\"message-".$type."\">
                     <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">
                     <tbody>
