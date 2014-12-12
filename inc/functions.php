@@ -587,11 +587,11 @@ if ( !function_exists( 'get_page_url' ) ) {
     function get_page_url( $page, $echo = true, $encode_html = true ) {
         global $sanitized_input, $site_url;
 
-        $id = $sanitized_input['id'];
-        $ver = $sanitized_input['ver'];
-        $graph_by = $sanitized_input['graphBy'];
-        $start = date( 'Y-m-d', $sanitized_input['start'] );
-        $end = date( 'Y-m-d', $sanitized_input['end'] );
+        $id = urlencode( $sanitized_input['id'] );
+        $ver = urlencode( $sanitized_input['ver'] );
+        $graph_by = urlencode( $sanitized_input['graphBy'] );
+        $start = urlencode( date( 'Y-m-d', $sanitized_input['start'] ) );
+        $end = urlencode( date( 'Y-m-d', $sanitized_input['end'] ) );
 
         $url = $site_url;
 
