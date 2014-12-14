@@ -47,7 +47,7 @@ If you would like to see Little Software Stats in action, please check out [demo
  * Remove unneeded JavaScript files
  * Translations for various languages
  * Composer support
- * Update PHPMailer
+ * ~~Update PHPMailer~~
  * SQLite support (through PDO)
  * Smarty integration
  * Pluggable (support for plugins)
@@ -59,6 +59,7 @@ If you would like to see Little Software Stats in action, please check out [demo
  * Data export API
  * Automated reports
  * Two factor authentication support (Google Authenticator, Authy, etc)
+ * Send notification via e-mail when someone logs in
 
 ### License ###
 Little Software Stats itself is licensed under the GNU General Public License v3 and the Little Software Stats libraries are licensed under the GNU Lesser General Public License. 
