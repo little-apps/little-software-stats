@@ -412,7 +412,7 @@ if ( !function_exists( 'get_min_uri' ) ) {
 if ( !function_exists( 'send_mail' ) ) {
     /**
      * Sends mail using geek mail
-     * @global GeekMail $geek_mail Class for GeekMail
+     * @global PHPMailer $php_mailer Class for PHPMailer
      * @param string $to Email address to send to
      * @param string $subject Subject
      * @param string $message Message to send
@@ -420,22 +420,48 @@ if ( !function_exists( 'send_mail' ) ) {
      * @return bool Returns true if message was sent
      */
     function send_mail( $to, $subject, $message, $attach = '' ) {
-        global $geek_mail;
+        global $php_mailer;
+        
+        if ( !isset( $php_mailer ) ) {
+			require_once( dirname(__FILE__).'/phpmailer/PHPMailerAutoload.php' );
 
-        // Require geekmail if function is called
-        if ( !isset( $geek_mail ) ) {
-            require_once( ROOTDIR . '/inc/class.geekmail.php' );
-            $geek_mail = GeekMail::getInstance();
-        }
-
-        $geek_mail->from( SITE_NOREPLYEMAIL, __( 'Little Software Stats' ) );
-        $geek_mail->to( $to );
-        $geek_mail->subject( $subject );
-        $geek_mail->message( $message );
-        if ( $attach != '' )
-            $geek_mail->attach( $attach );
-
-        return $geek_mail->send();
+			$php_mailer = new PHPMailer();
+		}
+		
+		$send_method = get_option( 'mail_protocol' );
+        
+		if (strcasecmp( $send_method, 'smtp' ) == 0) {
+			$php_mailer->isSMTP();
+			$php_mailer->Host = get_option( 'mail_smtp_server' );
+			$php_mailer->Port = intval( get_option( 'mail_smtp_port' ) );
+			
+			$smtp_user = get_option( 'mail_smtp_user' );
+			$smtp_pass = get_option( 'mail_smtp_pass' );
+			
+			if ( empty( $smtp_user ) || !empty( $smtp_pass ) ) {
+				$php_mailer->SMTPAuth = true;
+				$php_mailer->Username = $smtp_user;
+				$php_mailer->Password = $smtp_pass;
+			} else {
+				$php_mailer->SMTPAuth = false;
+			}
+		} else if (strcasecmp( $send_method, 'sendmail' ) == 0) {
+			$php_mailer->isSendmail();
+			$php_mailer->Sendmail = get_option( 'mail_sendmail_path' );
+		} else {
+			$php_mailer->isMail();
+		}
+		
+		$php_mailer->SetFrom(SITE_NOREPLYEMAIL, __( 'Little Software Stats' ) );
+		$php_mailer->addAddress($to_email);
+		$php_mailer->Subject = $subject;
+		$php_mailer->isHTML(false);
+		$php_mailer->Body = $message;
+		
+		if ( !empty( $attach ) )
+			$mail->addAttachment( $attach ); 
+		
+		$php_mailer->send();
     }
 }
 
