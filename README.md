@@ -60,6 +60,7 @@ If you would like to see Little Software Stats in action, please check out [demo
  * Automated reports
  * Two factor authentication support (Google Authenticator, Authy, etc)
  * Send notification via e-mail when someone logs in
+ * Add TLS and SSL support to SMTP configuration options
 
 ### License ###
 Little Software Stats itself is licensed under the GNU General Public License v3 and the Little Software Stats libraries are licensed under the GNU Lesser General Public License. 
