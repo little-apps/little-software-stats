@@ -430,7 +430,7 @@ if ( !function_exists( 'send_mail' ) ) {
 		
 		$send_method = get_option( 'mail_protocol' );
         
-		if (strcasecmp( $send_method, 'smtp' ) == 0) {
+		if ( strcasecmp( $send_method, 'smtp' ) == 0 ) {
 			$php_mailer->isSMTP();
 			$php_mailer->Host = get_option( 'mail_smtp_server' );
 			$php_mailer->Port = intval( get_option( 'mail_smtp_port' ) );
@@ -445,17 +445,17 @@ if ( !function_exists( 'send_mail' ) ) {
 			} else {
 				$php_mailer->SMTPAuth = false;
 			}
-		} else if (strcasecmp( $send_method, 'sendmail' ) == 0) {
+		} else if ( strcasecmp( $send_method, 'sendmail' ) == 0 ) {
 			$php_mailer->isSendmail();
 			$php_mailer->Sendmail = get_option( 'mail_sendmail_path' );
 		} else {
 			$php_mailer->isMail();
 		}
 		
-		$php_mailer->SetFrom(SITE_NOREPLYEMAIL, __( 'Little Software Stats' ) );
-		$php_mailer->addAddress($to_email);
+		$php_mailer->SetFrom( SITE_NOREPLYEMAIL, __( 'Little Software Stats' ) );
+		$php_mailer->addAddress( $to_email );
 		$php_mailer->Subject = $subject;
-		$php_mailer->isHTML(false);
+		$php_mailer->isHTML( false );
 		$php_mailer->Body = $message;
 		
 		if ( !empty( $attach ) )
