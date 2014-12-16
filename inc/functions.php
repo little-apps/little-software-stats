@@ -438,7 +438,7 @@ if ( !function_exists( 'send_mail' ) ) {
 			$smtp_user = get_option( 'mail_smtp_user' );
 			$smtp_pass = get_option( 'mail_smtp_pass' );
 			
-			if ( empty( $smtp_user ) || !empty( $smtp_pass ) ) {
+			if ( !empty( $smtp_user ) || !empty( $smtp_pass ) ) {
 				$php_mailer->SMTPAuth = true;
 				$php_mailer->Username = $smtp_user;
 				$php_mailer->Password = $smtp_pass;
