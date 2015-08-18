@@ -33,7 +33,15 @@ The following is required to run Little URL Shortener properly:
 1. Upload and extract Little Software Stats to your web server
 2. Create a MySQL database with a user that has full privileges to access and modify it
 3. Go to http://example.com/install/ and follow the steps
+4. Remove or rename the install directory
 4. Integrate Little Software Stats with your software and track your users
+
+### Updating ###
+1. Make backup from web server of Little Software Stats directory and database
+2. Upload and extract the updated Little Software Stats archive to your web server
+3. Go to http://example.com/install/update.php and follow the steps
+4. Remove or rename the install directory
+5. Little Software Stats should now be updated
 
 ### Example ###
 
