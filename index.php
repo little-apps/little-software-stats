@@ -24,7 +24,7 @@ verify_user( );
 
 // Must be kept in index.php otherwise prevents user from logging out
 if ( $needs_refresh ) {
-    redirect( get_page_url( $sanitized_input['page'], false ) );
+    redirect( get_page_url( $sanitized_input['page'], false, false ) );
 }
 
 // Check if data exists
