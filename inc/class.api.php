@@ -146,7 +146,7 @@ class API {
             if ( substr( $app_ver, -2 ) == '.0' )
                 $app_ver = substr( $app_ver, 0, -2 );
         }
-        
+
         if ( !$this->is_user_id_valid( $unique_id ) || !$this->is_user_id_valid( $session_id ) )
             return -12;
         
@@ -154,25 +154,25 @@ class API {
                 || !is_string( $os_java_ver ) || !is_string( $os_net ) || !is_string( $screen_res )
                 || !is_string( $cpu_name ) || !is_string( $cpu_brand ) )
             return -15;
-        
+
         if ( !$this->is_timestamp_valid( $timestamp ) || !is_numeric( $os_service_pack ) || !is_numeric( $os_net_sp )
                 || !is_numeric( $lang_id ) || !is_numeric( $cpu_freq ) || !is_numeric( $cpu_cores )|| !is_numeric($cpu_arch)
                 || !is_numeric( $mem_total ) || !is_numeric( $disk_total ) || !is_numeric( $disk_free ) )
             return -15;
-        
+
         $screen_res = str_replace( " ", "", $screen_res );
         $os_arch = intval( $os_arch );
         $cpu_arch = intval( $cpu_arch );
-        
+
         if ( !preg_match( '/\d+x\d+/', $screen_res ) )
             return -15;
-            
+
         if ( $os_arch != 32 && $os_arch != 64 )
             return -15;
-        
+
         if ( $cpu_arch != 32 && $cpu_arch != 64 )
             return -15;
-        
+
         switch ( strtolower( $cpu_brand ) ) {
             case "authenticamd":
             case "amd":
@@ -239,8 +239,6 @@ class API {
                 return -15;
                 break;
         }
-        
-        
 
         $country_code = '';
         $country = "Unknown";
@@ -279,7 +277,7 @@ class API {
     public function stop_app( $timestamp, $session_id ) {
         if ( !$this->is_user_id_valid( $session_id ) )
             return -12;
-        
+
         if ( !$this->is_timestamp_valid( $timestamp ) )
             return -15;
         

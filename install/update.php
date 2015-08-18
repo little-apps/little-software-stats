@@ -92,11 +92,11 @@ function get_engines() {
 
 	if ( $db->execute_sql("SHOW ENGINES") ) {
 		$rows = array();
-	
-		if( $this->records == 1 ) 
-			$rows[] = $ret = $this->array_result();
-		else if ( $this->records > 1 )
-			$rows = $ret = $this->array_results();
+
+		if( $db->records == 1 )
+			$rows[] = $ret = $db->array_result();
+		else if ( $db->records > 1 )
+			$rows = $ret = $db->array_results();
 			
 		if ($ret === false) {
 			return false;
@@ -222,7 +222,7 @@ SQL;
 		
 		$sql = <<<SQL
 	SET time_zone = "+00:00";
-		
+
 	INSERT INTO {:db_prefix}events_event (`EventCategory`,`EventName`,`SessionId`,`UtcTimestamp`) SELECT `EventCategory`,`EventName`,`SessionId`,FROM_UNIXTIME(`UtcTimestamp`) FROM {:db_prefix}events WHERE `EventCode` = 'ev';
 	INSERT INTO {:db_prefix}events_eventvalue (`EventCategory`,`EventName`,`EventValue`,`SessionId`,`UtcTimestamp`) SELECT `EventCategory`,`EventName`,`EventValue`,`SessionId`,FROM_UNIXTIME(`UtcTimestamp`) FROM {:db_prefix}events WHERE `EventCode` = 'evV';
 	INSERT INTO {:db_prefix}events_eventperiod (`EventCategory`,`EventName`,`EventDuration`,`EventCompleted`,`SessionId`,`UtcTimestamp`) SELECT `EventCategory`,`EventName`,`EventDuration`,`EventCompleted`,`SessionId`,FROM_UNIXTIME(`UtcTimestamp`) FROM {:db_prefix}events WHERE `EventCode` = 'evP';
@@ -231,7 +231,7 @@ SQL;
 	INSERT INTO {:db_prefix}events_exception (`ExceptionMsg`,`ExceptionStackTrace`,`ExceptionSource`,`ExceptionTargetSite`,`SessionId`,`UtcTimestamp`) SELECT `ExceptionMsg`,`ExceptionStackTrace`,`ExceptionSource`,`ExceptionTargetSite`,`SessionId`,FROM_UNIXTIME(`UtcTimestamp`) FROM {:db_prefix}events WHERE `EventCode` = 'exC';
 	INSERT INTO {:db_prefix}events_install (`SessionId`,`UtcTimestamp`) SELECT `SessionId`,FROM_UNIXTIME(`UtcTimestamp`) FROM {:db_prefix}events WHERE `EventCode` = 'ist';
 	INSERT INTO {:db_prefix}events_uninstall (`SessionId`,`UtcTimestamp`) SELECT `SessionId`,FROM_UNIXTIME(`UtcTimestamp`) FROM {:db_prefix}events WHERE `EventCode` = 'ust';
-	
+
 	ALTER TABLE `{:db_prefix}sessions` ADD COLUMN `StartApp2` TIMESTAMP NULL DEFAULT NULL AFTER `StartApp`;
 	UPDATE `{:db_prefix}sessions` SET `StartApp2`=FROM_UNIXTIME(`StartApp`);
 	ALTER TABLE `{:db_prefix}sessions` DROP `StartApp`;
@@ -242,15 +242,15 @@ SQL;
 	ALTER TABLE `{:db_prefix}sessions` DROP `StopApp`;
 	ALTER TABLE `{:db_prefix}sessions` CHANGE `StopApp2` `StopApp` TIMESTAMP NULL DEFAULT NULL;
 
-	ALTER TABLE `{:db_prefix}uniqueusers` ADD COLUMN `Created2` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `Created`;
+    ALTER TABLE `{:db_prefix}uniqueusers` ADD COLUMN `Created2` TIMESTAMP NULL DEFAULT NULL AFTER `Created`;
 	UPDATE `{:db_prefix}uniqueusers` SET `Created2`=FROM_UNIXTIME(`Created`);
 	ALTER TABLE `{:db_prefix}uniqueusers` DROP `Created`;
 	ALTER TABLE `{:db_prefix}uniqueusers` CHANGE `Created2` `Created` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
 
-	ALTER TABLE `{:db_prefix}uniqueusers` ADD COLUMN `LastRecieved2` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `LastRecieved`;
+    ALTER TABLE `{:db_prefix}uniqueusers` ADD COLUMN `LastRecieved2` TIMESTAMP NULL DEFAULT NULL AFTER `LastRecieved`;
 	UPDATE `{:db_prefix}uniqueusers` SET `LastRecieved2`=FROM_UNIXTIME(`LastRecieved`);
 	ALTER TABLE `{:db_prefix}uniqueusers` DROP `LastRecieved`;
-	ALTER TABLE `{:db_prefix}uniqueusers` CHANGE `LastRecieved2` `LastRecieved` TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+	ALTER TABLE `{:db_prefix}uniqueusers` CHANGE `LastRecieved2` `LastRecieved` TIMESTAMP NOT NULL;
 SQL;
 
 		$ret = db_import_sql( $sql );
@@ -284,6 +284,8 @@ $errors = array();
 if ( ( isset($_POST['update'] ) ) && $_POST['update'] == 'true' ) {
 	$db = MySQL::getInstance();
 
+
+
     // REMOVE THIS AFTER v0.2!
     if ( !$db->execute_sql( "INSERT IGNORE INTO ".MYSQL_PREFIX."options (`Name`, `Value`) VALUES('current_version', '0.1')" ) )
         $errors[] = "Execute failed: " . $db->last_error;
@@ -292,7 +294,7 @@ if ( ( isset($_POST['update'] ) ) && $_POST['update'] == 'true' ) {
         $errors[] = "Execute failed: " . $db->last_error;
 
     $install_version = $db->arrayed_result['value'];
-	
+
 	if (empty($errors)) {
 		if (!get_engines()) {
 			$errors[] = 'Unable to get support MySQL engines';
