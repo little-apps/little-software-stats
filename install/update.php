@@ -86,6 +86,32 @@ function db_import_sql( $sql ) {
     return false;
 }
 
+function remove_files($files) {
+    if (empty($files))
+        return false;
+
+    if (!is_array($files))
+        return false;
+
+    foreach ($files as $file) {
+        $file = realpath( $file );
+
+        if ( !file_exists( $file ) ) {
+            trigger_error( 'Path "' . $file . '" could not be found', E_USER_WARNING );
+            continue;
+        }
+
+        if ( !is_file( $file ) ) {
+            trigger_error( 'Path "' . $file . '" is not a file and cannot be deleted', E_USER_WARNING );
+            continue;
+        }
+
+        unlink( $file );
+    }
+
+    return true;
+}
+
 // Get supported engines
 function get_engines() {
 	global $errors, $db, $engines;
@@ -101,7 +127,7 @@ function get_engines() {
 		if ($ret === false) {
 			return false;
 		}
-			
+
 		if (count($rows) > 0) {
 			foreach ($rows as $row) {
 				if ( isset($row['Engine']) && $row['Engine'] && isset($row['Support']) && (strcasecmp($row['Support'], 'yes') == 0 || strcasecmp($row['Support'], 'default') == 0) ) {
@@ -257,6 +283,14 @@ SQL;
 		
 		if ( $ret !== true )
 			$errors[] = "Error converting tables to v0.2. (" . $ret . ")";
+
+        // Remove old files
+        remove_files(
+            array(
+                ROOTDIR . '/inc/class.geekmail.php',
+                ROOTDIR . '/js/jquery/jquery.highcharts.js'
+            )
+        );
 	}
 	
 }
@@ -279,12 +313,14 @@ require_once( '../inc/class.mysql.php' );
 // Remove time limit
 set_time_limit(0); // This may have no affect if web server uses PHP-FPM
 
+// Set root dir
+if ( !defined( 'ROOTDIR' ) )
+    define( 'ROOTDIR', realpath( dirname( __FILE__ ) . '/../' ) );
+
 $errors = array();
 
 if ( ( isset($_POST['update'] ) ) && $_POST['update'] == 'true' ) {
 	$db = MySQL::getInstance();
-
-
 
     // REMOVE THIS AFTER v0.2!
     if ( !$db->execute_sql( "INSERT IGNORE INTO ".MYSQL_PREFIX."options (`Name`, `Value`) VALUES('current_version', '0.1')" ) )
