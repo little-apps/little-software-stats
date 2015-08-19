@@ -292,7 +292,7 @@ SQL;
             )
         );
 	}
-	
+
 }
 
 if ( !file_exists( '../inc/config.php' ) )
@@ -488,7 +488,7 @@ if ( ( isset($_POST['update'] ) ) && $_POST['update'] == 'true' ) {
 		<div class="errors">
 			<ul>
 				<?php foreach ( $errors as $error ) : ?>
-				<li><?php echo $error; ?></li>
+				<li><?php echo htmlspecialchars( $error ); ?></li>
 				<?php endforeach; ?>
 			</ul>
 		</div>
