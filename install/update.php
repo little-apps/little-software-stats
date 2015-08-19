@@ -12,6 +12,20 @@
  * @since		Version 0.2
  */
 
+ // Set to true to display warnings
+ define( 'DISPLAY_WARNINGS', false );
+
+function error_handler($errno, $errstr, $errfile, $errline) {
+    global $errors;
+
+    $errors[] = 'The following warning was given: ' . $errstr;
+}
+
+if ( DISPLAY_WARNINGS )
+    set_error_handler( 'error_handler', E_WARNING | E_USER_WARNING );
+
+$errors = array();
+
 // Import batch sql data
 function db_import_sql( $sql ) {
     global $db, $errors, $engines;
@@ -316,8 +330,6 @@ set_time_limit(0); // This may have no affect if web server uses PHP-FPM
 // Set root dir
 if ( !defined( 'ROOTDIR' ) )
     define( 'ROOTDIR', realpath( dirname( __FILE__ ) . '/../' ) );
-
-$errors = array();
 
 if ( ( isset($_POST['update'] ) ) && $_POST['update'] == 'true' ) {
 	$db = MySQL::getInstance();
