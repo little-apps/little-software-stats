@@ -19,7 +19,7 @@ if ( !defined( 'LSS_LOADED' ) )
 verify_user( );
 
 // Get user information
-if ( !$db->select( "users", array( "UserName" => $_SESSION['UserName'] ), "", "0,1" ) )
+if ( !$db->select( "users", array( "UserName" => $session->UserName ), "", "0,1" ) )
     die( "Unable to query database: " . $db->last_error );
 
 if ( $db->records == 0 )
@@ -28,7 +28,7 @@ if ( $db->records == 0 )
 $user_email = $db->arrayed_result['UserEmail'];
 
 function update_account() {
-    global $db, $user_email;
+    global $db, $session, $user_email;
     
     // Verify CSRF token
     verify_csrf_token( );
@@ -36,7 +36,7 @@ function update_account() {
     require_once( ROOTDIR . '/inc/class.passwordhash.php' );
     $password_hash = new PasswordHash(8, false);
 
-    $current_username = $_SESSION['UserName'];
+    $current_username = $session->UserName;
 
     if ( !$db->select( "users", array( "UserName" => $current_username ), "", "0,1" ) ) {
         show_msg_box( __( "Unable to query database: " ) . $db->last_error, "red" );
@@ -149,7 +149,7 @@ function update_account() {
     }
 
     if ( $change_user )
-        $_SESSION['UserName'] = $new_username;
+        $session->UserName = $new_username;
     
     if ( $change_email )
         $current_email = $new_email;
@@ -176,7 +176,7 @@ if ( isset( $_POST['username'] ) ) {
                     <tbody>
                         <tr>
                             <th valign="top"><?php _e( 'Username:' ); ?></th>
-                            <td><input name="username" id="validate-text" type="text" class="inp-form" value="<?php echo $_SESSION['UserName'] ?>" /></td>
+                            <td><input name="username" id="validate-text" type="text" class="inp-form" value="<?php echo $session->UserName ?>" /></td>
                             <td id="error"></td>
                         </tr>
                         <tr>

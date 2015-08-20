@@ -44,13 +44,13 @@ class SecureLogin {
      * Constructor for SecureLogin class
      */
     function __construct( ) {
-        global $db;
+        global $db, $session;
 
         $this->db = $db;
         $this->password_hash = new PasswordHash(8, false);
 
-        if( !isset( $_SESSION['ValidUser'] ) )
-            $_SESSION['ValidUser'] = 0;
+        if( !isset( $session->ValidUser ) )
+            $session->ValidUser = 0;
     }
     
     /**
@@ -73,9 +73,11 @@ class SecureLogin {
      * @return bool Returns true if user is logged in 
      */
     public function check_user( ) {
-        if ( isset( $_SESSION['UserName'] ) && 
-            $_SESSION['ValidUser'] == 1 && 
-            $_SESSION['REMOTE_ADDR'] == get_ip_address() )
+    	global $session;
+    	
+        if ( isset( $session->UserName ) && 
+            $session->ValidUser == 1 && 
+            $session->REMOTE_ADDR == get_ip_address() )
             return true;
 
         return false;
@@ -89,6 +91,8 @@ class SecureLogin {
      * @return string Returns error if username/password is invalid, otherwise, a empty string
      */
     public function login_user( $user, $pass ) {
+    	global $session;
+    	
         // Trim username + password and turn username into lowercase
         $user = strtolower( trim( $user ) );
         $pass = trim( $pass );
@@ -107,16 +111,16 @@ class SecureLogin {
 
                 // Prevent session hijacking 
                 session_regenerate_id( );
-                $_SESSION['REMOTE_ADDR'] = get_ip_address();
+                $session->REMOTE_ADDR = get_ip_address();
 
-                $_SESSION['ValidUser'] = 1;
-                $_SESSION['UserName'] = $user;
+                $session->ValidUser = 1;
+                $session->UserName = $user;
 
                 return "";
             }
         } 
 
-        $_SESSION['ValidUser'] = 0;
+        $session->ValidUser = 0;
 
         return __( "Username and/or password is invalid" );
     }
@@ -281,12 +285,14 @@ class SecureLogin {
      * @access public
      */
     public function logout_user( ){
+    	global $session;
+    	
         // Unset all variables
-        unset( $_SESSION['ValidUser'] );
-        unset( $_SESSION['UserName'] );
-        unset( $_SESSION['REMOTE_ADDR'] );
+        unset( $session->ValidUser );
+        unset( $session->UserName );
+        unset( $session->REMOTE_ADDR );
 
         // Destroy the session
-        session_destroy( );
+        $session->destroy();
     }
 }

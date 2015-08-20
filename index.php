@@ -267,7 +267,7 @@ $app_data_exists = ( $db->select_count( 'sessions', '*', array( 'ApplicationId' 
             $updated_geo_ip = download_geoip_update();
             $geo_ip_update_available = false;
         } else {
-            if ( !isset( $_SESSION['geoip_update'] ) && !isset( $_SESSION['geoip_update_v6'] ) ) {
+            if ( !isset( $session->geoip_update ) && !isset( $session->geoip_update_v6 ) ) {
 				if ( is_geoip_update_available() || is_geoipv6_update_available() )
 					$geo_ip_update_available = true;
 				else
@@ -278,8 +278,8 @@ $app_data_exists = ( $db->select_count( 'sessions', '*', array( 'ApplicationId' 
 			}
         }
 
-        if ( isset( $_SESSION['time_changed'] ) ) {
-            unset( $_SESSION['time_changed'] );
+        if ( isset( $session->time_changed ) ) {
+            unset( $session->time_changed );
             $notify_bar_html = __( "The interval selected will not work with that date range so it has been changed automatically" );
         } else if ( ( !$app_data_exists ) && ( $sanitized_input['id'] != 'add' ) ) {
             $notify_bar_html = __( "No data has been recieved yet. <a href='http://www.little-software-stats.com/docs/' target='_blank'>Have you configured your application?</a>" );
@@ -315,7 +315,7 @@ $app_data_exists = ( $db->select_count( 'sessions', '*', array( 'ApplicationId' 
                 delay: 10000
             } );
 
-                <?php if ( isset( $_SESSION['geoip_update_url'] ) ) : ?>
+                <?php if ( isset( $session->geoip_update_url ) ) : ?>
                     $('a#update-geoip').click(function() {
                         $('body').append($('<form/>', {
                             id: 'updateGeoipForm',

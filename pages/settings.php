@@ -37,7 +37,7 @@ $geoip_api_key = get_option( 'geoips_api_key' );
 $geoip_database_file = SITE_GEOIP_PATH;
 
 function update_settings() {
-    global $db;
+    global $db, $session;
     global $admin_email, $rewrite;
     global $recaptcha_enabled, $recaptcha_public_key, $recaptcha_private_key;
     global $mail_protocol, $mail_smtp_server, $mail_smtp_port, $mail_smtp_user, $mail_smtp_pass, $mail_sendmail_path;
@@ -49,7 +49,7 @@ function update_settings() {
     require_once( ROOTDIR . '/inc/class.passwordhash.php' );
     $password_hash = new PasswordHash(8, false);
 
-    if ( !$db->select( "users", array( "UserName" => $_SESSION['UserName'] ), "", "0,1" ) ) {
+    if ( !$db->select( "users", array( "UserName" => $session->UserName ), "", "0,1" ) ) {
         show_msg_box( __( "Unable to query database: " ) . $db->last_error, "red" );
         return;
     }

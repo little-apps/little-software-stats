@@ -41,8 +41,7 @@ class Session {
      * @static
      * @return resource Single instance of class 
      */
-    public static function getInstance()
-    {
+    public static function getInstance() {
         if (!self::$m_pInstance)
             self::$m_pInstance = new Session();
 

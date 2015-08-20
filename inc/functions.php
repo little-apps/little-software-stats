@@ -149,14 +149,16 @@ if ( !function_exists( 'generate_csrf_token' ) ) {
      * @return string If $echo is false, returns input field
      */
     function generate_csrf_token( $echo = true ) {
+    	global $session;
+    	
         if ( SITE_CSRF == false )
             return;
         
-        if ( isset( $_SESSION['token'] ) )
-            $token = $_SESSION['token'];
+        if ( isset( $session->token ) )
+            $token = $session->token;
         else {
             $token = md5( uniqid( rand(), true ) );
-            $_SESSION['token'] = $token;
+            $session->token = $token;
         }
 
         $ret = '<input name="token" type="hidden" value="'.$token.'" />';
@@ -173,21 +175,23 @@ if ( !function_exists( 'verify_csrf_token' ) ) {
      * Verifies that CSRF token is valid 
      */
     function verify_csrf_token() {
+    	global $session;
+    	
         if ( SITE_CSRF == false )
             return true;
         
         $is_valid = true;
         
-        if ( !isset( $_SESSION['token'] ) || !isset( $_POST['token'] ) )
+        if ( !isset( $session->token ) || !isset( $_POST['token'] ) )
             $is_valid = false;
 
-        if ( $_POST['token'] != $_SESSION['token'] )
+        if ( $_POST['token'] != $session->token )
             $is_valid = false;
 
         if ( !$is_valid )
             die( __('Cross-site request forgery token is invalid') );
 
-        //unset( $_SESSION['token'] );
+        //unset( $session->token );
     }
 }
 
@@ -264,6 +268,8 @@ if ( !function_exists( 'is_geoip_update_available' ) ) {
      * @return boolean True if update available, otherwise false if current version or error occurred
      */
     function is_geoip_update_available() {
+    	global $session;
+    	
         $last_checked = get_option( 'geoips_database_checked' );
         
         if ( $last_checked != null && ( time() - strtotime( $last_checked ) ) < strtotime( '+2 weeks', 0 ) )
@@ -285,9 +291,9 @@ if ( !function_exists( 'is_geoip_update_available' ) ) {
         set_option( 'geoips_database_checked', date( "Y-m-d" ) );
 
         if ( strtotime( $last_version ) > strtotime( $current_version ) ) {
-        	$_SESSION['geoip_update'] = true;
-            $_SESSION['geoip_update_url'] = $download_url;
-            $_SESSION['geoip_database_ver'] = $last_version;
+        	$session->geoip_update = true;
+            $session->geoip_update_url = $download_url;
+            $session->geoip_database_ver = $last_version;
             return true;
         } else {
             return false;
@@ -301,6 +307,8 @@ if ( !function_exists( 'is_geoipv6_update_available' ) ) {
      * @return boolean True if update available, otherwise false if current version or error occurred
      */
     function is_geoipv6_update_available() {
+    	global $session;
+    	
         $last_checked = get_option( 'geoips_database_v6_checked' );
         
         if ( $last_checked != null && ( time() - strtotime( $last_checked ) ) < strtotime( '+2 weeks', 0 ) )
@@ -322,9 +330,9 @@ if ( !function_exists( 'is_geoipv6_update_available' ) ) {
         set_option( 'geoips_database_v6_checked', date( "Y-m-d" ) );
 
         if ( strtotime( $last_version ) > strtotime( $current_version ) ) {
-        	$_SESSION['geoip_update_v6'] = true;
-            $_SESSION['geoip_update_v6_url'] = $download_url;
-            $_SESSION['geoip_database_v6_ver'] = $last_version;
+        	$session->geoip_update_v6 = true;
+            $session->geoip_update_v6_url = $download_url;
+            $session->geoip_database_v6_ver = $last_version;
             return true;
         } else {
             return false;
@@ -338,49 +346,50 @@ if ( !function_exists( 'download_geoip_update' ) ) {
      * @return boolean True if update was successful, otherwise false
      */
     function download_geoip_update() {
+    	global $session;
     	
-		if ( ( isset( $_SESSION['geoip_update'] ) ) && $_SESSION['geoip_update'] ) {
+		if ( ( isset( $session->geoip_update ) ) && $session->geoip_update ) {
 			$ret = true;
 			
-			if ( !isset( $_SESSION['geoip_update_url'] ) ) 
+			if ( !isset( $session->geoip_update_url ) ) 
 	            $ret = false;
 	        
-	        if ( !is_string( $_SESSION['geoip_update_url'] ) )
+	        if ( !is_string( $session->geoip_update_url ) )
 	            $ret = false;
 	        
 	        if ( $ret ) {
-				$url = $_SESSION['geoip_update_url'];
+				$url = $session->geoip_update_url;
 		        $dst_file = SITE_GEOIP_PATH;
 
 		        if ( get_page_contents( $url, $dst_file ) ) {
-		            set_option( 'geoips_database_version', $_SESSION['geoip_database_ver'] );
+		            set_option( 'geoips_database_version', $session->geoip_database_ver );
 		            
-		            unset( $_SESSION['geoip_update'] );
-		            unset( $_SESSION['geoip_database_ver'] );
-		            unset( $_SESSION['geoip_update_url'] );
+		            unset( $session->geoip_update );
+		            unset( $session->geoip_database_ver );
+		            unset( $session->geoip_update_url );
 		        }
 			}
 		}
 		
-		if ( ( isset( $_SESSION['geoip_update_v6'] ) ) && $_SESSION['geoip_update_v6'] ) {
+		if ( ( isset( $session->geoip_update_v6 ) ) && $session->geoip_update_v6 ) {
 			$ret = true;
 			
-			if ( !isset( $_SESSION['geoip_update_v6_url'] ) ) 
+			if ( !isset( $session->geoip_update_v6_url ) ) 
 	            $ret = false;
 	        
-	        if ( !is_string( $_SESSION['geoip_update_v6_url'] ) )
+	        if ( !is_string( $session->geoip_update_v6_url ) )
 	            $ret = false;
 	        
 	        if ( $ret ) {
-				$url = $_SESSION['geoip_update_v6_url'];
+				$url = $session->geoip_update_v6_url;
 		        $dst_file = SITE_GEOIPV6_PATH;
 
 		        if ( get_page_contents( $url, $dst_file ) ) {
-		            set_option( 'geoips_database_v6_version', $_SESSION['geoip_database_v6_ver'] );
+		            set_option( 'geoips_database_v6_version', $session->geoip_database_v6_ver );
 		            
-		            unset( $_SESSION['geoip_update_v6'] );
-		            unset( $_SESSION['geoip_database_v6_ver'] );
-		            unset( $_SESSION['geoip_update_v6_url'] );
+		            unset( $session->geoip_update_v6 );
+		            unset( $session->geoip_database_v6_ver );
+		            unset( $session->geoip_update_v6_url );
 		        }
 			}
 		}

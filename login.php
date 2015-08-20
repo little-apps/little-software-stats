@@ -43,7 +43,7 @@ if ( $use_captcha == true ) {
     }
 } else {
     if ( isset( $_POST['captcha'] ) )
-        $valid = ( ( md5( $_POST['captcha'] ) == $_SESSION['Captcha'] ) ? ( true ) : ( false ) );
+        $valid = ( ( md5( $_POST['captcha'] ) == $session->Captcha ) ? ( true ) : ( false ) );
 }
 
 
