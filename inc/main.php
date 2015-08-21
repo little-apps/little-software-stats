@@ -15,15 +15,6 @@
 
 if ( !defined( 'LSS_LOADED' ) ) die( 'This page cannot be loaded directly' );
 
-if ( !defined( 'LSS_API' ) ) { // Sessions aren't used with API
-	session_start();
-
-	if ( !session_id() ) {
-	    die( 'PHP Session could not be started.' );
-	}
-}
-
-
 if ( !defined( 'ROOTDIR' ) )
     define( 'ROOTDIR', realpath( dirname( __FILE__ ) . '/../' ) );
 
@@ -38,7 +29,6 @@ else {
 
 require_once( ROOTDIR . '/inc/class.mysql.php' );
 require_once( ROOTDIR . '/inc/class.securelogin.php' );
-require_once( ROOTDIR . '/inc/class.session.php' );
 require_once( ROOTDIR . '/inc/version.php' );
 require_once( ROOTDIR . '/inc/functions.php' );
 require_once( ROOTDIR . '/min/utils.php' );
@@ -48,7 +38,11 @@ if ( SITE_DEBUG ) {
     error_reporting( E_ALL );
 }
 
-$session = Session::getInstance();
+if ( !defined( 'LSS_API' ) ) { // Sessions aren't used with API
+	require_once( ROOTDIR . '/inc/class.session.php' );
+	$session = Session::getInstance();
+}
+
 $db = MySQL::getInstance();
 $login = SecureLogin::getInstance();
 

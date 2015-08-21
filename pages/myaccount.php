@@ -19,7 +19,7 @@ if ( !defined( 'LSS_LOADED' ) )
 verify_user( );
 
 // Get user information
-if ( !$db->select( "users", array( "UserName" => $session->UserName ), "", "0,1" ) )
+if ( !$db->select( "users", array( "UserName" => $session->user_info['username'] ), "", "0,1" ) )
     die( "Unable to query database: " . $db->last_error );
 
 if ( $db->records == 0 )
@@ -36,7 +36,7 @@ function update_account() {
     require_once( ROOTDIR . '/inc/class.passwordhash.php' );
     $password_hash = new PasswordHash(8, false);
 
-    $current_username = $session->UserName;
+    $current_username = $session->user_info['username'];
 
     if ( !$db->select( "users", array( "UserName" => $current_username ), "", "0,1" ) ) {
         show_msg_box( __( "Unable to query database: " ) . $db->last_error, "red" );
@@ -176,7 +176,7 @@ if ( isset( $_POST['username'] ) ) {
                     <tbody>
                         <tr>
                             <th valign="top"><?php _e( 'Username:' ); ?></th>
-                            <td><input name="username" id="validate-text" type="text" class="inp-form" value="<?php echo $session->UserName ?>" /></td>
+                            <td><input name="username" id="validate-text" type="text" class="inp-form" value="<?php echo $session->user_info['username'] ?>" /></td>
                             <td id="error"></td>
                         </tr>
                         <tr>

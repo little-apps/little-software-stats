@@ -49,7 +49,7 @@ function update_settings() {
     require_once( ROOTDIR . '/inc/class.passwordhash.php' );
     $password_hash = new PasswordHash(8, false);
 
-    if ( !$db->select( "users", array( "UserName" => $session->UserName ), "", "0,1" ) ) {
+    if ( !$db->select( "users", array( "UserName" => $session->user_info['username'] ), "", "0,1" ) ) {
         show_msg_box( __( "Unable to query database: " ) . $db->last_error, "red" );
         return;
     }

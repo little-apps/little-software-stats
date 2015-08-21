@@ -72,13 +72,11 @@ class SecureLogin {
      * @access public
      * @return bool Returns true if user is logged in 
      */
-    public function check_user( ) {
+    public function check_user() {
     	global $session;
     	
-        if ( isset( $session->UserName ) && 
-            $session->ValidUser == 1 && 
-            $session->REMOTE_ADDR == get_ip_address() )
-            return true;
+    	if ( !empty( $session->user_info ) )
+			return ( !empty( $session->user_info['username'] ) && $session->user_info['ip_address'] == get_ip_address() );
 
         return false;
     }
@@ -111,16 +109,18 @@ class SecureLogin {
 
                 // Prevent session hijacking 
                 session_regenerate_id( );
-                $session->REMOTE_ADDR = get_ip_address();
-
-                $session->ValidUser = 1;
-                $session->UserName = $user;
+                
+                // Set user info
+                $session->user_info = array(
+                	'username' => $user,
+                	'ip_address' => get_ip_address()
+                );
 
                 return "";
             }
         } 
 
-        $session->ValidUser = 0;
+        $session->user_info = false;
 
         return __( "Username and/or password is invalid" );
     }
@@ -287,10 +287,8 @@ class SecureLogin {
     public function logout_user( ){
     	global $session;
     	
-        // Unset all variables
-        unset( $session->ValidUser );
-        unset( $session->UserName );
-        unset( $session->REMOTE_ADDR );
+        // Unset user info
+        unset( $session->user_info );
 
         // Destroy the session
         $session->destroy();
