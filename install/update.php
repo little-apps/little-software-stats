@@ -12,8 +12,8 @@
  * @since		Version 0.2
  */
 
- // Set to true to display warnings
- define( 'DISPLAY_WARNINGS', false );
+// Set to true to display warnings
+define( 'DISPLAY_WARNINGS', false );
 
 function error_handler($errno, $errstr, $errfile, $errline) {
     global $errors;
@@ -154,38 +154,6 @@ function get_engines() {
 	}
 	
 	return false;
-}
-
-function append_config_file($define_name, $default_value, $comment) {
-	global $errors;
-	
-	if ( !is_string( $define_name ) ) {
-		trigger_error( 'Define name must be a string', E_USER_WARNING );
-		return false;
-	}
-	
-	if ( !defined( $define_name ) ) {
-		// Not defined so not in inc/config.php 
-		
-		// Build PHP code
-		$code = '';
-		
-		if ( strpos( $comment, PHP_EOL ) !== false ) {
-			$comment_lines = explode( PHP_EOL, $comment );
-		} else {
-			$comment_lines = array( $comment );
-		}
-		
-		foreach ( $comment_lines as $line ) {
-			$code .= "// " . $line . PHP_EOL;
-		}
-		
-		$code .= "define(" . var_export( $define_name, true ) . ", " . var_export( $default_value, true ) .  ");" . PHP_EOL;
-		
-		if ( ( $fp = fopen( ROOTDIR . '/inc/config.php' ) ) !== false ) {
-			// Check if 
-		}
-	}
 }
 
 function v02upgrade() {
