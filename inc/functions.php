@@ -151,7 +151,7 @@ if ( !function_exists( 'generate_csrf_token' ) ) {
     function generate_csrf_token( $echo = true ) {
     	global $session;
     	
-        if ( SITE_CSRF == false )
+        if ( $config->site->csrf == false )
             return;
         
         if ( isset( $session->token ) )
@@ -175,9 +175,9 @@ if ( !function_exists( 'verify_csrf_token' ) ) {
      * Verifies that CSRF token is valid 
      */
     function verify_csrf_token() {
-    	global $session;
+    	global $config, $session;
     	
-        if ( SITE_CSRF == false )
+        if ( $config->site->csrf == false )
             return true;
         
         $is_valid = true;
@@ -346,7 +346,7 @@ if ( !function_exists( 'download_geoip_update' ) ) {
      * @return boolean True if update was successful, otherwise false
      */
     function download_geoip_update() {
-    	global $session;
+    	global $config, $session;
     	
 		if ( ( isset( $session->geoip_update ) ) && $session->geoip_update ) {
 			$ret = true;
@@ -359,7 +359,7 @@ if ( !function_exists( 'download_geoip_update' ) ) {
 	        
 	        if ( $ret ) {
 				$url = $session->geoip_update_url;
-		        $dst_file = SITE_GEOIP_PATH;
+		        $dst_file = $config->site->geoip_path;
 
 		        if ( get_page_contents( $url, $dst_file ) ) {
 		            set_option( 'geoips_database_version', $session->geoip_database_ver );
@@ -382,7 +382,7 @@ if ( !function_exists( 'download_geoip_update' ) ) {
 	        
 	        if ( $ret ) {
 				$url = $session->geoip_update_v6_url;
-		        $dst_file = SITE_GEOIPV6_PATH;
+		        $dst_file = $config->site->geoipv6_path;
 
 		        if ( get_page_contents( $url, $dst_file ) ) {
 		            set_option( 'geoips_database_v6_version', $session->geoip_database_v6_ver );
@@ -654,9 +654,9 @@ if ( !function_exists( 'get_file_url' ) ) {
      * @return string File URL
      */
     function get_file_url( $file, $query = '', $encode_html = true ) {
-        global $site_url;
+        global $config, $site_url;
 
-        if ( !file_exists( SITE_PATH . '/' . ltrim( $file, '/' ) ) )
+        if ( !file_exists( $config->site->path . '/' . ltrim( $file, '/' ) ) )
             return '';
             
         $query_str = '';
@@ -1160,29 +1160,33 @@ if ( !function_exists( 'get_ip_address' ) ) {
 	 * @return string IP Address 
 	 */
 	function get_ip_address() {
+		global $config;
+		
 	    // Get ip address
-	    if ( ( isset( $_SERVER['HTTP_CLIENT_IP'] ) ) && $this->check_ip_address( $_SERVER['HTTP_CLIENT_IP'] ) )
-	        return $_SERVER['HTTP_CLIENT_IP'];
-	    
-	    if ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
-	        $ip_array = explode( ",", $_SERVER['HTTP_X_FORWARDED_FOR'] );
-	        if ( $this->check_ip_address( trim( $ip_array[count( $ip_array ) - 1] ) ) )
-	            return trim( $ip_array[count( $ip_array ) - 1] );
-	    }
-	    
-	    if ( ( isset( $_SERVER['HTTP_X_FORWARDED'] ) ) && $this->check_ip_address( $_SERVER['HTTP_X_FORWARDED'] ) )
-	        return $_SERVER['HTTP_X_FORWARDED'];
-	    
-	    if ( ( isset( $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] ) ) && $this->check_ip_address( $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] ) )
-	        return $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
-	    
-	    if ( ( isset( $_SERVER['HTTP_FORWARDED_FOR'] ) ) && $this->check_ip_address( $_SERVER['HTTP_FORWARDED_FOR'] ) )
-	        return $_SERVER['HTTP_FORWARDED_FOR'];
-	    
-	    if ( ( isset( $_SERVER['HTTP_FORWARDED'] ) ) && $this->check_ip_address( $_SERVER['HTTP_FORWARDED'] ) )
-	        return $_SERVER['HTTP_FORWARDED'];
-	    
-	    // If all other IP addresses are invalid -> Go with REMOTE_ADDR
+	    if ( $config->site->header_ip_address ) {
+			if ( ( isset( $_SERVER['HTTP_CLIENT_IP'] ) ) && $this->check_ip_address( $_SERVER['HTTP_CLIENT_IP'] ) )
+		        return $_SERVER['HTTP_CLIENT_IP'];
+		    
+		    if ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+		        $ip_array = explode( ",", $_SERVER['HTTP_X_FORWARDED_FOR'] );
+		        if ( $this->check_ip_address( trim( $ip_array[count( $ip_array ) - 1] ) ) )
+		            return trim( $ip_array[count( $ip_array ) - 1] );
+		    }
+		    
+		    if ( ( isset( $_SERVER['HTTP_X_FORWARDED'] ) ) && $this->check_ip_address( $_SERVER['HTTP_X_FORWARDED'] ) )
+		        return $_SERVER['HTTP_X_FORWARDED'];
+		    
+		    if ( ( isset( $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] ) ) && $this->check_ip_address( $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] ) )
+		        return $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
+		    
+		    if ( ( isset( $_SERVER['HTTP_FORWARDED_FOR'] ) ) && $this->check_ip_address( $_SERVER['HTTP_FORWARDED_FOR'] ) )
+		        return $_SERVER['HTTP_FORWARDED_FOR'];
+		    
+		    if ( ( isset( $_SERVER['HTTP_FORWARDED'] ) ) && $this->check_ip_address( $_SERVER['HTTP_FORWARDED'] ) )
+		        return $_SERVER['HTTP_FORWARDED'];
+		}
+
+	    // If all other IP addresses are invalid or header specified IP addresses aren't used -> Go with REMOTE_ADDR
 	    return $_SERVER['REMOTE_ADDR'];
 	}
 }

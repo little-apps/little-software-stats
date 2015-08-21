@@ -34,7 +34,7 @@ $mail_sendmail_path = get_option( 'mail_sendmail_path' );
 
 $geoip_service = get_option( 'geoips_service' );
 $geoip_api_key = get_option( 'geoips_api_key' );
-$geoip_database_file = SITE_GEOIP_PATH;
+$geoip_database_file = $config->site->geoip_path;
 
 function update_settings() {
     global $db, $session;

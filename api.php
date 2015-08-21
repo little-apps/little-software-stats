@@ -122,7 +122,7 @@ if ( $type == 'json' ) {
 } else {
     $sorted_xml = array();
 
-    if ( SITE_DEBUG ) {
+    if ( $config->site->debug ) {
         $xml = simplexml_load_string( $post_data, 'SimpleXMLElement', LIBXML_NOCDATA );
     } else {
         // Suppress XML parsing errors

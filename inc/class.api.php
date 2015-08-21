@@ -34,6 +34,12 @@ class API {
      */
     private $db;
     /**
+	 * 
+	 * @var Config Config Class
+	 * 
+	 */
+    private $config;
+    /**
      * @var resource File pointer for GeoIP database
      */
     private $fp_geo_ip;
@@ -61,9 +67,10 @@ class API {
      * Constructor for API class
      */
     function __construct() {
-        global $db;
+        global $db, $config;
         
         $this->db = $db;
+        $this->config = $config;
         $this->app_info = array();
         $this->ip_address = get_ip_address();
         
@@ -77,11 +84,11 @@ class API {
         
         if ( get_option( 'geoips_service' ) == 'database' ) {
         	if ( $this->is_ipv6 )
-        		$this->fp_geo_ip = geoip_open( SITE_GEOIPV6_PATH, GEOIP_STANDARD );
+        		$this->fp_geo_ip = geoip_open( $this->config->site->geoipv6_path, GEOIP_STANDARD );
         	else
-				$this->fp_geo_ip = geoip_open( SITE_GEOIP_PATH, GEOIP_STANDARD );
+				$this->fp_geo_ip = geoip_open( $this->config->site->geoip_path, GEOIP_STANDARD );
 		}
-            
+
     }
     
     /**

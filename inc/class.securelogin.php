@@ -49,8 +49,8 @@ class SecureLogin {
         $this->db = $db;
         $this->password_hash = new PasswordHash(8, false);
 
-        if( !isset( $session->ValidUser ) )
-            $session->ValidUser = 0;
+        if( !isset( $session->user_info ) )
+            $session->user_info = false;
     }
     
     /**

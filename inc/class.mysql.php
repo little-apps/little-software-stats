@@ -66,25 +66,9 @@ class MySQL {
     public $total_queries = 0;
 
     /** 
-     * @var string MySQL Hostname
-     */
-    private $hostname = MYSQL_HOST;
-    /** 
-     * @var string MySQL Username 
-     */
-    private $username = MYSQL_USER;
-    /** 
-     * @var string MySQL Password
-     */
-    private $password = MYSQL_PASS;
-    /** 
-     * @var string MySQL Database 
-     */
-    private $database = MYSQL_DB;
-    /** 
      * @var string MySQL Database Prefix 
      */
-    public $prefix = MYSQL_PREFIX;
+    public $prefix = '';
 
     /**
      * @var resource Database Connection Link
@@ -106,7 +90,7 @@ class MySQL {
      * Assigning values to variables
      */
     function __construct() {
-        $this->connect( MYSQL_PERSISTENT );
+        $this->connect( );
     }
     
     /**
@@ -126,22 +110,26 @@ class MySQL {
     /**
      * Connects class to database
      * @access private
-     * @param bool $persistant Use persistant connection? (default: false)
      * @return bool Returns true if connection has been made 
      */
-    private function connect( $persistant = false ){
+    private function connect( ) {
+    	global $config;
+    	
+    	// Use persistant connection?
+    	$persistant = (bool)$config->mysql->persistent;
+    	
         $this->mysqli_loaded = extension_loaded( 'mysqli' );
 
         if ( $this->mysqli_loaded ) {
             if ( $persistant )
-                $this->db_link = @mysqli_connect( 'p:' . $this->hostname, $this->username, $this->password );
+                $this->db_link = @mysqli_connect( 'p:' . $config->mysql->host, $config->mysql->user, $config->mysql->pass );
             else
-                $this->db_link = @mysqli_connect( $this->hostname, $this->username, $this->password );
+                $this->db_link = @mysqli_connect( $config->mysql->host, $config->mysql->user, $config->mysql->pass );
         } else {
             if ( $persistant )
-                $this->db_link = @mysql_pconnect( $this->hostname, $this->username, $this->password );
+                $this->db_link = @mysql_pconnect( $config->mysql->host, $config->mysql->user, $config->mysql->pass );
             else
-                $this->db_link = @mysql_connect( $this->hostname, $this->username, $this->password );
+                $this->db_link = @mysql_connect( $config->mysql->host, $config->mysql->user, $config->mysql->pass );
         }
         
         $is_connected = ( $this->db_link ? true : false );
@@ -161,7 +149,7 @@ class MySQL {
         	die($message);
         }
 
-        if ( !$this->use_db() ) {
+        if ( !$this->use_db( $config->mysql->db ) ) {
         	if ( defined( 'LSS_API' ) ) {
 				$message = get_error( -7 );
 			} else {
@@ -170,20 +158,23 @@ class MySQL {
         	
             die( $message );
         }
+        
+        $this->prefix = $config->mysql->prefix;
 
         return true;
     }
 
     /**
      * Select database to use
+     * @param string $database Database to select
      * @access private
      * @return bool Returns true if database was selected 
      */
-    private function use_db() {
+    private function use_db( $database ) {
         if ( $this->mysqli_loaded ) {
-            return $this->db_link->select_db( $this->database );
+            return $this->db_link->select_db( $database );
         } else {
-            if ( !@mysql_select_db( $this->database, $this->db_link ) )
+            if ( !@mysql_select_db( $database, $this->db_link ) )
                 return false;
             else
                 return true;

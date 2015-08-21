@@ -156,6 +156,38 @@ function get_engines() {
 	return false;
 }
 
+function append_config_file($define_name, $default_value, $comment) {
+	global $errors;
+	
+	if ( !is_string( $define_name ) ) {
+		trigger_error( 'Define name must be a string', E_USER_WARNING );
+		return false;
+	}
+	
+	if ( !defined( $define_name ) ) {
+		// Not defined so not in inc/config.php 
+		
+		// Build PHP code
+		$code = '';
+		
+		if ( strpos( $comment, PHP_EOL ) !== false ) {
+			$comment_lines = explode( PHP_EOL, $comment );
+		} else {
+			$comment_lines = array( $comment );
+		}
+		
+		foreach ( $comment_lines as $line ) {
+			$code .= "// " . $line . PHP_EOL;
+		}
+		
+		$code .= "define(" . var_export( $define_name, true ) . ", " . var_export( $default_value, true ) .  ");" . PHP_EOL;
+		
+		if ( ( $fp = fopen( ROOTDIR . '/inc/config.php' ) ) !== false ) {
+			// Check if 
+		}
+	}
+}
+
 function v02upgrade() {
     global $db, $errors;
 
@@ -305,12 +337,58 @@ SQL;
                 ROOTDIR . '/js/jquery/jquery.highcharts.js'
             )
         );
+        
+        // Convert config file from defines to array
+        $config_new = 
+	        array(
+				'site' => array(
+					'url' => strval( SITE_URL ),
+					'path' => strval( SITE_PATH ),
+					'geoip_path' => strval( SITE_GEOIP_PATH ),
+					'geoipv6_path' => strval( SITE_GEOIPV6_PATH ),
+					'debug' => boolval( SITE_DEBUG ),
+					'csrf' => boolval( SITE_CSRF ),
+					'header_ip_address' => true
+				),
+				'mysql' => array(
+					'host' => strval( MYSQL_HOST ),
+					'user' => strval( MYSQL_USER ),
+					'pass' => strval( MYSQL_PASS ),
+					'db' => strval( MYSQL_DB ),
+					'prefix' => strval( MYSQL_PREFIX ),
+					'persistent' => boolval( MYSQL_PERSISTENT )
+				)
+			);
+			
+		if ( defined( 'SITE_NAME' ) )
+			$config_new['site']['name'] = strval( SITE_NAME );
+			
+		if ( defined( 'SITE_NOREPLYEMAIL' ) )
+			$config_new['site']['noreplyemail'] = strval( SITE_NOREPLYEMAIL );
+			
+		$config_file = <<<CONFIG
+<?php
+// See inc/config.sample.php for documentation and example
+if ( basename( $_SERVER['PHP_SELF'] ) == 'config.php' )
+    die( 'This page cannot be loaded directly' );
+
+		CONFIG;
+		
+		$config_file .= PHP_EOL . "return " . var_export( $config_new, true ) . ";";
+		
+		// Remove any whitespaces before <?php
+		$config_file = ltrim( $config_file );
+		
+		file_put_contents( ROOTDIR . '/inc/config.php', $config_file );
 	}
 
 }
 
 if ( !file_exists( '../inc/config.php' ) )
     die( 'File config.php is not found.' );
+    
+if ( !is_writable( '../inc/config.php' ) )
+	die( 'File inc/config.php must be writable.' );
 
 // Check for installed extensions
 if ( !extension_loaded( 'mysql' ) && !extension_loaded( 'mysqli' ) )

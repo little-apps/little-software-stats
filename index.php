@@ -370,7 +370,7 @@ $app_data_exists = ( $db->select_count( 'sessions', '*', array( 'ApplicationId' 
             $( "#from" ).datepicker( "setDate", new Date( fromYear, fromMonth, fromDay ) );
             $( "#to" ).datepicker( "setDate", new Date( toYear, toMonth, toDay ) );
 
-            <?php if ( SITE_DEBUG ) : $page_load_dur = number_format( microtime() - $page_load_start, 3 ) . ' seconds'; ?>
+            <?php if ( $config->site->debug ) : $page_load_dur = number_format( microtime() - $page_load_start, 3 ) . ' seconds'; ?>
                 $("#loadtime").html('<?php echo $db->total_queries . __( ' queries executed in ' ) . $page_load_dur . "<br /><br />" ?>');
             <?php endif; ?>
         });
