@@ -26,28 +26,34 @@ class Callbacks extends Callbacks_Core {
         }
 
         $this->db_close();
+        
+        $config = 
+	        array(
+	        	'site' => array(
+					'url' => $_SESSION['params']['virtual_path'],
+					'path' => $_SESSION['params']['system_path'],
+					'geoip_path' =>  rtrim($_SESSION['params']['system_path'], '/') . '/geoipdb/GeoIP.dat',
+					'geoipv6_path' => rtrim($_SESSION['params']['system_path'], '/') . '/geoipdb/GeoIPV6.dat',
+					'debug' => false,
+					'csrf' => true,
+					'header_ip_address' => true
+				),
+				'mysql' => array(
+					'host' => $_SESSION['params']['db_hostname'],
+					'user' => $_SESSION['params']['db_username'],
+					'pass' => $_SESSION['params']['db_password'],
+					'db' => $_SESSION['params']['db_name'],
+					'prefix' => $_SESSION['params']['db_prefix'],
+					// Usually needed when having heavy loads
+					'persistent' => ( in_array('db_persistent', $_SESSION['params']['db_persistent']) ? true : false )
+				)
+        	);
 
         $config_file = '<?php'."\n";;
-        $config_file .= '// ------------------------------------------------------'."\n";
-        $config_file .= '// DO NOT ALTER THIS FILE UNLESS YOU HAVE A REASON TO'."\n";
-        $config_file .= '// ------------------------------------------------------'."\n";
-        $config_file .= 'define(\'SITE_URL\', \'' . $_SESSION['params']['virtual_path'] . '\');'."\n";
-        $config_file .= 'define(\'SITE_PATH\', \'' . $_SESSION['params']['system_path'] . '\');'."\n";
-
-        $config_file .= 'define(\'MYSQL_HOST\', \'' . $_SESSION['params']['db_hostname'] . '\');'."\n";
-        $config_file .= 'define(\'MYSQL_USER\', \'' . $_SESSION['params']['db_username'] . '\');'."\n";
-        $config_file .= 'define(\'MYSQL_PASS\', \'' . $_SESSION['params']['db_password'] . '\');'."\n";
-        $config_file .= 'define(\'MYSQL_DB\', \'' . $_SESSION['params']['db_name'] . '\');'."\n";
-        $config_file .= 'define(\'MYSQL_PREFIX\', \'' . $_SESSION['params']['db_prefix'] . '\');'."\n";
-        
-        $config_file .= "// Usually needed when having heavy loads\n";
-        $config_file .= "define('MYSQL_PERSISTENT', '" . ( in_array('db_persistent', $_SESSION['params']['db_persistent']) ? 'true' : 'false' ) . "');\n";
-        
-        $config_file .= "// Only enable for developing!\n";
-        $config_file .= "define('SITE_DEBUG', false);\n";
-        
-        $config_file .= "// Set to false to disable cross site request forgery protection (not recommended)\n";
-        $config_file .= "define('SITE_CSRF', true);\n";
+        $config_file .= '// See inc/config.sample.php for documentation and example'."\n";
+		$config_file .= 'if ( basename( $_SERVER[\'PHP_SELF\'] ) == \'config.php\' )'."\n";
+		$config_file .= '    die( \'This page cannot be loaded directly\' );'."\n";
+        $config_file .= 'return ' . var_export( $config, true ). '; ' . "\n";
 
         @file_put_contents(rtrim($_SESSION['params']['system_path'], '/').'/inc/config.php', $config_file);
 
