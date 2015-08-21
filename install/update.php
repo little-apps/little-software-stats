@@ -28,12 +28,12 @@ $errors = array();
 
 // Import batch sql data
 function db_import_sql( $sql ) {
-    global $db, $errors, $engines;
+    global $db, $errors, $engines, $config;
 
     $queries = array();
     $query = '';
     $comment = false;
-    $replace = array( '{:db_prefix}' => MYSQL_PREFIX, '{:db_charset}' => 'utf8', '{:db_engine}' => ( in_array('innodb', $engines) ? 'InnoDB' : 'MyISAM' ) );
+    $replace = array( '{:db_prefix}' => $config->mysql->prefix, '{:db_charset}' => 'utf8', '{:db_engine}' => ( in_array('innodb', $engines) ? 'InnoDB' : 'MyISAM' ) );
 
     // read file into array
     $lines = explode("\n", $sql);
@@ -154,6 +154,64 @@ function get_engines() {
 	}
 	
 	return false;
+}
+
+function check_pre_upgrade_needed() {
+	global $preupgrade_funcs;
+	
+	$preupgrade_funcs = array();
+	
+	// Check if v0.1 config
+	$config = include( ROOTDIR . '/inc/config.php' );
+	
+	if ($config === 1)
+		$preupgrade_funcs[] = 'v02_pre_upgrade';
+}
+
+function v02_pre_upgrade() {
+	global $errors;
+	
+	// Upgrade config
+	// Convert config file from defines to array
+    $config_new = 
+        array(
+			'site' => array(
+				'url' => strval( SITE_URL ),
+				'path' => strval( SITE_PATH ),
+				'geoip_path' => strval( SITE_GEOIP_PATH ),
+				'geoipv6_path' => strval( SITE_GEOIPV6_PATH ),
+				'debug' => boolval( SITE_DEBUG ),
+				'csrf' => boolval( SITE_CSRF ),
+				'header_ip_address' => true
+			),
+			'mysql' => array(
+				'host' => strval( MYSQL_HOST ),
+				'user' => strval( MYSQL_USER ),
+				'pass' => strval( MYSQL_PASS ),
+				'db' => strval( MYSQL_DB ),
+				'prefix' => strval( MYSQL_PREFIX ),
+				'persistent' => boolval( MYSQL_PERSISTENT )
+			)
+		);
+		
+	if ( defined( 'SITE_NAME' ) )
+		$config_new['site']['name'] = strval( SITE_NAME );
+		
+	if ( defined( 'SITE_NOREPLYEMAIL' ) )
+		$config_new['site']['noreplyemail'] = strval( SITE_NOREPLYEMAIL );
+		
+	$config_file = '<?php'."\n";;
+    $config_file .= '// See inc/config.sample.php for documentation and example'."\n";
+	$config_file .= 'if ( basename( $_SERVER[\'PHP_SELF\'] ) == \'config.php\' )'."\n";
+	$config_file .= '    die( \'This page cannot be loaded directly\' );'."\n\n";
+	$config_file .= 'return ' . var_export( $config_new, true ) . ';'."\n";
+	
+	if (file_put_contents( ROOTDIR . '/inc/config.php', $config_file ) === false) {
+		$errors[] = 'Unable to write to file "' . ROOTDIR . '/inc/config.php"';
+		return false;
+	}
+	
+	return true;
 }
 
 function v02upgrade() {
@@ -305,49 +363,7 @@ SQL;
                 ROOTDIR . '/js/jquery/jquery.highcharts.js'
             )
         );
-        
-        // Convert config file from defines to array
-        $config_new = 
-	        array(
-				'site' => array(
-					'url' => strval( SITE_URL ),
-					'path' => strval( SITE_PATH ),
-					'geoip_path' => strval( SITE_GEOIP_PATH ),
-					'geoipv6_path' => strval( SITE_GEOIPV6_PATH ),
-					'debug' => boolval( SITE_DEBUG ),
-					'csrf' => boolval( SITE_CSRF ),
-					'header_ip_address' => true
-				),
-				'mysql' => array(
-					'host' => strval( MYSQL_HOST ),
-					'user' => strval( MYSQL_USER ),
-					'pass' => strval( MYSQL_PASS ),
-					'db' => strval( MYSQL_DB ),
-					'prefix' => strval( MYSQL_PREFIX ),
-					'persistent' => boolval( MYSQL_PERSISTENT )
-				)
-			);
-			
-		if ( defined( 'SITE_NAME' ) )
-			$config_new['site']['name'] = strval( SITE_NAME );
-			
-		if ( defined( 'SITE_NOREPLYEMAIL' ) )
-			$config_new['site']['noreplyemail'] = strval( SITE_NOREPLYEMAIL );
-			
-		$config_file = <<<CONFIG
-<?php
-// See inc/config.sample.php for documentation and example
-if ( basename( $_SERVER['PHP_SELF'] ) == 'config.php' )
-    die( 'This page cannot be loaded directly' );
 
-		CONFIG;
-		
-		$config_file .= PHP_EOL . "return " . var_export( $config_new, true ) . ";";
-		
-		// Remove any whitespaces before <?php
-		$config_file = ltrim( $config_file );
-		
-		file_put_contents( ROOTDIR . '/inc/config.php', $config_file );
 	}
 
 }
@@ -364,11 +380,8 @@ if ( !extension_loaded( 'mysql' ) && !extension_loaded( 'mysqli' ) )
 
 if ( !extension_loaded( 'mbstring' ) ) die( 'Multibyte String extension is not installed.' );
 
-define('LSS_LOADED', true);
 
-require_once( '../inc/config.php' );
-require_once( '../inc/version.php' );
-require_once( '../inc/class.mysql.php' );
+define('LSS_LOADED', true);
 
 // Remove time limit
 set_time_limit(0); // This may have no affect if web server uses PHP-FPM
@@ -376,12 +389,36 @@ set_time_limit(0); // This may have no affect if web server uses PHP-FPM
 // Set root dir
 if ( !defined( 'ROOTDIR' ) )
     define( 'ROOTDIR', realpath( dirname( __FILE__ ) . '/../' ) );
+    
+require_once( ROOTDIR . '/inc/version.php' );
+    
+check_pre_upgrade_needed();
 
-if ( ( isset($_POST['update'] ) ) && $_POST['update'] == 'true' ) {
+if ( ( isset($_POST['pre_update'] ) ) && $_POST['pre_update'] == 'true' && !empty( $preupgrade_funcs ) ) {
+	$ret = true;
+	
+	foreach ( $preupgrade_funcs as $func ) {
+		if ( function_exists( $func ) ) {
+			if ( !call_user_func( $func ) ) {
+				$ret = false;
+				break;
+			}
+		}
+			
+	}
+	
+	if ( $ret )
+		$preupgrade_funcs = false;
+} else if ( ( isset($_POST['update'] ) ) && $_POST['update'] == 'true' ) {
+	require_once( '../inc/class.config.php' );
+	
+	require_once( '../inc/class.mysql.php' );
+	
+	$config = Config::getInstance();
 	$db = MySQL::getInstance();
 
     // REMOVE THIS AFTER v0.2!
-    if ( !$db->execute_sql( "INSERT IGNORE INTO ".MYSQL_PREFIX."options (`Name`, `Value`) VALUES('current_version', '0.1')" ) )
+    if ( !$db->execute_sql( "INSERT IGNORE INTO ".$config->mysql->prefix."options (`Name`, `Value`) VALUES('current_version', '0.1')" ) )
         $errors[] = "Execute failed: " . $db->last_error;
 
     if ( !$db->select( 'options', array( 'name' => 'current_version' ) ) )
@@ -399,7 +436,7 @@ if ( ( isset($_POST['update'] ) ) && $_POST['update'] == 'true' ) {
 				$errors[] = 'You already seem to be running an up to date version (v' . VERSION . ').';
 			} else {
 				// Block API calls
-				$db->execute_sql( "UPDATE ".MYSQL_PREFIX."applications SET `ApplicationRecieving` = 0" );
+				$db->execute_sql( "UPDATE ".$config->mysql->prefix."applications SET `ApplicationRecieving` = 0" );
 			
 				if ( version_compare( $install_version, '0.2', '<' ) && empty( $errors ) )
 					v02upgrade();
@@ -411,11 +448,12 @@ if ( ( isset($_POST['update'] ) ) && $_POST['update'] == 'true' ) {
 				}
 				
 				// Unblock API calls
-				$db->execute_sql( "UPDATE ".MYSQL_PREFIX."applications SET `ApplicationRecieving` = 1" );
+				$db->execute_sql( "UPDATE ".$config->mysql->prefix."applications SET `ApplicationRecieving` = 1" );
 			}
 		}
 	}
 }
+
 ?>
 <html>
     <head>
@@ -552,12 +590,21 @@ if ( ( isset($_POST['update'] ) ) && $_POST['update'] == 'true' ) {
 		</div>
 		<?php endif; ?>
         <form action="update.php" method="post">
+        	<?php if ( !empty( $preupgrade_funcs ) ) : ?>
+        	<input type="hidden" name="pre_update" value="true" />
+            <ul>
+                <li id="title">Some things need to be done before Little Software Stats can be upgraded</li>
+				<li id="info">Click the button below to prepare Little Software Stats to be updated</li>
+                <li><input type="submit" name="submit" value="Pre-update" /></li>
+            </ul>
+        	<?php else : ?>
             <input type="hidden" name="update" value="true" />
             <ul>
                 <li id="title">Click the button below to update Little Software Stats to v<?php echo VERSION ?></li>
 				<li id="info">Please make sure you have made a backup of Little Software Stats before updating it</li>
                 <li><input type="submit" name="submit" value="Update" /></li>
             </ul>
+            <?php endif; ?>
         </form>
     </body>
 </html>
