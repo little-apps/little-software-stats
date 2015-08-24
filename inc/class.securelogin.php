@@ -44,9 +44,9 @@ class SecureLogin {
      * Constructor for SecureLogin class
      */
     function __construct( ) {
-        global $db, $session;
+        $session = Session::getInstance();
 
-        $this->db = $db;
+        $this->db = MySQL::getInstance();
         $this->password_hash = new PasswordHash(8, false);
 
         if( !isset( $session->user_info ) )
@@ -73,7 +73,7 @@ class SecureLogin {
      * @return bool Returns true if user is logged in 
      */
     public function check_user() {
-    	global $session;
+    	$session = Session::getInstance();
     	
     	if ( !empty( $session->user_info ) )
 			return ( !empty( $session->user_info['username'] ) && $session->user_info['ip_address'] == get_ip_address() );
@@ -89,7 +89,7 @@ class SecureLogin {
      * @return string Returns error if username/password is invalid, otherwise, a empty string
      */
     public function login_user( $user, $pass ) {
-    	global $session;
+    	$session = Session::getInstance();
     	
         // Trim username + password and turn username into lowercase
         $user = strtolower( trim( $user ) );
