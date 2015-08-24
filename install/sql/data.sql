@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `{:db_prefix}applications` (
   `ApplicationRecieving` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`ApplicationKey`),
   UNIQUE KEY `ApplicationId` (`ApplicationId`)
-) ENGINE={:db_engine} DEFAULT CHARSET={:db_charset};
+) ENGINE={:db_engine} {:db_charset};
 
 CREATE TABLE IF NOT EXISTS `{:db_prefix}events_event` (
   `EventId` int(11) NOT NULL AUTO_INCREMENT,
@@ -18,7 +18,7 @@ CREATE TABLE IF NOT EXISTS `{:db_prefix}events_event` (
   `SessionId` varchar(36) NOT NULL,
   `UtcTimestamp` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`EventId`)
-) ENGINE={:db_engine} DEFAULT CHARSET={:db_charset};
+) ENGINE={:db_engine} {:db_charset};
 
 CREATE TABLE IF NOT EXISTS `{:db_prefix}events_eventvalue` (
   `EventId` int(11) NOT NULL AUTO_INCREMENT,
@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `{:db_prefix}events_eventvalue` (
   `SessionId` varchar(36) NOT NULL,
   `UtcTimestamp` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`EventId`)
-) ENGINE={:db_engine} DEFAULT CHARSET={:db_charset};
+) ENGINE={:db_engine} {:db_charset};
 
 CREATE TABLE IF NOT EXISTS `{:db_prefix}events_eventperiod` (
   `EventId` int(11) NOT NULL AUTO_INCREMENT,
@@ -39,7 +39,7 @@ CREATE TABLE IF NOT EXISTS `{:db_prefix}events_eventperiod` (
   `SessionId` varchar(36) NOT NULL,
   `UtcTimestamp` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`EventId`)
-) ENGINE={:db_engine} DEFAULT CHARSET={:db_charset};
+) ENGINE={:db_engine} {:db_charset};
 
 CREATE TABLE IF NOT EXISTS `{:db_prefix}events_log` (
   `EventId` int(11) NOT NULL AUTO_INCREMENT,
@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `{:db_prefix}events_log` (
   `SessionId` varchar(36) NOT NULL,
   `UtcTimestamp` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`EventId`)
-) ENGINE={:db_engine} DEFAULT CHARSET={:db_charset};
+) ENGINE={:db_engine} {:db_charset};
 
 CREATE TABLE IF NOT EXISTS `{:db_prefix}events_customdata` (
   `EventId` int(11) NOT NULL AUTO_INCREMENT,
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS `{:db_prefix}events_customdata` (
   `SessionId` varchar(36) NOT NULL,
   `UtcTimestamp` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`EventId`)
-) ENGINE={:db_engine} DEFAULT CHARSET={:db_charset};
+) ENGINE={:db_engine} {:db_charset};
 
 CREATE TABLE IF NOT EXISTS `{:db_prefix}events_exception` (
   `EventId` int(11) NOT NULL AUTO_INCREMENT,
@@ -67,28 +67,28 @@ CREATE TABLE IF NOT EXISTS `{:db_prefix}events_exception` (
   `SessionId` varchar(36) NOT NULL,
   `UtcTimestamp` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`EventId`)
-) ENGINE={:db_engine} DEFAULT CHARSET={:db_charset};
+) ENGINE={:db_engine} {:db_charset};
 
 CREATE TABLE IF NOT EXISTS `{:db_prefix}events_install` (
   `EventId` int(11) NOT NULL AUTO_INCREMENT,
   `SessionId` varchar(36) NOT NULL,
   `UtcTimestamp` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`EventId`)
-) ENGINE={:db_engine} DEFAULT CHARSET={:db_charset};
+) ENGINE={:db_engine} {:db_charset};
 
 CREATE TABLE IF NOT EXISTS `{:db_prefix}events_uninstall` (
   `EventId` int(11) NOT NULL AUTO_INCREMENT,
   `SessionId` varchar(36) NOT NULL,
   `UtcTimestamp` TIMESTAMP NULL DEFAULT NULL,
   PRIMARY KEY (`EventId`)
-) ENGINE={:db_engine} DEFAULT CHARSET={:db_charset};
+) ENGINE={:db_engine} {:db_charset};
 
 CREATE TABLE IF NOT EXISTS `{:db_prefix}locales` (
   `LCID` int(11) NOT NULL,
   `DisplayName` varchar(100) NOT NULL,
   `ShortCode` varchar(50) NOT NULL,
   PRIMARY KEY (`LCID`)
-) ENGINE={:db_engine} DEFAULT CHARSET={:db_charset};
+) ENGINE={:db_engine} {:db_charset};
 
 CREATE TABLE IF NOT EXISTS `{:db_prefix}options` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -96,7 +96,7 @@ CREATE TABLE IF NOT EXISTS `{:db_prefix}options` (
   `value` longtext NOT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE={:db_engine} DEFAULT CHARSET={:db_charset};
+) ENGINE={:db_engine} {:db_charset};
 
 CREATE TABLE IF NOT EXISTS `{:db_prefix}sessions` (
   `SessionKey` int(11) NOT NULL AUTO_INCREMENT,
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `{:db_prefix}sessions` (
   `ApplicationVersion` varchar(50) NOT NULL,
   PRIMARY KEY (`SessionKey`),
   UNIQUE KEY `SessionId` (`SessionId`)
-) ENGINE={:db_engine} DEFAULT CHARSET={:db_charset};
+) ENGINE={:db_engine} {:db_charset};
 
 CREATE TABLE IF NOT EXISTS `{:db_prefix}uniqueusers` (
   `UniqueUserKey` int(11) NOT NULL AUTO_INCREMENT,
@@ -137,7 +137,7 @@ CREATE TABLE IF NOT EXISTS `{:db_prefix}uniqueusers` (
   `DiskFree` int(11) DEFAULT NULL,
   PRIMARY KEY (`UniqueUserKey`),
   UNIQUE KEY `UniqueUserId` (`UniqueUserId`)
-) ENGINE={:db_engine} DEFAULT CHARSET={:db_charset};
+) ENGINE={:db_engine} {:db_charset};
 
 CREATE TABLE IF NOT EXISTS `{:db_prefix}users` (
   `UserId` int(11) NOT NULL AUTO_INCREMENT,
@@ -147,7 +147,7 @@ CREATE TABLE IF NOT EXISTS `{:db_prefix}users` (
   `ActivateKey` varchar(21) DEFAULT NULL,
   PRIMARY KEY (`UserId`),
   UNIQUE KEY `UserName` (`UserName`,`UserEmail`)
-) ENGINE={:db_engine} DEFAULT CHARSET={:db_charset};
+) ENGINE={:db_engine} {:db_charset};
 
 INSERT IGNORE INTO `{:db_prefix}locales` (`LCID`, `DisplayName`, `ShortCode`) VALUES
 (1078, 'Afrikaans ', 'af '),
