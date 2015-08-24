@@ -374,6 +374,7 @@ $steps = array(
             // Checkbox
             array(
                 'name' => 'rewrite_enabled',
+                'label' => '',
                 'type' => 'checkbox',
                 'items' => array(
                     'rewrite_enabled' => 'Enable URL Rewriting Support'
@@ -383,6 +384,7 @@ $steps = array(
             // Checkbox
             array(
                 'name' => 'recaptcha_enabled',
+                'label' => '',
                 'type' => 'checkbox',
                 'items' => array(
                     'recaptcha_enabled' => 'Enable reCAPTCHA Support'
