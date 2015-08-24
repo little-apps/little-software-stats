@@ -215,6 +215,7 @@ $steps = array(
             
             // Checkbox
             array(
+            	'label' => '',
                 'name' => 'db_persistent',
                 'type' => 'checkbox',
                 'items' => array(
