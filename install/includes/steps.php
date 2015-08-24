@@ -2,8 +2,36 @@
 
 $upgrade_notice = array( 'type' => 'info', 'value' => '' );
 
+$config_existing = array();
+
 if (file_exists(rtrim(preg_replace('#/_install/$#', '', BASE_PATH), '/').'/inc/config.php')) {
-    require_once rtrim(preg_replace('#/_install/$#', '', BASE_PATH), '/').'/inc/config.php';
+    $config_existing = include_once rtrim(preg_replace('#/_install/$#', '', BASE_PATH), '/').'/inc/config.php';
+    
+    if ( empty( $config_existing ) ) {
+		// Using v0.1 configuration
+		
+		$config_existing = 
+			array(
+				'site' => array(
+					'url' => ( defined( 'SITE_URL' ) ? strval( SITE_URL ) : '' ),
+					'path' => ( defined( 'SITE_PATH' ) ? strval( SITE_PATH ) : '' ),
+					'geoip_path' => ( defined( 'SITE_GEOIP_PATH' ) ? strval( SITE_GEOIP_PATH ) : '' ),
+					'geoipv6_path' => ( defined( 'SITE_GEOIPV6_PATH' ) ? strval( SITE_GEOIPV6_PATH ) : '' ),
+					'debug' => ( defined( 'SITE_DEBUG' ) ? boolval( SITE_DEBUG ) : false ),
+					'csrf' => ( defined( 'SITE_CSRF' ) ? boolval( SITE_CSRF ) : true ),
+					'header_ip_address' => true
+				),
+				'mysql' => array(
+					'host' => ( defined( 'MYSQL_HOST' ) ? strval( MYSQL_HOST ) : '' ),
+					'user' => ( defined( 'MYSQL_USER' ) ? strval( MYSQL_USER ) : '' ),
+					'pass' => ( defined( 'MYSQL_PASS' ) ? strval( MYSQL_PASS ) : '' ),
+					'db' => ( defined( 'MYSQL_DB' ) ? strval( MYSQL_DB ) : '' ),
+					'prefix' => ( defined( 'MYSQL_PREFIX' ) ? strval( MYSQL_PREFIX ) : '' ),
+					'persistent' => ( defined( 'MYSQL_PERSISTENT' ) ? boolval( MYSQL_PERSISTENT ) : false )
+				)
+			);
+	}
+    
     $upgrade_notice = array('type' => 'info', 'value' => '<p style="font-weight: bold; background-color: #A7A7A7; padding: 5px; border: 1px solid #000;">It appears Little Software Stats has already been installed. If this is the case, please use the <a href="upgrade.php">upgrade utility</a> instead.</p>');
 }
 
@@ -156,7 +184,7 @@ $steps = array(
                 'label' => 'Database hostname',
                 'name' => 'db_hostname',
                 'type' => 'text',
-                'default' => ( defined('MYSQL_HOST') ? MYSQL_HOST : 'localhost' ),
+                'default' => ( isset( $config_existing['mysql']['host'] ) ? $config_existing['mysql']['host'] : 'localhost' ),
                 'validate' => array(
                     array('rule' => 'required'), // make it "required"
                 ),
@@ -167,7 +195,7 @@ $steps = array(
                 'label' => 'Database username',
                 'name' => 'db_username',
                 'type' => 'text',
-                'default' => ( defined('MYSQL_USER') ? MYSQL_USER : '' ),
+                'default' => ( isset( $config_existing['mysql']['user'] ) ? $config_existing['mysql']['user'] : '' ),
                 'validate' => array(
                     array('rule' => 'required'), // make it "required"
                 ),
@@ -178,7 +206,7 @@ $steps = array(
                 'label' => 'Database password',
                 'name' => 'db_password',
                 'type' => 'text',
-                'default' => ( defined('MYSQL_PASS') ? MYSQL_PASS : '' ),
+                'default' => ( isset( $config_existing['mysql']['pass'] ) ? $config_existing['mysql']['pass'] : '' ),
                 'validate' => array(
                     array('rule' => 'required'), // make it "required"
                 ),
@@ -189,7 +217,7 @@ $steps = array(
                 'label' => 'Database name',
                 'name' => 'db_name',
                 'type' => 'text',
-                'default' => ( defined('MYSQL_DB') ? MYSQL_DB : '' ),
+                'default' => ( isset( $config_existing['mysql']['db'] ) ? $config_existing['mysql']['db'] : '' ),
                 'highlight_on_error' => false,
                 'validate' => array(
                     array('rule' => 'required'), // make it "required"
@@ -210,7 +238,7 @@ $steps = array(
                 'label' => 'Database prefix',
                 'name' => 'db_prefix',
                 'type' => 'text',
-                'default' => ( defined('MYSQL_PREFIX') ? MYSQL_PREFIX : 'lss_' ),
+                'default' => ( isset( $config_existing['mysql']['prefix'] ) ? $config_existing['mysql']['prefix'] : '' ),
             ),
             
             // Checkbox

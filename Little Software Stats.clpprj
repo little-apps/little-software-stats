@@ -21,6 +21,16 @@
 		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\data_exists.php"/>
 		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\config.php"/>
 		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\callbacks.php"/>
+		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\views\default\view.php"/>
+		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\views\default\media\style.css"/>
+		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\config.php"/>
+		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\steps.php"/>
+		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\sql\data.sql"/>
+		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php"/>
+		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php"/>
+		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php"/>
+		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\wizard.php"/>
+		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\validation.php"/>
 	</lastopfiles>
 	<errors version="5.3">
 		<errfile name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\css\screen.css">
@@ -33,17 +43,17 @@
 	</errors>
 	<codestructure version="5.0">
 		<phptree>
-			<treenode node="../inc/class.config.php;PHP:PHP Include;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\data_exists.php;f14;15;37;15;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\update.php;f16;412;39;412;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+			<treenode node="../inc/class.config.php;PHP:PHP Include;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\update.php;f16;412;39;412;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\data_exists.php;f14;15;37;15;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="../inc/class.mysql.php;PHP:PHP Include;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\update.php;f16;414;38;414;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+			</treenode>
+			<treenode node="../inc/phpmailer/PHPMailerAutoload.php;PHP:PHP Include;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\data_exists.php;f16;62;54;62;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="../class.phpmailer.php;PHP:PHP Include;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\phpmailer\test\test_callback.php;f14;35;36;35;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="../inc/class.api.php;PHP:PHP Include;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\generaterandomdata.php;f14;6;34;6;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="../inc/main.php;PHP:PHP Include;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\generaterandomdata.php;f14;5;29;5;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
-			</treenode>
-			<treenode node="../inc/phpmailer/PHPMailerAutoload.php;PHP:PHP Include;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\data_exists.php;f16;62;54;62;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="../PHPMailerAutoload.php;PHP:PHP Include;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\phpmailer\test\phpmailerTest.php;f14;15;38;15;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\phpmailer\test\phpmailerLangTest.php;f14;15;38;15;;;;vpos;;v;;r&#xA;Description&#xA;     PHPMailer - PHP email transport unit tests Requires PHPUnit 3.3 or later.;;d-1,-1;;b0,0;;m">
 			</treenode>
@@ -247,7 +257,7 @@
 			</treenode>
 			<treenode node="LSS_API;PHP:PHP Word;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\api.php;f9;18;16;18;;;;vpos;;v;;rtrue;;d-1,-1;;b0,0;;m">
 			</treenode>
-			<treenode node="LSS_LOADED;PHP:PHP Word;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\index.php;f9;20;19;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\generaterandomdata.php;f8;3;18;3;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\login.php;f9;16;19;16;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\index.php;f9;17;19;17;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\api.php;f9;15;19;15;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\update.php;f8;383;18;383;;;;vpos;;v;;rtrue;;d-1,-1;;b0,0;;m">
+			<treenode node="LSS_LOADED;PHP:PHP Word;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\index.php;f9;20;19;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\generaterandomdata.php;f8;3;18;3;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\api.php;f9;15;19;15;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\update.php;f8;383;18;383;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\login.php;f9;16;19;16;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\index.php;f9;17;19;17;;;;vpos;;v;;rtrue;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="MAX_ORG_RECORD_LENGTH;PHP:PHP Word;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\geoip.php;f8;46;29;46;;;;vpos;;v;;r300;;d-1,-1;;b0,0;;m">
 			</treenode>
@@ -379,7 +389,7 @@
 			</treenode>
 			<treenode node="RECAPTCHA_VERIFY_SERVER;PHP:PHP Word;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\recaptchalib.php;f8;41;31;41;;;;vpos;;v;;r&quot;www.google.com&quot;;;d-1,-1;;b0,0;;m">
 			</treenode>
-			<treenode node="ROOTDIR;PHP:PHP Word;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f10;19;17;19;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f13;18;20;18;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\update.php;f13;390;20;390;;;;vpos;;v;;rrealpath( dirname( __FILE__;;d-1,-1;;b0,0;;m">
+			<treenode node="ROOTDIR;PHP:PHP Word;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f10;19;17;19;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f13;18;20;18;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\update.php;f13;390;20;390;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f10;19;17;19;;;;vpos;;v;;rrealpath( dirname( __FILE__;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="SASL_CONTINUE;PHP:PHP Word;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\phpmailer\extras\ntlm_sasl_client.php;f8;13;21;13;;;;vpos;;v;;r1;;d-1,-1;;b0,0;;m">
 			</treenode>
@@ -407,7 +417,7 @@
 			</treenode>
 			<treenode node="SITE_NAME;PHP:PHP Word;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f17;63;26;63;;;;vpos;;v;;rsubstr( $site_name, 4;;d-1,-1;;b0,0;;m">
 			</treenode>
-			<treenode node="SITE_NOREPLYEMAIL;PHP:PHP Word;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\data_exists.php;f9;13;26;13;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f13;72;30;72;;;;vpos;;v;;r'noreply@'. SITE_NAME;;d-1,-1;;b0,0;;m">
+			<treenode node="SITE_NOREPLYEMAIL;PHP:PHP Word;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f13;72;30;72;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\data_exists.php;f9;13;26;13;;;;vpos;;v;;r'noreply@'. SITE_NAME;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="SITE_PATH;PHP:PHP Word;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\config-readonly.php;f8;5;17;5;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\config.php;f8;5;17;5;;;;vpos;;v;;r'/usr/share/nginx/stats.little-apps.org/';;d-1,-1;;b0,0;;m">
 			</treenode>
@@ -927,45 +937,101 @@
 					</treenode>
 					<treenode node="language;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f37;33;46;33;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f8;34;13;34;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 				</treenode>
 				<treenode node="db_close;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f4;90;5;94;;;;vpos;;vboolean;;r&#xA;Description&#xA;     Close database connection;;d24,90;;b0,0;;m">
+					<treenode node="result;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f8;91;15;91;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f18;91;23;91;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 				</treenode>
 				<treenode node="db_connect;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f4;75;5;82;;;;vpos;;v;;r&#xA;Description&#xA;     Connect to database&#xA;&#xA;Parameters:&#xA;    array;;d33,75;;b0,0;;marray;;p">
 					<treenode node="params;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f24;75;31;75;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f14;76;19;76;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 				</treenode>
 				<treenode node="db_escape;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f4;119;5;123;;;;vpos;;vstring;;r&#xA;Description&#xA;     Escape value&#xA;&#xA;Parameters:&#xA;    string;;d31,119;;b0,0;;mstring;;p">
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f17;120;22;120;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 					<treenode node="value;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f23;119;29;119;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
 				<treenode node="db_fetch;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f4;133;5;139;;;;vpos;;vobject;;r&#xA;Description&#xA;     Fetch object or array&#xA;&#xA;Parameters:&#xA;    object&#xA;    string;;d49,133;;b0,0;;mobject;;pstring;;p">
 					<treenode node="result;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f22;133;29;133;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
+					<treenode node="row;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f15;134;19;134;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f22;134;27;134;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 					<treenode node="type;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f31;133;36;133;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
 				<treenode node="db_import_file;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f4;163;5;185;;;;vpos;;vboolean;;r&#xA;Description&#xA;     Import sql file&#xA;&#xA;Parameters:&#xA;    string&#xA;    array;;d59,163;;b0,0;;mstring;;parray;;p">
+					<treenode node="comment;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f12;168;20;168;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="data;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f12;171;17;171;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 					<treenode node="filename;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f28;163;37;163;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
-					<treenode node="replace;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f39;163;47;163;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="queries;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f12;166;20;166;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="query;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f12;167;18;167;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="replace;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f39;163;47;163;;;;vposbool;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f23;175;28;175;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
 				<treenode node="db_import_sql;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f4;195;5;265;;;;vpos;;vboolean;;r&#xA;Description&#xA;     Import batch sql data&#xA;&#xA;Parameters:&#xA;    string&#xA;    array;;d53,195;;b0,0;;mstring;;parray;;p">
+					<treenode node="comment;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f8;198;16;198;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="filename;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f64;261;73;261;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="line;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f32;206;37;206;;;;vposstring;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="lines;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f8;201;14;201;;;;vposarray;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="queries;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f8;196;16;196;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="query;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f8;197;14;197;;;;vposmixed;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 					<treenode node="replace;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f33;195;41;195;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="replace_from;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f58;230;71;230;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="replace_to;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f75;230;86;230;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 					<treenode node="sql;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f27;195;31;195;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f37;241;42;241;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 				</treenode>
 				<treenode node="db_init;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f4;45;5;67;;;;vpos;;vobject;;r&#xA;Description&#xA;     Create database object&#xA;&#xA;Parameters:&#xA;    array;;d30,45;;b0,0;;marray;;p">
+					<treenode node="class;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f8;55;14;55;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="dbtype;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f8;46;15;46;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 					<treenode node="params;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f21;45;28;45;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f67;46;72;46;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
 				<treenode node="db_last_insert_id;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f4;147;5;153;;;;vpos;;vinteger;;r&#xA;Description&#xA;     Get last insert ID;;d33,147;;b0,0;;m">
+					<treenode node="id;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f15;148;18;148;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f21;148;26;148;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 				</treenode>
 				<treenode node="db_query;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f4;104;5;110;;;;vpos;;vobject;;r&#xA;Description&#xA;     Run database query&#xA;&#xA;Parameters:&#xA;    string&#xA;    boolean;;d43,104;;b0,0;;mstring;;pboolean;;p">
+					<treenode node="result;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f15;105;22;105;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 					<treenode node="soft;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f28;104;33;104;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 					<treenode node="sql;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f22;104;26;104;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f25;105;30;105;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
 				<treenode node="config;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php;f8;20;15;20;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
@@ -1047,48 +1113,48 @@
 				<treenode node="values;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\lib\MrClay\Cli.php;f11;35;18;35;;;;vposarray;;v;;r;;d-1,-1;;b1,0;;m">
 				</treenode>
 			</treenode>
-			<treenode node="Config;PHP:Class Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f0;27;1;104;;;;vpos;;v;;r&#xA;Description&#xA;     Config Class Read (only) configuration options;;d13,27;;b0,0;;m">
-				<treenode node="__construct;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f8;40;2;42;;;;vpos;;v;;r;;d31,40;;b1,0;;m">
-					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f2;41;7;41;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+			<treenode node="Config;PHP:Class Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f0;27;1;104;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f0;27;1;104;;;;vpos;;v;;r&#xA;Description&#xA;     Config Class Read (only) configuration options;;d13,27;;b0,0;;m">
+				<treenode node="__construct;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f8;40;2;42;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f8;40;2;42;;;;vpos;;v;;r;;d31,40;;b1,0;;m">
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f2;41;7;41;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f2;41;7;41;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
-				<treenode node="__get;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f8;75;2;79;;;;vpos;;v;;r;;d31,75;;b1,0;;mkey;;p">
-					<treenode node="key;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f24;75;28;75;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+				<treenode node="__get;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f8;75;2;79;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f8;75;2;79;;;;vpos;;v;;r;;d31,75;;b1,0;;mkey;;p">
+					<treenode node="key;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f24;75;28;75;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f24;75;28;75;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
-					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f14;76;19;76;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
-					</treenode>
-				</treenode>
-				<treenode node="__isset;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f8;101;2;103;;;;vpos;;v;;r;;d33,101;;b1,0;;mkey;;p">
-					<treenode node="key;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f26;101;30;101;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
-					</treenode>
-					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f16;102;21;102;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f14;76;19;76;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f14;76;19;76;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
-				<treenode node="array_to_object;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f9;87;2;99;;;;vpos;;vmixed;;r&#xA;Description&#xA;     Converts single-dimension array to object&#xA;&#xA;Parameters:&#xA;    mixed $array - Array to convert&#xA;&#xA;Return:&#xA;   Returns convert array or original variable;;d44,87;;b3,0;;mmixed $array;;p">
-					<treenode node="array;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f35;87;41;87;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+				<treenode node="__isset;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f8;101;2;103;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f8;101;2;103;;;;vpos;;v;;r;;d33,101;;b1,0;;mkey;;p">
+					<treenode node="key;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f26;101;30;101;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f26;101;30;101;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
-					<treenode node="k;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f23;91;25;91;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
-					</treenode>
-					<treenode node="obj;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f3;89;7;89;;;;vposstdClass;;v;;r;;d-1,-1;;b0,0;;m">
-					</treenode>
-					<treenode node="v;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f29;91;31;91;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f16;102;21;102;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f16;102;21;102;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
-				<treenode node="getInstance;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f18;50;5;55;;;;vpos;;vresource;;r&#xA;Description&#xA;     Gets single instance of class&#xA;&#xA;Return:&#xA;   Single instance of class;;d41,50;;b1,5;;m">
-					<treenode node="m_pInstance;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f19;51;31;51;;;;vposConfig;;v;;r;;d-1,-1;;b0,0;;m">
+				<treenode node="array_to_object;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f9;87;2;99;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f9;87;2;99;;;;vpos;;vmixed;;r&#xA;Description&#xA;     Converts single-dimension array to object&#xA;&#xA;Parameters:&#xA;    mixed $array - Array to convert&#xA;&#xA;Return:&#xA;   Returns convert array or original variable;;d44,87;;b3,0;;mmixed $array;;p">
+					<treenode node="array;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f35;87;41;87;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f35;87;41;87;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="k;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f23;91;25;91;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f23;91;25;91;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="obj;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f3;89;7;89;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f3;89;7;89;;;;vposstdClass;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="v;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f29;91;31;91;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f29;91;31;91;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
-				<treenode node="load_config;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f9;57;2;73;;;;vpos;;v;;r;;d32,57;;b3,0;;m">
-					<treenode node="config_path;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f2;58;14;58;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
-					</treenode>
-					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f2;66;7;66;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
-					</treenode>
-					<treenode node="val;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f29;68;33;68;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+				<treenode node="getInstance;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f18;50;5;55;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f18;50;5;55;;;;vpos;;vresource;;r&#xA;Description&#xA;     Gets single instance of class&#xA;&#xA;Return:&#xA;   Single instance of class;;d41,50;;b1,5;;m">
+					<treenode node="m_pInstance;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f19;51;31;51;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f19;51;31;51;;;;vposConfig;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
-				<treenode node="config;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f9;33;16;33;;;;vposarray;;v;;r;;d-1,-1;;b3,0;;m">
+				<treenode node="load_config;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f9;57;2;73;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f9;57;2;73;;;;vpos;;v;;r;;d32,57;;b3,0;;m">
+					<treenode node="config_path;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f2;58;14;58;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f2;58;14;58;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f2;66;7;66;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f2;66;7;66;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="val;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f29;68;33;68;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f29;68;33;68;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 				</treenode>
-				<treenode node="m_pInstance;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f19;38;31;38;;;;vposresource;;v;;r;;d-1,-1;;b3,5;;m">
+				<treenode node="config;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f9;33;16;33;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f9;33;16;33;;;;vposarray;;v;;r;;d-1,-1;;b3,0;;m">
+				</treenode>
+				<treenode node="m_pInstance;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f19;38;31;38;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f19;38;31;38;;;;vposresource;;v;;r;;d-1,-1;;b3,5;;m">
 				</treenode>
 			</treenode>
 			<treenode node="DB_MySQL;PHP:Class Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysql.php;f0;19;1;168;;;;vpos;;v;;r&#xA;Description&#xA;     MySQL class;;d15,19;;b0,0;;m">
@@ -1141,9 +1207,19 @@
 			</treenode>
 			<treenode node="DB_MySQLi;PHP:Class Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f0;19;1;167;;;;vpos;;v;;r&#xA;Description&#xA;     MySQL class;;d16,19;;b0,0;;m">
 				<treenode node="close;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f4;88;5;92;;;;vpos;;vboolean;;r&#xA;Description&#xA;     Close database connection;;d21,88;;b0,0;;m">
+					<treenode node="result;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f8;89;15;89;;;;vposbool;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f32;89;37;89;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 				</treenode>
 				<treenode node="connect;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f4;46;5;80;;;;vpos;;vboolean;;r&#xA;Description&#xA;     Connect to database&#xA;&#xA;Parameters:&#xA;    array;;d30,46;;b0,0;;marray;;p">
+					<treenode node="obj;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f20;65;24;65;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 					<treenode node="params;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f21;46;28;46;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="result;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f12;63;19;63;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f19;47;24;47;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
 				<treenode node="DB_MySQLi;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f4;34;5;37;;;;vpos;;v;;r&#xA;Description&#xA;     Constructor&#xA;&#xA;Parameters:&#xA;    array&#xA;    array;;d43,34;;b0,0;;marray;;parray;;p">
@@ -1151,27 +1227,43 @@
 					</treenode>
 					<treenode node="language;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f32;34;41;34;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f8;35;13;35;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 				</treenode>
 				<treenode node="error;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f4;119;5;127;;;;vpos;;vstring;;r&#xA;Description&#xA;     Set error&#xA;&#xA;Parameters:&#xA;    string;;d30,119;;b0,0;;mstring;;p">
 					<treenode node="sql;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f19;119;23;119;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f13;120;18;120;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 				</treenode>
 				<treenode node="escape;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f4;136;5;140;;;;vpos;;vstring;;r&#xA;Description&#xA;     Escape value&#xA;&#xA;Parameters:&#xA;    string;;d28,136;;b0,0;;mstring;;p">
-					<treenode node="value;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f20;136;26;136;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f44;137;49;137;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="value;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f20;136;26;136;;;;vposstring;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
 				<treenode node="fetch;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f4;150;5;154;;;;vpos;;vobject;;r&#xA;Description&#xA;     Fetch object or array&#xA;&#xA;Parameters:&#xA;    object&#xA;    string;;d46,150;;b0,0;;mobject;;pstring;;p">
 					<treenode node="result;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f19;150;26;150;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
+					<treenode node="row;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f8;151;12;151;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 					<treenode node="type;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f28;150;33;150;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
 				<treenode node="last_insert_id;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f4;162;5;166;;;;vpos;;vinteger;;r&#xA;Description&#xA;     Get last insert ID;;d30,162;;b0,0;;m">
+					<treenode node="id;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f8;163;11;163;;;;vposmixed;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f32;163;37;163;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 				</treenode>
 				<treenode node="query;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f4;102;5;110;;;;vpos;;vobject;;r&#xA;Description&#xA;     Run database query&#xA;&#xA;Parameters:&#xA;    string&#xA;    boolean;;d40,102;;b0,0;;mstring;;pboolean;;p">
+					<treenode node="result;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f8;103;15;103;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 					<treenode node="soft;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f25;102;30;102;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 					<treenode node="sql;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f19;102;23;102;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f32;103;37;103;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
 				<treenode node="config;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\db\mysqli.php;f8;20;15;20;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
@@ -4895,9 +4987,7 @@
 			</treenode>
 			<treenode node="SecureLogin;PHP:Class Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.securelogin.php;f0;26;1;295;;;;vpos;;v;;r&#xA;Description&#xA;     Secure login class Manage access to Little Software Stats;;d18,26;;b0,0;;m">
 				<treenode node="__construct;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.securelogin.php;f4;45;5;53;;;;vpos;;v;;r&#xA;Description&#xA;     Constructor for SecureLogin class;;d28,45;;b0,0;;m">
-					<treenode node="db;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.securelogin.php;f15;46;18;46;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
-					</treenode>
-					<treenode node="session;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.securelogin.php;f20;46;28;46;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="session;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.securelogin.php;f8;46;16;46;;;;vposresource;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.securelogin.php;f8;48;13;48;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
@@ -4921,7 +5011,7 @@
 					</treenode>
 				</treenode>
 				<treenode node="check_user;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.securelogin.php;f11;74;5;81;;;;vpos;;vbool;;r&#xA;Description&#xA;     Checks if user is logged in&#xA;&#xA;Return:&#xA;   Returns true if user is logged in;;d33,74;;b1,0;;m">
-					<treenode node="session;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.securelogin.php;f12;75;20;75;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="session;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.securelogin.php;f5;75;13;75;;;;vposresource;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
 				<treenode node="forgot_password;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.securelogin.php;f11;184;5;212;;;;vpos;;vstring;;r&#xA;Description&#xA;     Sends e-mail to user with link to reset password&#xA;&#xA;Parameters:&#xA;    string $email - E-mail address&#xA;&#xA;Return:&#xA;   Returns error if e-mail address is not found or unable to send e-mail;;d46,184;;b1,0;;mstring $email;;p">
@@ -4945,7 +5035,7 @@
 				<treenode node="login_user;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.securelogin.php;f11;90;5;125;;;;vpos;;vstring;;r&#xA;Description&#xA;     Tries to login user using username and password&#xA;&#xA;Parameters:&#xA;    string $user - Username&#xA;    string $pass - Password (plain text)&#xA;&#xA;Return:&#xA;   Returns error if username/password is invalid, otherwise, a empty string;;d47,90;;b1,0;;mstring $user;;pstring $pass;;p">
 					<treenode node="pass;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.securelogin.php;f39;90;44;90;;;;vposstring;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
-					<treenode node="session;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.securelogin.php;f12;91;20;91;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="session;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.securelogin.php;f5;91;13;91;;;;vposresource;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.securelogin.php;f14;100;19;100;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
@@ -4992,59 +5082,59 @@
 				</treenode>
 			</treenode>
 			<treenode node="Session;PHP:Class Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f0;17;1;137;;;;vpos;;v;;r&#xA;Description&#xA;     Little Software Stats;;d14,17;;b0,0;;m">
-				<treenode node="SESSION_NOT_STARTED;PHP:PHP Word;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f9;19;29;19;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f9;19;29;19;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f9;19;29;19;;;;vpos;;v;;rfalse;;d-1,-1;;b0,0;;m">
+				<treenode node="SESSION_NOT_STARTED;PHP:PHP Word;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f9;19;29;19;;;;vpos;;v;;rfalse;;d-1,-1;;b0,0;;m">
 				</treenode>
-				<treenode node="SESSION_STARTED;PHP:PHP Word;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f9;18;25;18;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f9;18;25;18;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f9;18;25;18;;;;vpos;;v;;rtrue;;d-1,-1;;b0,0;;m">
+				<treenode node="SESSION_STARTED;PHP:PHP Word;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f9;18;25;18;;;;vpos;;v;;rtrue;;d-1,-1;;b0,0;;m">
 				</treenode>
-				<treenode node="__construct;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f11;33;5;35;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;33;5;35;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;33;5;35;;;;vpos;;v;;r;;d34,33;;b1,0;;m">
-					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f5;34;10;34;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f5;34;10;34;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f5;34;10;34;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
-					</treenode>
-				</treenode>
-				<treenode node="__get;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f11;106;5;111;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;105;5;110;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;105;5;110;;;;vpos;;vmixed;;r&#xA;Description&#xA;     Gets datas from the session. Example: echo $instance-&gt;foo;s&#xA;&#xA;Parameters:&#xA;    string $name - Session key to get data&#xA;&#xA;Return:&#xA;   Session data for key;;d4,106;;b1,0;;mstring $name;;p">
-					<treenode node="_SESSION;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f19;108;28;108;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f19;107;28;107;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f19;107;28;107;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
-					</treenode>
-					<treenode node="name;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f27;106;32;106;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f27;105;32;105;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f27;105;32;105;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+				<treenode node="__construct;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;33;5;35;;;;vpos;;v;;r;;d34,33;;b1,0;;m">
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f5;34;10;34;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
-				<treenode node="__isset;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f11;113;5;115;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;112;5;114;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;112;5;114;;;;vpos;;v;;r;;d37,112;;b1,0;;mname;;p">
-					<treenode node="_SESSION;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f21;114;30;114;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f21;113;30;113;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f21;113;30;113;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+				<treenode node="__get;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;105;5;110;;;;vpos;;vmixed;;r&#xA;Description&#xA;     Gets datas from the session. Example: echo $instance-&gt;foo;s&#xA;&#xA;Parameters:&#xA;    string $name - Session key to get data&#xA;&#xA;Return:&#xA;   Session data for key;;d4,106;;b1,0;;mstring $name;;p">
+					<treenode node="_SESSION;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f19;107;28;107;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
-					<treenode node="name;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f29;113;34;113;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f29;112;34;112;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f29;112;34;112;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
-					</treenode>
-				</treenode>
-				<treenode node="__set;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f11;94;5;96;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;93;5;95;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;93;5;95;;;;vpos;;v;;r&#xA;Description&#xA;     Stores data in the session. Example: $instance-&gt;foo = 'bar';s&#xA;&#xA;Parameters:&#xA;    string $name - Session key&#xA;    mixed $value - Data for session key;;d44,93;;b1,0;;mstring $name;;pmixed $value;;p">
-					<treenode node="_SESSION;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f8;95;17;95;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f8;94;17;94;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f8;94;17;94;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
-					</treenode>
-					<treenode node="name;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f27;94;32;94;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f27;93;32;93;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f27;93;32;93;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
-					</treenode>
-					<treenode node="value;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f35;94;41;94;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f35;93;41;93;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f35;93;41;93;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="name;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f27;105;32;105;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
-				<treenode node="__unset;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f11;118;5;120;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;117;5;119;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;117;5;119;;;;vpos;;v;;r;;d37,117;;b1,0;;mname;;p">
-					<treenode node="_SESSION;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f15;119;24;119;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f15;118;24;118;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f15;118;24;118;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+				<treenode node="__isset;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;112;5;114;;;;vpos;;v;;r;;d37,112;;b1,0;;mname;;p">
+					<treenode node="_SESSION;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f21;113;30;113;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
-					<treenode node="name;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f29;118;34;118;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f29;117;34;117;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f29;117;34;117;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
-					</treenode>
-				</treenode>
-				<treenode node="destroy;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f11;128;5;137;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;127;5;136;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;127;5;136;;;;vpos;;vbool;;r&#xA;Description&#xA;     Destroys the current session.&#xA;&#xA;Return:&#xA;   True is session has been deleted, else False;;d30,127;;b1,0;;m">
-					<treenode node="_SESSION;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f19;131;28;131;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f19;130;28;130;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f19;130;28;130;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
-					</treenode>
-					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f13;129;18;129;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f13;128;18;128;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f13;128;18;128;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="name;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f29;112;34;112;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
-				<treenode node="getInstance;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f18;43;5;49;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f18;43;5;48;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f18;43;5;48;;;;vpos;;vresource;;r&#xA;Description&#xA;     Gets single instance of class&#xA;&#xA;Return:&#xA;   Single instance of class;;d41,43;;b1,5;;m">
-					<treenode node="m_pInstance;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f19;45;31;45;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f19;44;31;44;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f19;44;31;44;;;;vposSession;;v;;r;;d-1,-1;;b0,0;;m">
+				<treenode node="__set;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;93;5;95;;;;vpos;;v;;r&#xA;Description&#xA;     Stores data in the session. Example: $instance-&gt;foo = 'bar';s&#xA;&#xA;Parameters:&#xA;    string $name - Session key&#xA;    mixed $value - Data for session key;;d44,93;;b1,0;;mstring $name;;pmixed $value;;p">
+					<treenode node="_SESSION;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f8;94;17;94;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="name;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f27;93;32;93;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="value;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f35;93;41;93;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
-				<treenode node="session_started;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f11;73;2;83;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;72;2;82;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;72;2;82;;;;vpos;;vbool;;r&#xA;Description&#xA;     Determines true if a session has been started&#xA;&#xA;Return:&#xA;   Returns true if session has been started, otherwise, false;;d38,72;;b1,0;;m">
-				</treenode>
-				<treenode node="start_session;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f11;57;5;66;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;56;5;65;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;56;5;65;;;;vpos;;vbool;;r&#xA;Description&#xA;     (Re)starts the session.&#xA;&#xA;Return:&#xA;   True if the session has been initialized, else False;;d36,56;;b1,0;;m">
-					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f13;58;18;58;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f13;57;18;57;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f13;57;18;57;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+				<treenode node="__unset;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;117;5;119;;;;vpos;;v;;r;;d37,117;;b1,0;;mname;;p">
+					<treenode node="_SESSION;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f15;118;24;118;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="name;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f29;117;34;117;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
-				<treenode node="m_pInstance;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f19;31;31;31;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f19;31;31;31;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f19;31;31;31;;;;vposresource;;v;;r;;d-1,-1;;b3,5;;m">
+				<treenode node="destroy;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;127;5;136;;;;vpos;;vbool;;r&#xA;Description&#xA;     Destroys the current session.&#xA;&#xA;Return:&#xA;   True is session has been deleted, else False;;d30,127;;b1,0;;m">
+					<treenode node="_SESSION;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f19;130;28;130;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f13;128;18;128;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 				</treenode>
-				<treenode node="session_state;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f12;26;26;26;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f12;26;26;26;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f12;26;26;26;;;;vposbool;;v;;r;;d-1,-1;;b3,0;;m">
+				<treenode node="getInstance;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f18;43;5;48;;;;vpos;;vresource;;r&#xA;Description&#xA;     Gets single instance of class&#xA;&#xA;Return:&#xA;   Single instance of class;;d41,43;;b1,5;;m">
+					<treenode node="m_pInstance;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f19;44;31;44;;;;vposSession;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+				</treenode>
+				<treenode node="session_started;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;72;2;82;;;;vpos;;vbool;;r&#xA;Description&#xA;     Determines true if a session has been started&#xA;&#xA;Return:&#xA;   Returns true if session has been started, otherwise, false;;d38,72;;b1,0;;m">
+				</treenode>
+				<treenode node="start_session;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f11;56;5;65;;;;vpos;;vbool;;r&#xA;Description&#xA;     (Re)starts the session.&#xA;&#xA;Return:&#xA;   True if the session has been initialized, else False;;d36,56;;b1,0;;m">
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f13;57;18;57;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+				</treenode>
+				<treenode node="m_pInstance;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f19;31;31;31;;;;vposresource;;v;;r;;d-1,-1;;b3,5;;m">
+				</treenode>
+				<treenode node="session_state;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php;f12;26;26;26;;;;vposbool;;v;;r;;d-1,-1;;b3,0;;m">
 				</treenode>
 			</treenode>
 			<treenode node="SMTP;PHP:Class Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\phpmailer\class.smtp.php;f0;26;1;1131;;;;vpos;;v;;r&#xA;Description&#xA;     PHPMailer RFC821 SMTP email transport class. Implements RFC 821 SMTP commands and provides some utility methods for sending mail to an SMTP server.;;d0,27;;b0,0;;m">
@@ -5227,19 +5317,23 @@
 			</treenode>
 			<treenode node="Validation;PHP:Class Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\validation.php;f0;5;1;31;;;;vpos;;vValidation_Core;;c;;r&#xA;Description&#xA;     Validation class;;d0,6;;b0,0;;m">
 				<treenode node="no_spaces;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\validation.php;f4;19;5;21;;;;vpos;;v;;r;;d50,19;;b0,0;;mvalue;;pparams;;p">
-					<treenode node="params;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\validation.php;f31;19;38;19;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="params;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\validation.php;f31;19;38;19;;;;vposstring;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 					<treenode node="value;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\validation.php;f23;19;29;19;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
 				<treenode node="validate_file;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\validation.php;f4;23;5;30;;;;vpos;;v;;r;;d54,23;;b0,0;;mvalue;;pparams;;p">
-					<treenode node="params;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\validation.php;f35;23;42;23;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="params;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\validation.php;f35;23;42;23;;;;vposbool;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\validation.php;f12;25;17;25;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 					<treenode node="value;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\validation.php;f27;23;33;23;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
 				<treenode node="validate_system_path;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\validation.php;f4;10;5;17;;;;vpos;;v;;r;;d61,10;;b0,0;;mvalue;;pparams;;p">
-					<treenode node="params;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\validation.php;f42;10;49;10;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="params;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\validation.php;f42;10;49;10;;;;vposbool;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\validation.php;f12;12;17;12;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 					<treenode node="value;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\validation.php;f34;10;40;10;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
@@ -5259,13 +5353,29 @@
 					</treenode>
 				</treenode>
 				<treenode node="database;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f4;43;5;79;;;;vpos;;vboolean;;r&#xA;Description&#xA;     MySQL database&#xA;&#xA;Parameters:&#xA;    array;;d49,43;;b0,0;;mvalue;;pparams;;p">
-					<treenode node="params;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f30;43;37;43;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="_POST;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f25;49;31;49;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="db;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f16;67;19;67;;;;vposbool;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="db_host;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f8;49;16;49;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="db_name;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f8;52;16;52;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="db_pass;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f8;51;16;51;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="db_user;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f8;50;16;50;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="link;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f12;55;17;55;;;;vposresource;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="params;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f30;43;37;43;;;;vposbool;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f12;45;17;45;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 					<treenode node="value;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f22;43;28;43;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
 				<treenode node="exact_length;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f4;169;5;175;;;;vpos;;vboolean;;r&#xA;Description&#xA;     Exact Length&#xA;&#xA;Parameters:&#xA;    array;;d46,169;;b0,0;;mvalue;;pparam;;p">
-					<treenode node="param;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f34;169;40;169;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="param;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f34;169;40;169;;;;vposbool;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 					<treenode node="value;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f26;169;32;169;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
@@ -5297,31 +5407,33 @@
 					</treenode>
 				</treenode>
 				<treenode node="matches;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f4;120;5;130;;;;vpos;;vboolean;;r&#xA;Description&#xA;     Match one field to another&#xA;&#xA;Parameters:&#xA;    array;;d42,120;;b0,0;;mvalue;;pparam;;p">
-					<treenode node="param;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f29;120;35;120;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="_POST;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f20;125;26;125;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="param;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f29;120;35;120;;;;vposbool;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 					<treenode node="value;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f21;120;27;120;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
 				<treenode node="max_length;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f4;154;5;160;;;;vpos;;vboolean;;r&#xA;Description&#xA;     Max length&#xA;&#xA;Parameters:&#xA;    array;;d44,154;;b0,0;;mvalue;;pparam;;p">
-					<treenode node="param;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f32;154;38;154;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="param;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f32;154;38;154;;;;vposbool;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 					<treenode node="value;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f24;154;30;154;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
 				<treenode node="max_value;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f4;199;5;205;;;;vpos;;vboolean;;r&#xA;Description&#xA;     Max value&#xA;&#xA;Parameters:&#xA;    array;;d43,199;;b0,0;;mvalue;;pparam;;p">
-					<treenode node="param;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f31;199;37;199;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="param;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f31;199;37;199;;;;vposint;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 					<treenode node="value;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f23;199;29;199;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
 				<treenode node="min_length;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f4;139;5;145;;;;vpos;;vboolean;;r&#xA;Description&#xA;     Minimum length&#xA;&#xA;Parameters:&#xA;    array;;d44,139;;b0,0;;mvalue;;pparam;;p">
-					<treenode node="param;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f32;139;38;139;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="param;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f32;139;38;139;;;;vposbool;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 					<treenode node="value;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f24;139;30;139;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
 				<treenode node="min_value;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f4;184;5;190;;;;vpos;;vboolean;;r&#xA;Description&#xA;     Minimum value&#xA;&#xA;Parameters:&#xA;    array;;d43,184;;b0,0;;mvalue;;pparam;;p">
-					<treenode node="param;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f31;184;37;184;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="param;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f31;184;37;184;;;;vposint;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 					<treenode node="value;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f23;184;29;184;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
@@ -5333,7 +5445,7 @@
 				<treenode node="php_function;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f4;396;5;402;;;;vpos;;vboolean;;r&#xA;Description&#xA;     Calls native PHP function&#xA;&#xA;Parameters:&#xA;    array;;d64,396;;b0,0;;mfunction;;pvalue;;pparams;;p">
 					<treenode node="function;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f26;396;35;396;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
-					<treenode node="params;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f45;396;52;396;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					<treenode node="params;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f45;396;52;396;;;;vposbool;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 					<treenode node="value;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f37;396;43;396;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
@@ -5347,10 +5459,18 @@
 					</treenode>
 				</treenode>
 				<treenode node="valid_emails;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f4;236;5;248;;;;vpos;;vboolean;;r&#xA;Description&#xA;     Valid emails&#xA;&#xA;Parameters:&#xA;    array;;d34,236;;b0,0;;marray;;p">
+					<treenode node="email;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f42;241;48;241;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f19;238;24;238;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 					<treenode node="value;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f26;236;32;236;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
 				<treenode node="valid_ip;PHP:Function Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f4;257;5;275;;;;vpos;;varray;;r&#xA;Description&#xA;     Validate ip address&#xA;&#xA;Parameters:&#xA;    array;;d30,257;;b0,0;;marray;;p">
+					<treenode node="segment;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f31;268;39;268;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="segments;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f8;258;17;258;;;;vposarray;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
 					<treenode node="value;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f22;257;28;257;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
@@ -5358,6 +5478,8 @@
 					<treenode node="config;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f29;31;36;31;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 					<treenode node="language;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f38;31;47;31;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+					</treenode>
+					<treenode node="this;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f8;32;13;32;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 					</treenode>
 				</treenode>
 				<treenode node="config;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\validation.php;f8;20;15;20;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
@@ -6399,17 +6521,17 @@
 			</treenode>
 			<treenode node="_COOKIE;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\index.php;f74;38;82;38;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
-			<treenode node="_GET;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\builder\ocCheck.php;f10;16;15;16;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\index.php;f84;38;89;38;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\login.php;f14;22;19;22;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\api.php;f19;25;24;25;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f15;94;20;94;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+			<treenode node="_GET;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\builder\ocCheck.php;f10;16;15;16;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\index.php;f84;38;89;38;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f15;94;20;94;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\api.php;f19;25;24;25;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\login.php;f14;22;19;22;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="_oc;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\builder\ocCheck.php;f0;7;4;7;;;;vpos;;v;;r&#xA;Description&#xA;     AJAX checks for zlib.output_compression;;d-1,-1;;b0,0;;m">
 			</treenode>
-			<treenode node="_POST;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\pluginsandvms.php;f19;20;25;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\operatingsystems.php;f19;20;25;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\memory.php;f19;86;25;86;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\eventsvalue.php;f19;20;25;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\eventstiming.php;f19;20;25;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\events.php;f32;20;38;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\customdata.php;f20;20;26;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\cpus.php;f20;20;26;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\appsettings.php;f12;29;18;29;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\add.php;f12;49;18;49;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\login.php;f16;37;22;37;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\myaccount.php;f12;159;18;159;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\settings.php;f12;200;18;200;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\index.php;f20;265;26;265;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\api.php;f12;45;18;45;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\update.php;f13;396;19;396;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+			<treenode node="_POST;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\pluginsandvms.php;f19;20;25;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\operatingsystems.php;f19;20;25;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\memory.php;f19;86;25;86;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\eventsvalue.php;f19;20;25;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\eventstiming.php;f19;20;25;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\events.php;f32;20;38;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\customdata.php;f20;20;26;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\cpus.php;f20;20;26;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\appsettings.php;f12;29;18;29;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\add.php;f12;49;18;49;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\api.php;f12;45;18;45;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\update.php;f13;396;19;396;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\myaccount.php;f12;159;18;159;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\settings.php;f12;200;18;200;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\login.php;f16;37;22;37;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\index.php;f20;265;26;265;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="_REQUEST;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\phpmailer\test\testbootstrap-dist.php;f0;1;9;1;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
-			<treenode node="_SERVER;PHP:Var Name;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f42;9;50;9;;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\inc\queriescron.php;f42;9;50;9;;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\convertevents.php;f42;1;50;1;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\builder\index.php;f17;12;25;12;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\index.php;f4;26;12;26;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\index.php;f51;23;59;23;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\config-readonly.php;f15;1;23;1;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\cron\cron_generate.php;f0;4;8;4;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\login.php;f54;39;62;39;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\data_exists.php;f43;4;51;4;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\api.php;f5;31;13;31;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\config.php;f15;1;23;1;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f15;15;23;15;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f29;61;37;61;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\config.sample.php;f15;1;23;1;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+			<treenode node="_SERVER;PHP:Var Name;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f42;9;50;9;;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\inc\queriescron.php;f42;9;50;9;;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\convertevents.php;f42;1;50;1;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\builder\index.php;f17;12;25;12;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\index.php;f4;26;12;26;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\index.php;f51;23;59;23;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\config-readonly.php;f15;1;23;1;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\cron\cron_generate.php;f0;4;8;4;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f15;15;23;15;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f29;61;37;61;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\api.php;f5;31;13;31;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\login.php;f54;39;62;39;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php;f15;15;23;15;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\config.sample.php;f15;1;23;1;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\config.php;f15;1;23;1;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\data_exists.php;f43;4;51;4;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
-			<treenode node="_SESSION;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\steps.php;f80;538;89;538;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\captcha.php;f0;23;9;23;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+			<treenode node="_SESSION;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\captcha.php;f0;23;9;23;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\steps.php;f80;541;89;541;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="aAppIds;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\cron\cron_generate.php;f0;11;8;11;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\generaterandomdata.php;f0;13;8;13;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
@@ -6461,7 +6583,7 @@
 			</treenode>
 			<treenode node="application_recieving;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\appsettings.php;f0;27;22;27;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
-			<treenode node="apps;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\index.php;f54;117;59;117;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f5;89;10;89;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+			<treenode node="apps;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f5;89;10;89;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\index.php;f54;117;59;117;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="aRandCustomData;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\cron\cron_generate.php;f0;116;16;116;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
@@ -6555,7 +6677,7 @@
 			</treenode>
 			<treenode node="comment;PHP:Var Name;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f0;54;8;54;;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\inc\queriescron.php;f0;58;8;58;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
-			<treenode node="config;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\config.php;f0;2;7;2;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\settings.php;f23;36;30;36;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\data_exists.php;f0;16;7;16;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\api.php;f9;124;16;124;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f4;22;11;22;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\update.php;f1;416;8;416;;;;vposresource;;v;;r;;d-1,-1;;b0,0;;m">
+			<treenode node="config;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f4;22;11;22;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\api.php;f9;124;16;124;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\update.php;f1;416;8;416;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\settings.php;f23;36;30;36;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\data_exists.php;f0;16;7;16;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\config.php;f0;2;7;2;;;;vposstring;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="content;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\builder\index.php;f0;226;8;226;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
@@ -6637,7 +6759,7 @@
 			</treenode>
 			<treenode node="day_yesterday_start;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\events.php;f0;105;20;105;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
-			<treenode node="db;PHP:Var Name;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f0;27;3;27;;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\inc\queriescron.php;f0;31;3;31;;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\Codelobster0.php;f0;5;3;5;;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\convertevents.php;f0;17;3;17;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\fix.php;f0;4;3;4;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\versions.php;f23;38;26;38;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\uninstallations.php;f19;26;22;26;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\screenresolutions.php;f49;23;52;23;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\pluginsandvms.php;f23;40;26;40;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\operatingsystems.php;f23;40;26;40;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\newvsreturning.php;f23;38;26;38;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\memory.php;f23;102;26;102;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\mapoverlay.php;f49;23;52;23;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\loyaltytime.php;f22;27;25;27;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\logs.php;f19;21;22;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\licenses.php;f19;50;22;50;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\languages.php;f49;23;52;23;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\installations.php;f19;26;22;26;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\executions.php;f140;25;143;25;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\exceptions.php;f18;32;21;32;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\eventsvalue.php;f18;25;21;25;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\eventstiming.php;f18;26;21;26;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\events.php;f18;34;21;34;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\dashboard.php;f42;27;45;27;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\customdata.php;f18;27;21;27;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\cpus.php;f134;43;137;43;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\bouncerate.php;f41;39;44;39;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\averagetime.php;f87;32;90;32;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\appsettings.php;f6;20;9;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\myaccount.php;f6;21;9;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\data_exists.php;f0;18;3;18;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\index.php;f21;30;24;30;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f0;48;3;48;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\update.php;f1;417;4;417;;;;vposresource;;v;;r;;d-1,-1;;b0,0;;m">
+			<treenode node="db;PHP:Var Name;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f0;27;3;27;;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\inc\queriescron.php;f0;31;3;31;;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\Codelobster0.php;f0;5;3;5;;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\convertevents.php;f0;17;3;17;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\fix.php;f0;4;3;4;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\versions.php;f23;38;26;38;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\uninstallations.php;f19;26;22;26;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\screenresolutions.php;f49;23;52;23;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\pluginsandvms.php;f23;40;26;40;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\operatingsystems.php;f23;40;26;40;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\newvsreturning.php;f23;38;26;38;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\memory.php;f23;102;26;102;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\mapoverlay.php;f49;23;52;23;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\loyaltytime.php;f22;27;25;27;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\logs.php;f19;21;22;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\licenses.php;f19;50;22;50;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\languages.php;f49;23;52;23;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\installations.php;f19;26;22;26;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\executions.php;f140;25;143;25;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\exceptions.php;f18;32;21;32;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\eventsvalue.php;f18;25;21;25;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\eventstiming.php;f18;26;21;26;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\events.php;f18;34;21;34;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\dashboard.php;f42;27;45;27;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\customdata.php;f18;27;21;27;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\cpus.php;f134;43;137;43;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\bouncerate.php;f41;39;44;39;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\averagetime.php;f87;32;90;32;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\appsettings.php;f6;20;9;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f0;48;3;48;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\update.php;f1;417;4;417;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\myaccount.php;f6;21;9;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\index.php;f21;30;24;30;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\data_exists.php;f0;18;3;18;;;;vposresource;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="demo;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\licenses.php;f4;46;9;46;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
@@ -6659,7 +6781,7 @@
 			</treenode>
 			<treenode node="end_time;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\data_exists.php;f0;42;9;42;;;;vposint;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
-			<treenode node="error;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\login.php;f0;20;6;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\update.php;f31;585;37;585;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+			<treenode node="error;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\update.php;f31;585;37;585;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\login.php;f0;20;6;20;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="error_code;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\api.php;f0;29;11;29;;;;vposint;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
@@ -6741,7 +6863,7 @@
 			</treenode>
 			<treenode node="he;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\builder\ocCheck.php;f4;24;7;24;;;;vposHTTP_Encoder;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
-			<treenode node="i;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\test.php;f5;6;7;6;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\versions.php;f6;32;8;32;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\uninstallations.php;f10;45;12;45;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\pluginsandvms.php;f6;35;8;35;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\operatingsystems.php;f6;35;8;35;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\newvsreturning.php;f6;30;8;30;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\memory.php;f6;97;8;97;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\loyaltytime.php;f10;30;12;30;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\licenses.php;f6;40;8;40;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\installations.php;f10;44;12;44;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\executions.php;f10;41;12;41;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\exceptions.php;f6;28;8;28;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\eventsvalue.php;f6;61;8;61;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\eventstiming.php;f10;62;12;62;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\events.php;f6;58;8;58;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\dashboard.php;f6;129;8;129;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\customdata.php;f10;81;12;81;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\cpus.php;f6;39;8;39;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\bouncerate.php;f6;32;8;32;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\averagetime.php;f6;28;8;28;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\views\default2\view.php;f18;98;20;98;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\views\default\view.php;f58;109;60;109;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\cron\cron_generate.php;f5;280;7;280;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\generaterandomdata.php;f5;157;7;157;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\captcha.php;f6;19;8;19;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+			<treenode node="i;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\test.php;f5;6;7;6;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\versions.php;f6;32;8;32;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\uninstallations.php;f10;45;12;45;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\pluginsandvms.php;f6;35;8;35;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\operatingsystems.php;f6;35;8;35;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\newvsreturning.php;f6;30;8;30;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\memory.php;f6;97;8;97;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\loyaltytime.php;f10;30;12;30;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\licenses.php;f6;40;8;40;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\installations.php;f10;44;12;44;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\executions.php;f10;41;12;41;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\exceptions.php;f6;28;8;28;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\eventsvalue.php;f6;61;8;61;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\eventstiming.php;f10;62;12;62;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\events.php;f6;58;8;58;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\dashboard.php;f6;129;8;129;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\customdata.php;f10;81;12;81;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\cpus.php;f6;39;8;39;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\bouncerate.php;f6;32;8;32;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\averagetime.php;f6;28;8;28;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\views\default2\view.php;f18;98;20;98;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\cron\cron_generate.php;f5;280;7;280;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\generaterandomdata.php;f5;157;7;157;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\captcha.php;f6;19;8;19;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\views\default\view.php;f58;109;60;109;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="idx;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\views\default2\view.php;f15;32;19;32;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\views\default\view.php;f46;43;50;43;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
@@ -6813,7 +6935,7 @@
 			</treenode>
 			<treenode node="lines;PHP:Var Name;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\inc\Codelobster0.php;f0;49;6;49;;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\inc\queriescron.php;f0;53;6;53;;;;vposarray;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
-			<treenode node="login;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\generaterandomdata.php;f5;8;11;8;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\login.php;f4;23;10;23;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f1;45;7;45;;;;vposresource;;v;;r;;d-1,-1;;b0,0;;m">
+			<treenode node="login;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\generaterandomdata.php;f5;8;11;8;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f1;45;7;45;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\login.php;f4;23;10;23;;;;vposresource;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="m;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\builder\index.php;f61;13;63;13;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
@@ -6889,7 +7011,7 @@
 			</treenode>
 			<treenode node="nDiskTotal;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\fix.php;f4;14;15;14;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
-			<treenode node="needs_refresh;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\index.php;f5;25;19;25;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f5;86;19;86;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+			<treenode node="needs_refresh;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f5;86;19;86;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\index.php;f5;25;19;25;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="net_chart_data;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\pluginsandvms.php;f0;25;15;25;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
@@ -7033,11 +7155,11 @@
 			</treenode>
 			<treenode node="rows;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\versions.php;f8;48;13;48;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\pluginsandvms.php;f4;48;9;48;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\operatingsystems.php;f4;50;9;50;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\memory.php;f4;110;9;110;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\logs.php;f4;32;9;32;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\eventsvalue.php;f4;77;9;77;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\eventstiming.php;f8;90;13;90;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\events.php;f4;74;9;74;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\cpus.php;f8;54;13;54;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\bouncerate.php;f8;53;13;53;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
-			<treenode node="sanitized_input;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\versions.php;f43;21;59;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\uninstallations.php;f43;21;59;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\screenresolutions.php;f21;20;37;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\pluginsandvms.php;f43;29;59;29;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\operatingsystems.php;f43;23;59;23;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\newvsreturning.php;f43;21;59;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\memory.php;f43;92;59;92;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\mapoverlay.php;f21;20;37;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\loyaltytime.php;f44;27;60;27;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\logs.php;f38;23;54;23;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\licenses.php;f43;21;59;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\languages.php;f21;20;37;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\installations.php;f43;21;59;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\executions.php;f39;21;55;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\exceptions.php;f43;23;59;23;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\eventsvalue.php;f52;25;68;25;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\eventstiming.php;f53;26;69;26;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\events.php;f43;24;59;24;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\dashboard.php;f21;25;37;25;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\customdata.php;f52;27;68;27;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\cpus.php;f43;23;59;23;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\bouncerate.php;f43;21;59;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\averagetime.php;f43;21;59;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\appsettings.php;f61;20;77;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\index.php;f28;26;44;26;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f5;91;21;91;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+			<treenode node="sanitized_input;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\versions.php;f43;21;59;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\uninstallations.php;f43;21;59;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\screenresolutions.php;f21;20;37;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\pluginsandvms.php;f43;29;59;29;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\operatingsystems.php;f43;23;59;23;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\newvsreturning.php;f43;21;59;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\memory.php;f43;92;59;92;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\mapoverlay.php;f21;20;37;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\loyaltytime.php;f44;27;60;27;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\logs.php;f38;23;54;23;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\licenses.php;f43;21;59;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\languages.php;f21;20;37;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\installations.php;f43;21;59;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\executions.php;f39;21;55;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\exceptions.php;f43;23;59;23;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\eventsvalue.php;f52;25;68;25;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\eventstiming.php;f53;26;69;26;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\events.php;f43;24;59;24;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\dashboard.php;f21;25;37;25;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\customdata.php;f52;27;68;27;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\cpus.php;f43;23;59;23;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\bouncerate.php;f43;21;59;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\averagetime.php;f43;21;59;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\appsettings.php;f61;20;77;20;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f5;91;21;91;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\index.php;f28;26;44;26;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="sCurrentVersion;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\cron\cron_geoips.php;f0;12;16;12;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
-			<treenode node="session;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\login.php;f49;45;57;45;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\myaccount.php;f49;21;57;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\index.php;f25;269;33;269;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f1;43;9;43;;;;vposresource;;v;;r;;d-1,-1;;b0,0;;m">
+			<treenode node="session;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\main.php;f1;43;9;43;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\pages\myaccount.php;f49;21;57;21;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\login.php;f49;45;57;45;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\index.php;f25;269;33;269;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="session_count;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\tests\data_exists.php;f20;46;34;46;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
@@ -7149,7 +7271,7 @@
 			</treenode>
 			<treenode node="updated_geo_ip;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\index.php;f12;266;27;266;;;;vposboolean;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
-			<treenode node="upgrade_notice;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\steps.php;f0;2;15;2;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+			<treenode node="upgrade_notice;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\steps.php;f0;2;15;2;;;;vposbool;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="uploaderHoursBehind;PHP:Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\builder\index.php;f8;233;28;233;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\index.php;f8;19;28;19;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
@@ -19671,7 +19793,7 @@
 			</treenode>
 			<treenode node="Dn;JS:JS Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\js\jquery\jquery.min.js;f83687;1;83689;1;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
-			<treenode node="document;JS:JS Var Name;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\js\jquery\jquery.highcharts.js;f187;15;195;15;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\builder\bm2.js;f12;1;20;1;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\builder\bm.js;f12;1;20;1;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\js\jquery\jquery.pages.js;f2;0;10;0;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\js\jquery\jquery.datatables.js;f352;150;360;150;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\js\jquery\jquery-ui.min.js;f156832;4;156840;4;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\js\jquery\custom_jquery.js;f2;0;10;0;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\login.php;f14;268;22;268;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\index.php;f10;310;18;310;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\update.php;f5;573;13;573;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
+			<treenode node="document;JS:JS Var Name;H:\Users\Nick\Documents\websites\little apps\little software stats\stats\js\jquery\jquery.highcharts.js;f187;15;195;15;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\builder\bm2.js;f12;1;20;1;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\min\builder\bm.js;f12;1;20;1;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\js\jquery\jquery.pages.js;f2;0;10;0;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\js\jquery\jquery.datatables.js;f352;150;360;150;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\js\jquery\jquery-ui.min.js;f156832;4;156840;4;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\js\jquery\custom_jquery.js;f2;0;10;0;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\update.php;f5;573;13;573;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\login.php;f14;268;22;268;;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\index.php;f10;310;18;310;;;;vpos;;v;;r;;d-1,-1;;b0,0;;m">
 			</treenode>
 			<treenode node="dp;JS:JS Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\phpmailer\examples\scripts\shLegacy.js;f4;0;1;2;;;;vpos;;v;;r;;d9,0;;b0,0;;m">
 				<treenode node="SyntaxHighlighter;JS:JS Var Name;C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\phpmailer\examples\scripts\shLegacy.js;f1;1;1;140;;;;vpos;;v;;r;;d23,4;;b0,0;;m">
@@ -26241,7 +26363,7 @@
 		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\core\callbacks.php" crc="-1595802302"/>
 		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\wizard.php" crc="1280013130"/>
 		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\validation.php" crc="1927026729"/>
-		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\steps.php" crc="-1006255688"/>
+		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\steps.php" crc="-614987814"/>
 		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\config.php" crc="559201919"/>
 		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\includes\callbacks.php" crc="1949889981"/>
 		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\install\update.php" crc="-22119643"/>
@@ -26345,7 +26467,7 @@
 		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\config.php" crc="781008016"/>
 		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\config-readonly.php" crc="1843203570"/>
 		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.session.php" crc="-1661576034"/>
-		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.securelogin.php" crc="1841386149"/>
+		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.securelogin.php" crc="-2138943636"/>
 		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.passwordhash.php" crc="-2060006184"/>
 		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.mysql.php" crc="-247562573"/>
 		<file name="C:\Users\Owner\Documents\websites\little apps\little software stats\stats\inc\class.config.php" crc="-1369924924"/>
