@@ -1162,6 +1162,14 @@ if ( !function_exists( 'get_ip_address' ) ) {
 	function get_ip_address() {
 		global $config;
 		
+		if ( !isset( $_SERVER['REMOTE_ADDR'] ) ) {
+			// Most likely being run from command line, use fake IP address
+			
+			mt_srand( );
+			
+			return mt_rand(1, 255) . '.' . mt_rand(1, 255) . '.' . mt_rand(1, 255) . '.' . mt_rand(1, 255);
+		}
+		
 	    // Get ip address
 	    if ( $config->site->header_ip_address ) {
 			if ( ( isset( $_SERVER['HTTP_CLIENT_IP'] ) ) && $this->check_ip_address( $_SERVER['HTTP_CLIENT_IP'] ) )
