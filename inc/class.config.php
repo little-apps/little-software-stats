@@ -38,7 +38,7 @@ class Config {
      */
     private static $m_pInstance;
 	
-	public function __construct() {
+	public function __construct( $config = false ) {
 		$this->load_config();
 	}
 	
@@ -55,16 +55,20 @@ class Config {
         return self::$m_pInstance;
     }
 	
-	private function load_config() {
-		$config_path = ROOTDIR . '/inc/config.php';
+	private function load_config( $config ) {
+		if ( empty( $config ) || !is_array( $config ) ) {
+			$config_path = ROOTDIR . '/inc/config.php';
 		
-		if ( !file_exists( $config_path ) )
-			throw new Exception("File 'inc/config.php' does not exist");
-			
-		if ( @filesize( $config_path ) == 0 )
-			throw new Exception("File 'inc/config.php' is empty");
-			
-		$this->config = require( $config_path );
+			if ( !file_exists( $config_path ) )
+				throw new Exception("File 'inc/config.php' does not exist");
+				
+			if ( @filesize( $config_path ) == 0 )
+				throw new Exception("File 'inc/config.php' is empty");
+				
+			$this->config = require( $config_path );
+		} else {
+			$this->config = $config;
+		}
 		
 		foreach ($this->config as &$val) {
 			$val = $this->array_to_object( $val );
