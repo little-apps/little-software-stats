@@ -132,10 +132,10 @@ class API {
      * @param int $cpu_freq CPU Frequency (hertz)
      * @param int $cpu_cores CPU Cores
      * @param int $cpu_arch CPU Architecture
-     * @param int $mem_total Total Memory (bytes)
-     * @param int $mem_free Free Memory (bytes)
-     * @param int $disk_total Total Disk Space (bytes)
-     * @param int $disk_free Free Disk Space (bytes)
+     * @param int $mem_total Total Memory (megabytes)
+     * @param int $mem_free Free Memory (megabytes)
+     * @param int $disk_total Total Disk Space (megabytes)
+     * @param int $disk_free Free Disk Space (megabytes)
      * @return int Returns error code
      */
     public function start_app( $app_id, $app_ver, $unique_id, $session_id, $timestamp,
