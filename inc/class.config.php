@@ -38,19 +38,26 @@ class Config {
      */
     private static $m_pInstance;
 	
+	/**
+	* Constructor for Config class
+	* @param mixed $config User specified config array. If not an array or empty, the config is loaded from inc/config.php
+	* 
+	* @return
+	*/
 	public function __construct( $config = false ) {
-		$this->load_config();
+		$this->load_config( $config );
 	}
 	
 	/**
      * Gets single instance of class
      * @access public
+     * @param mixed $config User specified config array. If not an array or empty, the config is loaded from inc/config.php
      * @static
      * @return resource Single instance of class 
      */
-    public static function getInstance() {
+    public static function getInstance( $config = false ) {
         if (!self::$m_pInstance)
-            self::$m_pInstance = new Config();
+            self::$m_pInstance = new Config( $config );
 
         return self::$m_pInstance;
     }
