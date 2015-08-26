@@ -7,7 +7,7 @@ require_once( ROOTDIR . '/inc/class.config.php' );
 require_once( ROOTDIR . '/inc/class.mysql.php' );
 require_once( ROOTDIR . '/inc/functions.php' );
 
-class LSSTestCase extends PHPUnit_Extensions_Database_TestCase {
+class LSSTestCase extends PHPUnit_Framework_TestCase {
 	private $test_config = 
 		array(
 			'site' => array(
