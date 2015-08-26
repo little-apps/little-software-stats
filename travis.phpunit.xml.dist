@@ -2,7 +2,7 @@
 <phpunit>
     <testsuites>
         <testsuite name="Little Software Stats Tests">
-			<file>./test/APITest.php</file>
+			<file>./tests/APITest.php</file>
         </testsuite>
     </testsuites>
 	<php>
