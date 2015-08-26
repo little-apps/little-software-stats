@@ -20,11 +20,11 @@ class RandomDataGenerator {
     
     private $os_versions = 
     	array(
-    		'Windows XP' => range(0, 3), 
-    		'Windows Vista' => range(0, 2), 
-    		'Windows 7' => range(0, 1), 
-    		'Windows Server 2008' => range(0, 2), 
-    		'Windows Server 2008 R2' => range(0, 1), 
+    		'Windows XP' => array(0, 1, 2, 3), 
+    		'Windows Vista' => array(0, 1, 2), 
+    		'Windows 7' => array(0, 1), 
+    		'Windows Server 2008' => array(0, 1, 2), 
+    		'Windows Server 2008 R2' => array(0, 1), 
     		'Windows 8' => array(0), 
     		'Windows 8.1' => array(0), 
     		'Windows Server 2012' => array(0), 
@@ -37,9 +37,9 @@ class RandomDataGenerator {
 	private $java_versions = array('1.1', '1.2', '1.3', '1.4', '1.5', '1.6', '1.7');
 	private $dotnet_versions = 
 		array(
-			'2.0' => range(0, 2), 
+			'2.0' => array(0, 1, 2), 
 			'3.0' => array(0), 
-			'3.5' => range(0, 1), 
+			'3.5' => array(0, 1), 
 			'4.0' => array(0),
 			'4.5' => array(0),
 			'4.5.1' => array(0),
@@ -55,7 +55,7 @@ class RandomDataGenerator {
 	private $cpu_archs = array(32, 64);
 	private $cpu_freqs = array(1000, 1500, 2000, 2500, 3000, 3500, 4000);
 	
-	private $memory_totals = range(1, 24);
+	private $memory_totals;
     
     private $disk_totals = array(256, 512, 1024, 1536, 2048, 3072, 4096);
     
@@ -79,7 +79,8 @@ class RandomDataGenerator {
     private $log_messages = array( 'Hello World!', 'Foo Bar' );
     
 	public function __construct() {
-		
+		// Must be assigned in constructor
+		$this->memory_totals = range(1, 24);
 	}
 	
 	public function app_ver() {
