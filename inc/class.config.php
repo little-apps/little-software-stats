@@ -51,7 +51,7 @@ class Config {
 	/**
      * Gets single instance of class
      * @access public
-     * @param mixed $config User specified config array. If not an array or empty, the config is loaded from inc/config.php
+     * @param mixed $config User specified config array. If not an array or empty, the config is loaded from inc/config.php. Please note that if this has already been called, the $config parameter is not used.
      * @static
      * @return resource Single instance of class 
      */

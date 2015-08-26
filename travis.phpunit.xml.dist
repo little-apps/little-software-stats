@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit>
+    <testsuites>
+        <testsuite name="Little Software Stats Tests">
+			<file>./test/APITest.php</file>
+        </testsuite>
+    </testsuites>
+	<php>
+		<const name="DB_HOST" value="localhost" />
+		<const name="DB_USER" value="root" />
+		<const name="DB_PASS" value="" />
+		<const name="DB_DBNAME" value="test" />
+		<const name="DB_PREFIX" value="" />
+	</php>
+</phpunit>

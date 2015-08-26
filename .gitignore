@@ -3,10 +3,10 @@ inc/config-readonly.php
 cron/*
 database backup/*.*
 template files/*.*
-tests/*.*
+tests.old/*.*
 *.mwb
 .htaccess
 .bzr/*
 .bzrignore
 Thumbs.db
-Little Software Stats.clpprj
+*.clpprj
