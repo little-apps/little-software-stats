@@ -1,7 +1,7 @@
 Little Software Stats
 =====================
 
-Build status: [![Build Status](https://travis-ci.org/little-apps/little-software-stats.svg?branch=master)](https://travis-ci.org/little-apps/little-software-stats)
+[![Build Status](https://travis-ci.org/little-apps/little-software-stats.svg?branch=master)](https://travis-ci.org/little-apps/little-software-stats)
 
 Little Software Stats is a web application developed by Little Apps which provides a open source runtime intelligence solution.
 
