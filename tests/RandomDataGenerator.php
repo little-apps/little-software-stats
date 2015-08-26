@@ -104,7 +104,7 @@ class RandomDataGenerator {
 	
 	public function event_timestamp( $timestamp ) {
 		if ( !is_numeric( $timestamp ) )
-			throw new Exception( 'Parameter must be a number' );
+			throw new Exception( 'Parameter must be a number. Instead it is ' . gettype($timestamp) . ' with value ' . var_export($timestamp, true) );
 			
 		if ( !is_integer( $timestamp ) )
 			$timestamp = intval( $timestamp );
