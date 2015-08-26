@@ -83,7 +83,7 @@ class APITest extends LSSTestCase {
 		
 		$event_period_info = RandomDataGenerator::getInstance()->event_period();
 		
-		$this->assertEquals( 1, API::getInstance()->event_value( RandomDataGenerator::getInstance()->event_timestamp( $this->timestamp ), $this->session_id, $event_period_info->category, $event_period_info->name, $event_period_info->duration, $event_period_info->completed ) );
+		$this->assertEquals( 1, API::getInstance()->event_period( RandomDataGenerator::getInstance()->event_timestamp( $this->timestamp ), $this->session_id, $event_period_info->category, $event_period_info->name, $event_period_info->duration, $event_period_info->completed ) );
 		
 		$this->stop_app();
 	}
