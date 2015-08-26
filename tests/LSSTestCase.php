@@ -8,35 +8,35 @@ require_once( ROOTDIR . '/inc/class.mysql.php' );
 require_once( ROOTDIR . '/inc/functions.php' );
 
 class LSSTestCase extends PHPUnit_Framework_TestCase {
-	private $test_config = 
-		array(
-			'site' => array(
-				'url' => 'http://stats.yourwebsite.com/',
-				'path' => ROOTDIR,
-				'geoip_path' => ROOTDIR . '/geoipdb/GeoIP.dat',
-				'geoipv6_path' => ROOTDIR . '/geoipdb/GeoIPV6.dat',
-				'debug' => false,
-				'csrf' => true,
-				'header_ip_address' => true
-			),
-			'mysql' => array(
-				'host' => DB_HOST,
-				'user' => DB_USER,
-				'pass' => DB_PASS,
-				'db' => DB_DBNAME,
-				'prefix' => DB_PREFIX,
-				'persistent' => false
-			)
-			
-		);
-		
 	public $app_id;
 	public $app_name;
 	
 	public function __construct() {
 		global $config;
 		
-		$config = Config::getInstance( $this->test_config );
+		$test_config = 
+			array(
+				'site' => array(
+					'url' => 'http://stats.yourwebsite.com/',
+					'path' => ROOTDIR,
+					'geoip_path' => ROOTDIR . '/geoipdb/GeoIP.dat',
+					'geoipv6_path' => ROOTDIR . '/geoipdb/GeoIPV6.dat',
+					'debug' => false,
+					'csrf' => true,
+					'header_ip_address' => true
+				),
+				'mysql' => array(
+					'host' => DB_HOST,
+					'user' => DB_USER,
+					'pass' => DB_PASS,
+					'db' => DB_DBNAME,
+					'prefix' => DB_PREFIX,
+					'persistent' => false
+				)
+				
+			);
+		
+		$config = Config::getInstance( $test_config );
 	}
 	
 
