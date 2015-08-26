@@ -259,7 +259,7 @@ class RandomDataGenerator {
 		$event_period_info->category = array_rand( $this->event_periods );
 		$event_period_info->name = $this->array_rand_value( $this->event_periods[$event_period_info->category] );
 		$event_period_info->duration = mt_rand(1, 3600);
-		$event_period_info->completed = mt_rand(0, 1);
+		$event_period_info->completed = boolval( mt_rand(0, 1) );
 		
 		return $event_period_info;
 	}
