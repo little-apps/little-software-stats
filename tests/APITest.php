@@ -74,7 +74,7 @@ class APITest extends LSSTestCase {
 	public function testEvent() {
 		$event_info = RandomDataGenerator::getInstance()->event();
 		
-		$this->assertEquals( 1, API::getInstance()->event( $this->event_timestamp( $this->timestamp ), $this->session_id, $event_info->category, $event_info->name ) );
+		$this->assertEquals( 1, API::getInstance()->event( RandomDataGenerator::getInstance()->event_timestamp( $this->timestamp ), $this->session_id, $event_info->category, $event_info->name ) );
 	}
 	
 	/**
@@ -83,7 +83,7 @@ class APITest extends LSSTestCase {
 	public function testEventPeriod() {
 		$event_period_info = RandomDataGenerator::getInstance()->event_period();
 		
-		$this->assertEquals( 1, API::getInstance()->event_value( $this->event_timestamp( $this->timestamp ), $this->session_id, $event_period_info->category, $event_period_info->name, $event_period_info->duration, $event_period_info->completed ) );
+		$this->assertEquals( 1, API::getInstance()->event_value( RandomDataGenerator::getInstance()->event_timestamp( $this->timestamp ), $this->session_id, $event_period_info->category, $event_period_info->name, $event_period_info->duration, $event_period_info->completed ) );
 	}
 	
 	/**
@@ -92,7 +92,7 @@ class APITest extends LSSTestCase {
 	public function testEventValue() {
 		$event_value_info = RandomDataGenerator::getInstance()->event_value();
 		
-		$this->assertEquals( 1, API::getInstance()->event_value( $this->event_timestamp( $this->timestamp ), $this->session_id, $event_value_info->category, $event_value_info->name, $event_value_info->value ) );
+		$this->assertEquals( 1, API::getInstance()->event_value( RandomDataGenerator::getInstance()->event_timestamp( $this->timestamp ), $this->session_id, $event_value_info->category, $event_value_info->name, $event_value_info->value ) );
 	}
 	
 	/**
@@ -101,7 +101,7 @@ class APITest extends LSSTestCase {
 	public function testLog() {
 		$log_message = RandomDataGenerator::getInstance()->log_message();
 		
-		$this->assertEquals( 1, API::getInstance()->log( $this->event_timestamp( $this->timestamp ), $this->session_id, $log_message ) );
+		$this->assertEquals( 1, API::getInstance()->log( RandomDataGenerator::getInstance()->event_timestamp( $this->timestamp ), $this->session_id, $log_message ) );
 	}
 	
 	/**
@@ -110,7 +110,7 @@ class APITest extends LSSTestCase {
 	public function testCustomData() {
 		$custom_data = RandomDataGenerator::getInstance()->custom_data();
 		
-		$this->assertEquals( 1, API::getInstance()->custom_data( $this->event_timestamp( $this->timestamp ), $this->session_id, $custom_data->name, $custom_data->value ) );
+		$this->assertEquals( 1, API::getInstance()->custom_data( RandomDataGenerator::getInstance()->event_timestamp( $this->timestamp ), $this->session_id, $custom_data->name, $custom_data->value ) );
 	}
 	
 	/**
@@ -119,7 +119,7 @@ class APITest extends LSSTestCase {
 	public function testException() {
 		$exception_info = RandomDataGenerator::getInstance()->exception();
 		
-		$this->assertEquals( 1, API::getInstance()->exception( $this->event_timestamp( $this->timestamp ), $this->session_id, $exception_info->message, $exception_info->stack_trace, $exception_info->source, $exception_info->target_site ) );
+		$this->assertEquals( 1, API::getInstance()->exception( RandomDataGenerator::getInstance()->event_timestamp( $this->timestamp ), $this->session_id, $exception_info->message, $exception_info->stack_trace, $exception_info->source, $exception_info->target_site ) );
 	}
 	
 	/**
@@ -128,7 +128,7 @@ class APITest extends LSSTestCase {
 	public function testInstall() {
 		$app_ver = RandomDataGenerator::getInstance()->app_ver();
 		
-		$this->assertEquals( 1, API::getInstance()->exception( $this->event_timestamp( $this->timestamp ), $this->session_id, $this->app_id, $app_ver ) );
+		$this->assertEquals( 1, API::getInstance()->exception( RandomDataGenerator::getInstance()->event_timestamp( $this->timestamp ), $this->session_id, $this->app_id, $app_ver ) );
 	}
 	
 	/**
@@ -137,7 +137,7 @@ class APITest extends LSSTestCase {
 	public function testUninstall() {
 		$app_ver = RandomDataGenerator::getInstance()->app_ver();
 		
-		$this->assertEquals( 1, API::getInstance()->exception( $this->event_timestamp( $this->timestamp ), $this->session_id, $this->app_id, $app_ver ) );
+		$this->assertEquals( 1, API::getInstance()->exception( RandomDataGenerator::getInstance()->event_timestamp( $this->timestamp ), $this->session_id, $this->app_id, $app_ver ) );
 	}
 	
 	/**
