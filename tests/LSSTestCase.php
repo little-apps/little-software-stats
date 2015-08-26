@@ -58,7 +58,7 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 		$this->app_id = generate_app_id();
 		$this->app_name = 'Sample Application';
 		
-		$db->insert( array( "ApplicationName" => $this->app_name, "ApplicationId" => $this->app_id ), "applications" );
+		MySQL::getInstance()->insert( array( "ApplicationName" => $this->app_name, "ApplicationId" => $this->app_id ), "applications" );
 	}
     
     private function create_tables_sql() {
@@ -85,7 +85,7 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
     
     public function tearDown() {
         foreach ( $this->drop_tables_sql() as $sql ) {
-			$db->execute_sql( $sql );
+			MySQL::getInstance()->execute_sql( $sql );
 		}
     }
     
