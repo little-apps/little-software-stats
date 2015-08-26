@@ -133,7 +133,7 @@ class APITest extends LSSTestCase {
 		
 		$app_ver = RandomDataGenerator::getInstance()->app_ver();
 		
-		$this->assertEquals( 1, API::getInstance()->exception( RandomDataGenerator::getInstance()->event_timestamp( $this->timestamp ), $this->session_id, $this->app_id, $app_ver ) );
+		$this->assertEquals( 1, API::getInstance()->install( RandomDataGenerator::getInstance()->event_timestamp( $this->timestamp ), $this->session_id, $this->app_id, $app_ver ) );
 		
 		$this->stop_app();
 	}
@@ -143,7 +143,7 @@ class APITest extends LSSTestCase {
 		
 		$app_ver = RandomDataGenerator::getInstance()->app_ver();
 		
-		$this->assertEquals( 1, API::getInstance()->exception( RandomDataGenerator::getInstance()->event_timestamp( $this->timestamp ), $this->session_id, $this->app_id, $app_ver ) );
+		$this->assertEquals( 1, API::getInstance()->uninstall( RandomDataGenerator::getInstance()->event_timestamp( $this->timestamp ), $this->session_id, $this->app_id, $app_ver ) );
 		
 		$this->stop_app();
 	}
