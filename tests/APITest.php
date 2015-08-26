@@ -72,9 +72,13 @@ class APITest extends LSSTestCase {
 	 * @depends testStartApp
 	 */
 	public function testEvent() {
+		$this->testStartApp();
+		
 		$event_info = RandomDataGenerator::getInstance()->event();
 		
 		$this->assertEquals( 1, API::getInstance()->event( RandomDataGenerator::getInstance()->event_timestamp( $this->timestamp ), $this->session_id, $event_info->category, $event_info->name ) );
+		
+		$this->testStopApp();
 	}
 	
 	/**
