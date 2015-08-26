@@ -274,7 +274,7 @@ class RandomDataGenerator {
 		return $event_value_info;
 	}
 	
-	private function log_message() {
+	public function log_message() {
 		return $this->array_rand_value( $this->log_messages );
 	}
 	
