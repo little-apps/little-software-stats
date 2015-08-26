@@ -14,3 +14,5 @@ before_script:
   
 script:
   - phpunit --configuration travis.phpunit.xml.dist
+  
+sudo: false
