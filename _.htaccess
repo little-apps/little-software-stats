@@ -18,8 +18,8 @@ Options -Indexes
 RewriteEngine On
 
 # The path to your Little Software Stats installation
-# (Comment this if its installed in the root directory of your website)
-RewriteBase /stats/
+# (Uncomment the line below if its not installed in the root directory of your website)
+# RewriteBase /stats/
 
 # Clean URLs for easier navigation
 # http://[...]/<APPLICATION ID>/<VERSION>/<DAY,WEEK,MONTH>/<PAGE>/<START DATE>/<END DATE>
