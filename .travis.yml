@@ -8,6 +8,7 @@ env:
   - DB=mysql
   
 before_script:
+  - cp tests/config.travisci.php inc/config.php
   - wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz -P geoipdb/
   - gunzip -f geoipdb/GeoIP.dat.gz
   - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS test;" -uroot; fi

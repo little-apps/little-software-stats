@@ -9,16 +9,16 @@ class APITest extends LSSTestCase {
 	private $unique_id;
 	private $session_id;
 	private $timestamp;
-	
+
 	public function __construct() {
 		parent::__construct();
 	}
-	
-	
+
+
 	public function setUp() {
 		parent::setUp();
 	}
-	
+
 	public function tearDown() {
 		parent::tearDown();
 	}
