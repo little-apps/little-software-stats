@@ -212,7 +212,7 @@ class Events {
     }
     
     private function serialize_json() {
-		return json_encode( $this->events );
+		return json_encode( array( $this->events ) );
 	}
 	
 	private function serialize_xml() {
