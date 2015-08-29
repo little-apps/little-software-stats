@@ -77,12 +77,12 @@ class Events implements Serializable {
         $event->cfr = $cpu_info->freq;
         $event->ccr = $cpu_info->cores;
         
-        $mem_info = $data_generator->memory_info;
+        $mem_info = $data_generator->memory_info();
         
         $event->mtt = $mem_info->total;
         $event->mfr = $mem_info->free;
         
-        $disk_info = $data_generator->disk_info;
+        $disk_info = $data_generator->disk_info();
         
         $event->dtt = $disk_info->total;
         $event->dfr = $disk_info->free;
