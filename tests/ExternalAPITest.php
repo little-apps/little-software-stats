@@ -52,6 +52,8 @@ class ExternalAPITest extends LSSTestCase {
 		
 		$ret = $this->call_api( $this->build_api_uri( self::FORMAT_JSON ), $data );
 		
+		echo "API Returned: " . $ret . PHP_EOL;
+		
 		$ret_decoded = json_decode( $ret );
 		
 		$this->assertNotNull( $ret_decoded );
@@ -66,6 +68,8 @@ class ExternalAPITest extends LSSTestCase {
 		$data = $this->generate_events();
 		
 		$ret = $this->call_api( $this->build_api_uri( self::FORMAT_XML ), $data );
+		
+		echo "API Returned: " . $ret . PHP_EOL;
 		
 		$ret_decoded = simplexml_load_string( $ret );
 		
