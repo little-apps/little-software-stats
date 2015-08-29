@@ -44,7 +44,9 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 	}
 	
 	private function get_application() {
-		$app_info = MySQL::getInstance()->select( 'applications', '', '', '1' );
+		MySQL::getInstance()->select( 'applications', '', '', '1' );
+		
+		$app_info = MySQL::getInstance()->arrayed_result;
 		
 		if ( empty( $app_info ) )
 			throw new Exception( 'No application could be found' );
