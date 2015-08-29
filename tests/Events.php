@@ -9,7 +9,7 @@ class Events {
 	private $unique_id;
 	private $session_id;
 	
-	private static $flow_id;
+	private static $flow_id = 0;
 	
 	/**
      * @var resource Single instance of class
@@ -30,9 +30,6 @@ class Events {
     }
     
     public static function get_flow_id() {
-		if ( !isset( self::$flow_id ) )
-			self::$flow_id = 0;
-			
 		self::$flow_id++;
 		
 		return self::$flow_id;
