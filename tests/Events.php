@@ -222,10 +222,12 @@ class Events implements Serializable {
 			$event_child = $xml->addChild( 'Event' );
 			
 			foreach ( $event as $name => $value ) {
-				if ( !empty( $value ) )
-					$event_child->addChild( $name, $value );
-				else
-					$event_child->addChild( $name );
+				if ( is_string( $value ) ) {
+					if ( !empty( $value ) )
+						$event_child->addChild( $name, $value );
+					else
+						$event_child->addChild( $name );
+				}
 			}
 		}
 		
