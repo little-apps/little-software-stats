@@ -269,7 +269,7 @@ class Event {
 			return;
 			
 		if ( !is_string( $value ) )
-			return;
+			$value = strval( $value );
 			
 		$this->table[$name] = $value;
 	}
