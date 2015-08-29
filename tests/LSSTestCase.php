@@ -31,6 +31,8 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 			}
 	    	
 	    	$this->add_application();
+		} else {
+			$this->get_application();
 		}
     }
     
@@ -39,6 +41,16 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 		$this->app_name = 'Sample Application';
 		
 		MySQL::getInstance()->insert( array( "ApplicationName" => $this->app_name, "ApplicationId" => $this->app_id ), "applications" );
+	}
+	
+	private function get_application() {
+		$app_info = MySQL::getInstance()->select( 'applications', '', '', '1' );
+		
+		if ( empty( $app_info ) )
+			throw new Exception( 'No application could be found' );
+			
+		$this->app_id = $app_info['ApplicationId'];
+		$this->app_name = $app_info['ApplicationName'];
 	}
     
     private function create_tables_sql() {
