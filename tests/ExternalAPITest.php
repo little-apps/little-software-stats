@@ -100,7 +100,7 @@ class ExternalAPITest extends LSSTestCase {
 		
 		$this->events->stop();
 		
-		return serialize( $this->events );
+		return $this->events->serialize();
 	}
 
     private function build_api_uri( $format ) {

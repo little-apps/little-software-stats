@@ -1,6 +1,6 @@
 <?php
 
-class Events implements Serializable {
+class Events {
 	private $events = array();
 	private $format;
 	
