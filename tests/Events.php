@@ -237,11 +237,7 @@ class Events {
 				if ( !is_string( $value ) )
 					$value = strval( $value );
 				
-				if ( !empty( $value ) )
-					$this->add_child_with_cdata( $name, $value, $event_child );
-					//$event_child->addChild( $name, $value );
-				else
-					$event_child->addChild( $name );
+				$this->add_child_with_cdata( $name, $value, $event_child );
 			}
 		}
 		
