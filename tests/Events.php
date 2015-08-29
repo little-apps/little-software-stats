@@ -227,10 +227,12 @@ class Events {
 	}
 	
 	private function serialize_xml() {
-		$xml = new SimpleXMLElement('<Events />');
+		$xml = new SimpleXMLElement( '<data />' );
+		
+		$xml_events = $xml->addChild( 'Events' );
 		
 		foreach ( $this->events as $event ) {
-			$event_child = $xml->addChild( 'Event' );
+			$event_child = $xml_events->addChild( 'Event' );
 			
 			foreach ( $event as $name => $value ) {
 				if ( is_string( $value ) ) {
