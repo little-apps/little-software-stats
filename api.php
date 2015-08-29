@@ -104,8 +104,8 @@ if ( $type == 'json' ) {
             if ( !isset( $sorted_json[0] ) || !isset( $child_last ) )
                 lss_exit( get_error( -10 ) );
 
-            foreach ( $sorted_json as $data ) {
-                $error_code = parse_data( $data );
+            foreach ( $sorted_json as $sorted_data ) {
+                $error_code = parse_data( $sorted_data );
 
                 if ( $error_code != 1 )
                     break;
