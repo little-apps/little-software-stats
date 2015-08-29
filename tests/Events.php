@@ -238,13 +238,26 @@ class Events {
 					$value = strval( $value );
 				
 				if ( !empty( $value ) )
-					$event_child->addChild( $name, $value );
+					$this->add_child_with_cdata( $name, $value, $event_child );
+					//$event_child->addChild( $name, $value );
 				else
 					$event_child->addChild( $name );
 			}
 		}
 		
 		return $xml->asXML();
+	}
+	
+	private function add_child_with_cdata($name, $value, &$parent) {
+		$child = $parent->addChild($name);
+
+		if ($child !== null) {
+			$child_node = dom_import_simplexml($child);
+			$child_owner = $child_node->ownerDocument;
+			$child_node->appendChild($child_owner->createCDATASection($value));
+		}
+
+		return $child;
 	}
     
     public function unserialize($data) {
