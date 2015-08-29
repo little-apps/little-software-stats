@@ -258,8 +258,8 @@ class Event {
 	
 	public function __construct($event_code, $session_id, $flow_id = 0) {
 		$this->__set( 'tp', $event_code );
-		$this->__set( 'ss'], $session_id );
-		$this->__set( 'ts'], time() );
+		$this->__set( 'ss', $session_id );
+		$this->__set( 'ts', time() );
 		
 		if ( is_int( $flow_id ) && $flow_id != 0 )
 			$this->__set( 'fl', $flow_id );
