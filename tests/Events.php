@@ -235,12 +235,13 @@ class Events {
 			$event_child = $xml_events->addChild( 'Event' );
 			
 			foreach ( $event as $name => $value ) {
-				if ( is_string( $value ) ) {
-					if ( !empty( $value ) )
-						$event_child->addChild( $name, $value );
-					else
-						$event_child->addChild( $name );
-				}
+				if ( !is_string( $value ) )
+					$value = strval( $value );
+				
+				if ( !empty( $value ) )
+					$event_child->addChild( $name, $value );
+				else
+					$event_child->addChild( $name );
 			}
 		}
 		
@@ -256,14 +257,14 @@ class Event {
 	private $table = array();
 	
 	public function __construct($event_code, $session_id, $flow_id = 0) {
-		$this->table['tp'] = $event_code;
-		$this->table['ss'] = $session_id;
-		$this->table['ts'] = time();
+		$this->__set( 'tp', $event_code );
+		$this->__set( 'ss'], $session_id );
+		$this->__set( 'ts'], time() );
 		
 		if ( is_int( $flow_id ) && $flow_id != 0 )
-			$this->table['fl'] = $flow_id;
+			$this->__set( 'fl', $flow_id );
 		else
-			$this->table['fl'] = Events::get_flow_id();
+			$this->__set( 'fl', Events::get_flow_id() );
 	}
 	
 	public function __set($name, $value) {
