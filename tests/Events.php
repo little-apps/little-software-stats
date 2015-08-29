@@ -9,6 +9,8 @@ class Events {
 	private $unique_id;
 	private $session_id;
 	
+	private static $flow_id;
+	
 	/**
      * @var resource Single instance of class
      */
@@ -26,6 +28,15 @@ class Events {
 
         return self::$m_pInstance;
     }
+    
+    public static function get_flow_id() {
+		if ( !isset( self::$flow_id ) )
+			self::$flow_id = 0;
+			
+		self::$flow_id++;
+		
+		return self::$flow_id;
+	}
     
     public function __construct() {
 		
@@ -249,6 +260,8 @@ class Event {
 		
 		if ( is_int( $flow_id ) && $flow_id != 0 )
 			$this->table['fl'] = $flow_id;
+		else
+			$this->table['fl'] = Events::get_flow_id();
 	}
 	
 	public function __set($name, $value) {
