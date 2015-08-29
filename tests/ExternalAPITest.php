@@ -2,7 +2,7 @@
 
 require_once( dirname( __FILE__ ) . '/LSSTestCase.php' );
 require_once( ROOTDIR . '/tests/RandomDataGenerator.php' );
-require_once( ROOTDIR . '/Events.php' );
+require_once( ROOTDIR . '/tests/Events.php' );
 
 class ExternalAPITest extends LSSTestCase {
     const API_PATH = '/api.php?type=:format';
