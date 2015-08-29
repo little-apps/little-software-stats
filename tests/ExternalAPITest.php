@@ -54,7 +54,7 @@ class ExternalAPITest extends LSSTestCase {
 		
 		$ret_decoded = json_decode( $ret );
 		
-		$this->assertNotNull( json_decode( $ret ) );
+		$this->assertNotNull( $ret_decoded );
 		
 		$this->assertEquals( $ret_decoded->status_code, 1 );
 		$this->assertEquals( $ret_decoded->status_message, 'Success' );
