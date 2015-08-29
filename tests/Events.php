@@ -176,7 +176,7 @@ class Events {
 		
 		$event->ID = $this->unique_id;
 		$event->aid = $this->app_id;
-		$this->aver = RandomDataGenerator::getInstance()->app_ver();
+		$event->aver = RandomDataGenerator::getInstance()->app_ver();
 		
 		$this->add( $event );
 	}
@@ -188,7 +188,7 @@ class Events {
 		
 		$event->ID = $this->unique_id;
 		$event->aid = $this->app_id;
-		$this->aver = RandomDataGenerator::getInstance()->app_ver();
+		$event->aver = RandomDataGenerator::getInstance()->app_ver();
 		
 		$this->add( $event );
 	}
