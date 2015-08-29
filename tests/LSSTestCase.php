@@ -23,13 +23,15 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
     	
     	$db = MySQL::getInstance();
     	
-    	foreach ( $this->create_tables_sql() as $sql ) {
-    		$sql = str_replace( '{:db_prefix}', Config::getInstance()->mysql->prefix, $sql );
-    		
-			$db->execute_sql( $sql );
+    	if ( defined( 'TRAVISCI' ) && (bool)TRAVISCI ) {
+			foreach ( $this->create_tables_sql() as $sql ) {
+	    		$sql = str_replace( '{:db_prefix}', Config::getInstance()->mysql->prefix, $sql );
+	    		
+				$db->execute_sql( $sql );
+			}
+	    	
+	    	$this->add_application();
 		}
-    	
-    	$this->add_application();
     }
     
     private function add_application() {
@@ -62,8 +64,10 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
     
     
     public function tearDown() {
-        foreach ( $this->drop_tables_sql() as $sql ) {
-			MySQL::getInstance()->execute_sql( $sql );
+    	if ( defined( 'TRAVISCI' ) && (bool)TRAVISCI ) {
+			foreach ( $this->drop_tables_sql() as $sql ) {
+				MySQL::getInstance()->execute_sql( $sql );
+			}
 		}
     }
     
