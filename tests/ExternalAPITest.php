@@ -55,6 +55,9 @@ class ExternalAPITest extends LSSTestCase {
 		$ret_decoded = json_decode( $ret );
 		
 		$this->assertNotNull( json_decode( $ret ) );
+		
+		$this->assertEquals( $ret_decoded->status_code, 1 );
+		$this->assertEquals( $ret_decoded->status_message, 'Success' );
 	}
 	
 	public function testSendXML() {
@@ -67,6 +70,9 @@ class ExternalAPITest extends LSSTestCase {
 		$ret_decoded = simplexml_load_string( $ret );
 		
 		$this->assertInstanceOf( 'SimpleXMLElement', $ret_decoded );
+		
+		$this->assertEquals( $ret_decoded->Code, 1 );
+		$this->assertEquals( $ret_decoded->Message, 'Success' );
 	}
 	
 	private function generate_events() {
