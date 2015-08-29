@@ -49,6 +49,8 @@ class Events {
 	}
 	
 	public function start( $app_id ) {
+		self::$flow_id = 0;
+		
 		$data_generator = RandomDataGenerator::getInstance();
 		
 		$this->app_id = $app_id;
