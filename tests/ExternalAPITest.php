@@ -71,8 +71,8 @@ class ExternalAPITest extends LSSTestCase {
 		
 		$this->assertInstanceOf( 'SimpleXMLElement', $ret_decoded );
 		
-		$this->assertEquals( 1, $ret_decoded->Code );
-		$this->assertEquals( 'Success', $ret_decoded->Message );
+		$this->assertEquals( 1, (int)$ret_decoded->Code );
+		$this->assertEquals( 'Success', (int)$ret_decoded->Message );
 	}
 	
 	private function generate_events() {
