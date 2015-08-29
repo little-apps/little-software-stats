@@ -192,7 +192,7 @@ class Events implements Serializable {
 	
 	private function add( $event ) {
 		if ( is_a( $event, 'Event' ) )
-			$event = (array)$event;
+			$event = $event->get_events();
 		
 		if ( !is_array( $event ) )
 			return false;
@@ -270,5 +270,9 @@ class Event {
 
 	public function __isset($name) {
 		return isset( $this->table[$name] );
+	}
+	
+	public function get_events() {
+		return $this->table;
 	}
 }
