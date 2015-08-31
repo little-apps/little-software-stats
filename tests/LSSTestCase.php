@@ -12,15 +12,9 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 	public $app_name;
 	
 	public function __construct() {
-		global $config;
-		
-		$config = Config::getInstance(  );
 	}
 	
-
     public function setUp() {
-    	global $db;
-    	
     	$db = MySQL::getInstance();
     	
     	if ( defined( 'TRAVISCI' ) && (bool)TRAVISCI ) {
