@@ -19,16 +19,18 @@ if ( !defined( 'LSS_LOADED' ) )
 verify_user( );
 
 // Get user information
-if ( !$db->select( "users", array( "UserName" => $session->user_info['username'] ), "", "0,1" ) )
-    die( "Unable to query database: " . $db->last_error );
+if ( !MySQL::getInstance()->select( "users", array( "UserName" => Session::getInstance()->user_info['username'] ), "", "0,1" ) )
+    die( "Unable to query database: " . MySQL::getInstance()->last_error );
 
-if ( $db->records == 0 )
+if ( MySQL::getInstance()->records == 0 )
     die( "Unable to find user information" );
 
-$user_email = $db->arrayed_result['UserEmail'];
+$user_email = MySQL::getInstance()->arrayed_result['UserEmail'];
 
 function update_account() {
-    global $db, $session, $user_email;
+    global $user_email;
+    
+    $db = MySQL::getInstance();
     
     // Verify CSRF token
     verify_csrf_token( );
@@ -36,7 +38,7 @@ function update_account() {
     require_once( ROOTDIR . '/inc/class.passwordhash.php' );
     $password_hash = new PasswordHash(8, false);
 
-    $current_username = $session->user_info['username'];
+    $current_username = Session::getInstance()->user_info['username'];
 
     if ( !$db->select( "users", array( "UserName" => $current_username ), "", "0,1" ) ) {
         show_msg_box( __( "Unable to query database: " ) . $db->last_error, "red" );
@@ -149,7 +151,7 @@ function update_account() {
     }
 
     if ( $change_user )
-        $session->UserName = $new_username;
+        Session::getInstance()->user_info['username'] = $new_username;
     
     if ( $change_email )
         $current_email = $new_email;
