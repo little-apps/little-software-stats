@@ -94,9 +94,9 @@ if ( !function_exists( 'verify_user' ) ) {
      * @global SecureLogin $login Secure login class
      */
     function verify_user( ) {
-        global $login, $site_url;
+        global $site_url;
 
-        if ( !$login->check_user( ) ) {
+        if ( !SecureLogin::getInstance()->check_user( ) ) {
             redirect( $site_url . "/login.php" );
         }
     }
@@ -110,12 +110,10 @@ if ( !function_exists( 'get_option' ) ) {
      * @return string|null Returns value as a string, otherwise null if name cannot be found
      */
     function get_option( $name ) {
-        global $db;
-        
-        if ( !$db->select( 'options', array( 'name' => $name ), '', '0,1' ) )
+        if ( !MySQL::getInstance()->select( 'options', array( 'name' => $name ), '', '0,1' ) )
             return null;
         
-        return $db->arrayed_result['value'];
+        return MySQL::getInstance()->arrayed_result['value'];
     }
 }
 
@@ -128,14 +126,12 @@ if ( !function_exists( 'set_option' ) ) {
      * @return bool True if value was set, otherwise false if there was an error
      */
     function set_option( $name, $value ) {
-        global $db;
-
         if ( !is_string( $value) )
             $value = strval( $value );
         
         $vars = array( 'name' => $name, 'value' => $value );
         
-        if ( !$db->insert_or_update($vars, $vars, 'options') )
+        if ( !MySQL::getInstance()->insert_or_update($vars, $vars, 'options') )
             return false;
         
         return true;
@@ -149,9 +145,9 @@ if ( !function_exists( 'generate_csrf_token' ) ) {
      * @return string If $echo is false, returns input field
      */
     function generate_csrf_token( $echo = true ) {
-    	global $session;
+    	$session = Session::getInstance();
     	
-        if ( $config->site->csrf == false )
+        if ( Config::getInstance()->site->csrf == false )
             return;
         
         if ( isset( $session->token ) )
@@ -175,9 +171,9 @@ if ( !function_exists( 'verify_csrf_token' ) ) {
      * Verifies that CSRF token is valid 
      */
     function verify_csrf_token() {
-    	global $config, $session;
+    	$session = Session::getInstance();
     	
-        if ( $config->site->csrf == false )
+        if ( Config::getInstance()->site->csrf == false )
             return true;
         
         $is_valid = true;
@@ -270,8 +266,6 @@ if ( !function_exists( 'is_geoip_update_available' ) ) {
      * @return boolean True if update available, otherwise false if current version or error occurred
      */
     function is_geoip_update_available() {
-    	global $session;
-    	
         $last_checked = get_option( 'geoips_database_checked' );
         
         if ( $last_checked != null && ( time() - strtotime( $last_checked ) ) < strtotime( '+2 weeks', 0 ) )
@@ -293,9 +287,12 @@ if ( !function_exists( 'is_geoip_update_available' ) ) {
         set_option( 'geoips_database_checked', date( "Y-m-d" ) );
 
         if ( strtotime( $last_version ) > strtotime( $current_version ) ) {
+        	$session = Session::getInstance();
+        	
         	$session->geoip_update = true;
             $session->geoip_update_url = $download_url;
             $session->geoip_database_ver = $last_version;
+            
             return true;
         } else {
             return false;
@@ -309,8 +306,6 @@ if ( !function_exists( 'is_geoipv6_update_available' ) ) {
      * @return boolean True if update available, otherwise false if current version or error occurred
      */
     function is_geoipv6_update_available() {
-    	global $session;
-    	
         $last_checked = get_option( 'geoips_database_v6_checked' );
         
         if ( $last_checked != null && ( time() - strtotime( $last_checked ) ) < strtotime( '+2 weeks', 0 ) )
@@ -332,9 +327,12 @@ if ( !function_exists( 'is_geoipv6_update_available' ) ) {
         set_option( 'geoips_database_v6_checked', date( "Y-m-d" ) );
 
         if ( strtotime( $last_version ) > strtotime( $current_version ) ) {
+        	$session = Session::getInstance();
+        	
         	$session->geoip_update_v6 = true;
             $session->geoip_update_v6_url = $download_url;
             $session->geoip_database_v6_ver = $last_version;
+            
             return true;
         } else {
             return false;
@@ -348,7 +346,8 @@ if ( !function_exists( 'download_geoip_update' ) ) {
      * @return boolean True if update was successful, otherwise false
      */
     function download_geoip_update() {
-    	global $config, $session;
+    	$session = Session::getInstance();
+    	$config = Config::getInstance();
     	
 		if ( ( isset( $session->geoip_update ) ) && $session->geoip_update ) {
 			$ret = true;
@@ -484,15 +483,13 @@ if ( !function_exists( 'get_language_by_lcid' ) ) {
      * @return string Returns language name, otherwise, 'Unknown' if it couldnt be found 
      */
     function get_language_by_lcid( $lcid ) {
-        global $db;
-
         if ( !is_numeric( $lcid ) )
             return __( 'Unknown' );
         
         $lcid = intval( $lcid );
 
-        if ( $db->select( 'locales', array( 'LCID' => $lcid ), '', '0,1' ) )
-            return $db->arrayed_result['DisplayName'];
+        if ( MySQL::getInstance()->select( 'locales', array( 'LCID' => $lcid ), '', '0,1' ) )
+            return MySQL::getInstance()->arrayed_result['DisplayName'];
 
         return __( 'Unknown' );
     }
@@ -656,9 +653,9 @@ if ( !function_exists( 'get_file_url' ) ) {
      * @return string File URL
      */
     function get_file_url( $file, $query = '', $encode_html = true ) {
-        global $config, $site_url;
+        global $site_url;
 
-        if ( !file_exists( $config->site->path . '/' . ltrim( $file, '/' ) ) )
+        if ( !file_exists( Config::getInstance()->site->path . '/' . ltrim( $file, '/' ) ) )
             return '';
             
         $query_str = '';
@@ -699,7 +696,9 @@ if ( !function_exists( 'get_applications' ) ) {
      * @return array Applications
      */
     function get_applications() {
-        global $db, $needs_refresh, $sanitized_input;
+        global $needs_refresh, $sanitized_input;
+        
+        $db = MySQL::getInstance();
 
         $db->select( "applications" );
 
@@ -769,7 +768,9 @@ if ( !function_exists( 'app_versions' ) ) {
      * @return string HTML Code
      */
     function app_versions() {
-        global $db, $sanitized_input;
+        global $sanitized_input;
+        
+        $db = MySQL::getInstance();
 
         $html = '<select id="versions" class="styledselect">';
         $html .= '<option value="all" ' . ( ( $sanitized_input['ver'] == 'all' ) ? ( 'selected' ) : ( '' ) ) . '>'. __('All Versions') . '</option>';
@@ -800,7 +801,7 @@ if ( !function_exists( 'get_unique_user_info' ) ) {
      * @return array|bool Returns user data or false if nothing found
      */
     function get_unique_user_info( $unique_id ) {
-        global $db;
+        $db = MySQL::getInstance();
 
         $db->select( 'uniqueusers', array( 'UniqueUserId' => $unique_id ), '', '0,1' );
 
@@ -819,7 +820,7 @@ if ( !function_exists( 'get_unique_user_from_session_id' ) ) {
      * @return array|bool Returns unique ID or false if nothing found
      */
     function get_unique_user_from_session_id( $session_id ) {
-        global $db;
+        $db = MySQL::getInstance();
 
         $db->select( 'sessions', array( 'SessionId' => $session_id ), '', '0,1' );
 
@@ -1162,8 +1163,6 @@ if ( !function_exists( 'get_ip_address' ) ) {
 	 * @return string IP Address 
 	 */
 	function get_ip_address() {
-		global $config;
-		
 		if ( !isset( $_SERVER['REMOTE_ADDR'] ) ) {
 			// Most likely being run from command line, use fake IP address
 			
@@ -1173,7 +1172,7 @@ if ( !function_exists( 'get_ip_address' ) ) {
 		}
 		
 	    // Get ip address
-	    if ( $config->site->header_ip_address ) {
+	    if ( Config::getInstance()->site->header_ip_address ) {
 			if ( ( isset( $_SERVER['HTTP_CLIENT_IP'] ) ) && $this->check_ip_address( $_SERVER['HTTP_CLIENT_IP'] ) )
 		        return $_SERVER['HTTP_CLIENT_IP'];
 		    
@@ -1226,7 +1225,7 @@ if ( defined( 'LSS_API' ) ) {
 		 * @return int Returns status code
 		 */
 		function parse_data( $data ) { 
-		    global $api;
+		    $api = API::getInstance();
 		    
 		    $ret = '';
 		    
