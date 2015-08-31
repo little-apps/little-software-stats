@@ -204,12 +204,14 @@ if ( !function_exists( 'get_page_contents' ) ) {
      */
     function get_page_contents( $url, $file_path = '' ) {
         $ret = false;
+        
+        $is_gz = ( strpos( $url, '.gz' ) !== false ? true : false );
 
         if ( function_exists( 'curl_init' ) ) {
             $ch = curl_init( $url );
 
             if ( $file_path != '' ) {
-                if ( strpos( $url, '.gz' ) !== false )
+                if ( $is_gz )
                     $fp = fopen( $file_path . '.gz', 'w' );
                 else
                     $fp = fopen( $file_path, 'w' );
@@ -235,7 +237,7 @@ if ( !function_exists( 'get_page_contents' ) ) {
                 fclose( $fp );
             curl_close( $ch );
 
-            if ( strpos( $url, '.gz' ) !== false ) {
+            if ( $is_gz ) {
                 copy( 'compress.zlib://' . $file_path . '.gz', $file_path );
 
                 if ( file_exists( $file_path ) )
@@ -244,7 +246,7 @@ if ( !function_exists( 'get_page_contents' ) ) {
         } else if ( ini_get('allow_url_fopen') == true ) {
             // Takes 2x as long as cURL
 
-            if ( strpos( $url, '.gz' ) !== false )
+            if ( $is_gz )
                 $url = 'compress.zlib://' . $url;
 
             if ( $file_path == '' ) {
