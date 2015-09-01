@@ -33,7 +33,7 @@ function db_import_sql( $sql ) {
     $queries = array();
     $query = '';
     $comment = false;
-    $replace = array( '{:db_prefix}' => Conifg::getInstance()->mysql->prefix, '{:db_charset}' => 'utf8', '{:db_engine}' => ( in_array('innodb', $engines) ? 'InnoDB' : 'MyISAM' ) );
+    $replace = array( '{:db_prefix}' => Config::getInstance()->mysql->prefix, '{:db_charset}' => 'utf8', '{:db_engine}' => ( in_array('innodb', $engines) ? 'InnoDB' : 'MyISAM' ) );
 
     // read file into array
     $lines = explode("\n", $sql);
