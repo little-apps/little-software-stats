@@ -645,7 +645,7 @@ class API {
         if ( isset( $this->fp_geo_ip ) )
             return false;
 
-        API::getInstance()_key = get_option( 'geoips_api_key' );
+        $api_key = get_option( 'geoips_api_key' );
         $url = 'http://api.geoips.com/ip/'.$this->ip_address.'/key/'.$api_key.'/output/xml';
 	
         if ( !( $data = get_page_contents( $url ) ) )
