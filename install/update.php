@@ -171,6 +171,15 @@ function check_pre_upgrade_needed() {
 function v02_pre_upgrade() {
 	global $errors;
 	
+	if ( !defined( 'SITE_GEOIP_PATH' ) )
+		define( 'SITE_GEOIP_PATH', get_option( 'geoips_database' ) );
+		
+	if ( !defined( 'SITE_GEOIPV6_PATH' ) ) {
+		$geoips_dir = dirname( SITE_GEOIPV6_PATH );
+		
+		define( 'SITE_GEOIPV6_PATH', rtrim( $geoips_dir, '/' ) . '/GeoIPv6.dat' );
+	}
+	
 	// Upgrade config
 	// Convert config file from defines to array
     $config_new = 
@@ -389,7 +398,8 @@ set_time_limit(0); // This may have no affect if web server uses PHP-FPM
 // Set root dir
 if ( !defined( 'ROOTDIR' ) )
     define( 'ROOTDIR', realpath( dirname( __FILE__ ) . '/../' ) );
-    
+
+require_once( ROOTDIR . '/inc/functions.php' );
 require_once( ROOTDIR . '/inc/version.php' );
     
 check_pre_upgrade_needed();
