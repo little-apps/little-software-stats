@@ -199,7 +199,7 @@ function v02_pre_upgrade() {
 				'pass' => strval( MYSQL_PASS ),
 				'db' => strval( MYSQL_DB ),
 				'prefix' => strval( MYSQL_PREFIX ),
-				'persistent' => boolval( MYSQL_PERSISTENT )
+				'persistent' => ( defined( 'MYSQL_PERSISTENT' ) ? (bool)MYSQL_PERSISTENT : false )
 			)
 		);
 		
