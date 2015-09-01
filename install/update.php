@@ -189,8 +189,8 @@ function v02_pre_upgrade() {
 				'path' => strval( SITE_PATH ),
 				'geoip_path' => strval( SITE_GEOIP_PATH ),
 				'geoipv6_path' => strval( SITE_GEOIPV6_PATH ),
-				'debug' => boolval( SITE_DEBUG ),
-				'csrf' => boolval( SITE_CSRF ),
+				'debug' => ( defined( 'SITE_DEBUG' ) ? (bool)SITE_DEBUG : false ),
+				'csrf' => ( defined( 'SITE_CSRF' ) ? (bool)SITE_CSRF : true ),
 				'header_ip_address' => true
 			),
 			'mysql' => array(
