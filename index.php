@@ -28,7 +28,7 @@ if ( $needs_refresh ) {
 }
 
 // Check if data exists
-$app_data_exists = ( $db->select_count( 'sessions', '*', array( 'ApplicationId' => $sanitized_input['id'] ) ) > 0 );
+$app_data_exists = ( MySQL::getInstance()->select_count( 'sessions', '*', array( 'ApplicationId' => $sanitized_input['id'] ) ) > 0 );
 ?>
 <!DOCTYPE html>
 <!--[if IE 6]><html id="ie6" dir="ltr" lang="en"><![endif]-->
@@ -371,7 +371,7 @@ $app_data_exists = ( $db->select_count( 'sessions', '*', array( 'ApplicationId' 
             $( "#to" ).datepicker( "setDate", new Date( toYear, toMonth, toDay ) );
 
             <?php if ( Config::getInstance()->site->debug ) : $page_load_dur = number_format( microtime() - $page_load_start, 3 ) . ' seconds'; ?>
-                $("#loadtime").html('<?php echo $db->total_queries . __( ' queries executed in ' ) . $page_load_dur . "<br /><br />" ?>');
+                $("#loadtime").html('<?php echo MySQL::getInstance()->total_queries . __( ' queries executed in ' ) . $page_load_dur . "<br /><br />" ?>');
             <?php endif; ?>
         });
         </script>

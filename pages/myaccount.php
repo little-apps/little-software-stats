@@ -176,7 +176,7 @@ if ( isset( $_POST['username'] ) ) {
                     <tbody>
                         <tr>
                             <th valign="top"><?php _e( 'Username:' ); ?></th>
-                            <td><input name="username" id="validate-text" type="text" class="inp-form" value="<?php echo $session->user_info['username'] ?>" /></td>
+                            <td><input name="username" id="validate-text" type="text" class="inp-form" value="<?php echo Session::getInstance()->user_info['username'] ?>" /></td>
                             <td id="error"></td>
                         </tr>
                         <tr>
