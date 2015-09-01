@@ -52,7 +52,7 @@ class Callbacks extends Callbacks_Core {
         $config_file = '<?php'."\n";;
         $config_file .= '// See inc/config.sample.php for documentation and example'."\n";
 		$config_file .= 'if ( basename( $_SERVER[\'PHP_SELF\'] ) == \'config.php\' )'."\n";
-		$config_file .= '    die( \'This page cannot be loaded directly\' );'."\n";
+		$config_file .= "\t".'die( \'This page cannot be loaded directly\' );'."\n\n";
         $config_file .= 'return ' . var_export( $config, true ). '; ' . "\n";
 
         @file_put_contents(rtrim($_SESSION['params']['system_path'], '/').'/inc/config.php', $config_file);
