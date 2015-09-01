@@ -20,7 +20,6 @@ if ( !defined( 'ROOTDIR' ) )
 
 if ( @file_exists( ROOTDIR . '/inc/config.php' ) && @filesize( ROOTDIR . '/inc/config.php' ) > 0 ) {
     require_once( ROOTDIR . '/inc/class.config.php' );
-    $config = Config::getInstance();
 } else {
     die( 'You must <a href="install/">install and configure</a> Little Software Stats first' );
 }
@@ -34,31 +33,26 @@ require_once( ROOTDIR . '/inc/version.php' );
 require_once( ROOTDIR . '/inc/functions.php' );
 require_once( ROOTDIR . '/min/utils.php' );
 
-if ( $config->site->debug ) {
+if ( Config::getInstance()->site->debug ) {
     ini_set( 'display_errors', 1 );
     error_reporting( E_ALL );
 }
 
 if ( !defined( 'LSS_API' ) ) { // Sessions aren't used with API
 	require_once( ROOTDIR . '/inc/class.session.php' );
-	$session = Session::getInstance();
-	
-	$login = SecureLogin::getInstance();
 }
-
-$db = MySQL::getInstance();
 
 if ( version_compare( PHP_VERSION, MIN_PHP_VERSION, "<" ) )
     die( __( "It appears that the web server is not running PHP 5. Please contact your administrator to have it upgraded." ) );
 
-if ( version_compare( $db->get_db_version(), MIN_MYSQL_VERSION, "<" ) )
+if ( version_compare( MySQL::getInstance()->get_db_version(), MIN_MYSQL_VERSION, "<" ) )
     die( __( "It appears that the web server is not running PHP 5. Please contact your administrator to have it upgraded." ) );
     
 // Set timezone to UTC
 date_default_timezone_set('UTC');
-$db->execute_sql('SET time_zone = "+00:00"');
+MySQL::getInstance()->execute_sql('SET time_zone = "+00:00"');
 
-if ( empty( $config->site->name ) ) {
+if ( empty( Config::getInstance()->site->name ) ) {
     $site_name = strtolower( $_SERVER['SERVER_NAME'] );
     if ( substr( $site_name, 0, 4 ) == 'www.' )
         define( 'SITE_NAME', substr( $site_name, 4 ) );
@@ -66,24 +60,24 @@ if ( empty( $config->site->name ) ) {
         define( 'SITE_NAME', $site_name );
     unset( $site_name );
 } else {
-	define( 'SITE_NAME', $config->site->name );
+	define( 'SITE_NAME', Config::getInstance()->site->name );
 }
 
-if ( empty( $config->site->noreplyemail ) ) {
+if ( empty( Config::getInstance()->site->noreplyemail ) ) {
     define( 'SITE_NOREPLYEMAIL', 'noreply@'. SITE_NAME );
 } else {
-	define( 'SITE_NOREPLYEMAIL', $config->site->noreplyemail );
+	define( 'SITE_NOREPLYEMAIL', Config::getInstance()->site->noreplyemail );
 }
 
 // Remove leading slash from URL
-$GLOBALS['site_url'] = $config->site->url;
+$GLOBALS['site_url'] = Config::getInstance()->site->url;
 if ( substr( $GLOBALS['site_url'], -1 ) == '/' ) {
     $GLOBALS['site_url'] = rtrim( $GLOBALS['site_url'], '/' );
 }
 
 if ( !defined( 'LSS_API' ) ) {
 	// Make sure user is already logged in
-	if ( $login->check_user() ) {
+	if ( SecureLogin::getInstance()->check_user() ) {
 	    $needs_refresh = false;
 
 	    // Set request variable to default if not set already
@@ -93,7 +87,7 @@ if ( !defined( 'LSS_API' ) ) {
 
 	    // Requires MySQL connection to call mysql_real_escape_string()
 	    foreach ( $_GET as $k => $v ) {
-	        $sanitized_input[$k] = $db->secure_data( $v );
+	        $sanitized_input[$k] = MySQL::getInstance()->secure_data( $v );
 	    }
 
 	    if ( !isset( $sanitized_input['id'] ) ) {
@@ -168,7 +162,7 @@ if ( !defined( 'LSS_API' ) ) {
 	        $needs_refresh = true;
 
 	        // Enable notification of time change
-	        $session->time_changed = true;
+	        Session::getInstance()->time_changed = true;
 	    }
 
 	    unset( $time_range, $end );

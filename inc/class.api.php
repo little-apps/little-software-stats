@@ -29,16 +29,7 @@ class API {
      * @var array Application info
      */
     private $app_info;
-    /**
-     * @var MySQL MySQL Class
-     */
-    private $db;
-    /**
-	 * 
-	 * @var Config Config Class
-	 * 
-	 */
-    private $config;
+
     /**
      * @var resource File pointer for GeoIP database
      */
@@ -67,10 +58,6 @@ class API {
      * Constructor for API class
      */
     function __construct() {
-        global $db, $config;
-        
-        $this->db = $db;
-        $this->config = $config;
         $this->app_info = array();
         $this->ip_address = get_ip_address();
         
@@ -84,9 +71,9 @@ class API {
         
         if ( get_option( 'geoips_service' ) == 'database' ) {
         	if ( $this->is_ipv6 )
-        		$this->fp_geo_ip = geoip_open( $this->config->site->geoipv6_path, GEOIP_STANDARD );
+        		$this->fp_geo_ip = geoip_open( Config::getInstance()->site->geoipv6_path, GEOIP_STANDARD );
         	else
-				$this->fp_geo_ip = geoip_open( $this->config->site->geoip_path, GEOIP_STANDARD );
+				$this->fp_geo_ip = geoip_open( Config::getInstance()->site->geoip_path, GEOIP_STANDARD );
 		}
 
     }
@@ -264,9 +251,9 @@ class API {
                 "CPUArch" => $cpu_arch, "MemTotal" => $mem_total, "MemFree" => $mem_free,
                 "DiskTotal" => $disk_total, "DiskFree" => $disk_free );
         
-        $this->db->insert_or_update( $data, $data, 'uniqueusers' );
+        MySQL::getInstance()->insert_or_update( $data, $data, 'uniqueusers' );
 
-        $this->db->insert( array( "SessionId" => $session_id, "UniqueUserId" => $unique_id, "StartApp" => date('Y-m-d h:i:s', $timestamp), "ApplicationId" => $app_id, "ApplicationVersion" => $app_ver), "sessions" );
+        MySQL::getInstance()->insert( array( "SessionId" => $session_id, "UniqueUserId" => $unique_id, "StartApp" => date('Y-m-d h:i:s', $timestamp), "ApplicationId" => $app_id, "ApplicationVersion" => $app_ver), "sessions" );
 
         if ( !isset( $this->app_info[$session_id] ) )
             $this->app_info[$session_id] = array( 'id' => $app_id, 'ver' => $app_ver );
@@ -290,7 +277,7 @@ class API {
         
         $this->update_last_recieved( $session_id );
         
-        $this->db->update( "sessions", array( "StopApp" => date('Y-m-d h:i:s', $timestamp) ), array( "SessionId" => $session_id ) );
+        MySQL::getInstance()->update( "sessions", array( "StopApp" => date('Y-m-d h:i:s', $timestamp) ), array( "SessionId" => $session_id ) );
         
         return 1;
     }
@@ -316,7 +303,7 @@ class API {
 
         $this->update_last_recieved( $session_id );
         
-        $this->db->insert( array( "EventCategory" => $category, "EventName" => $name, "SessionId" => $session_id, "UtcTimestamp" => date( 'Y-m-d h:i:s', $timestamp ) ), "events_event" );
+        MySQL::getInstance()->insert( array( "EventCategory" => $category, "EventName" => $name, "SessionId" => $session_id, "UtcTimestamp" => date( 'Y-m-d h:i:s', $timestamp ) ), "events_event" );
         
         return 1;
     }
@@ -344,7 +331,7 @@ class API {
         
         $this->update_last_recieved( $session_id );
 
-        $this->db->insert( array( "EventCategory" => $category, "EventName" => $name, "EventValue" => $value, "SessionId" => $session_id, "UtcTimestamp" => date( 'Y-m-d h:i:s', $timestamp ) ), "events_eventvalue" );
+        MySQL::getInstance()->insert( array( "EventCategory" => $category, "EventName" => $name, "EventValue" => $value, "SessionId" => $session_id, "UtcTimestamp" => date( 'Y-m-d h:i:s', $timestamp ) ), "events_eventvalue" );
         
         return 1;
     }
@@ -377,7 +364,7 @@ class API {
         
         $this->update_last_recieved( $session_id );
         
-        $this->db->insert( array( "EventCategory" => $category,  "EventName" => $name, "EventDuration" => $duration, "EventCompleted" => $completed, "SessionId" => $session_id, "UtcTimestamp" => date( 'Y-m-d h:i:s', $timestamp ) ), "events_eventperiod" );
+        MySQL::getInstance()->insert( array( "EventCategory" => $category,  "EventName" => $name, "EventDuration" => $duration, "EventCompleted" => $completed, "SessionId" => $session_id, "UtcTimestamp" => date( 'Y-m-d h:i:s', $timestamp ) ), "events_eventperiod" );
         
         return 1;
     }
@@ -402,7 +389,7 @@ class API {
         
         $this->update_last_recieved( $session_id );
         
-        $this->db->insert( array( "LogMessage" => $message, "UtcTimestamp" => date( 'Y-m-d h:i:s', $timestamp ), "SessionId" => $session_id ), "events_log" );
+        MySQL::getInstance()->insert( array( "LogMessage" => $message, "UtcTimestamp" => date( 'Y-m-d h:i:s', $timestamp ), "SessionId" => $session_id ), "events_log" );
         
         return 1;
     }
@@ -428,7 +415,7 @@ class API {
         
         $this->update_last_recieved( $session_id );
         
-        $this->db->insert( array( "EventCustomName" => $name, "EventCustomValue" => $value, "SessionId" => $session_id, "UtcTimestamp" => date( 'Y-m-d h:i:s', $timestamp ) ), "events_customdata" );
+        MySQL::getInstance()->insert( array( "EventCustomName" => $name, "EventCustomValue" => $value, "SessionId" => $session_id, "UtcTimestamp" => date( 'Y-m-d h:i:s', $timestamp ) ), "events_customdata" );
 
         return 1;
     }
@@ -457,7 +444,7 @@ class API {
         
         $this->update_last_recieved( $session_id );
 
-        $this->db->insert( array( "ExceptionMsg" => $message, "ExceptionStackTrace" => $stack_trace, "ExceptionSource" => $source, "ExceptionTargetSite" => $target_site, "UtcTimestamp" => date( 'Y-m-d h:i:s', $timestamp ), "SessionId" => $session_id ), "events_exception" );
+        MySQL::getInstance()->insert( array( "ExceptionMsg" => $message, "ExceptionStackTrace" => $stack_trace, "ExceptionSource" => $source, "ExceptionTargetSite" => $target_site, "UtcTimestamp" => date( 'Y-m-d h:i:s', $timestamp ), "SessionId" => $session_id ), "events_exception" );
 
         return 1;
     }
@@ -487,7 +474,7 @@ class API {
         if ( !isset( $this->app_info[$session_id] ) )
             $this->app_info[$session_id] = array( 'id' => $app_id, 'ver' => $app_ver );
 
-        $this->db->insert( array( "UtcTimestamp" => date( 'Y-m-d h:i:s', $timestamp ), "SessionId" => $session_id ), "events_install" );
+        MySQL::getInstance()->insert( array( "UtcTimestamp" => date( 'Y-m-d h:i:s', $timestamp ), "SessionId" => $session_id ), "events_install" );
 
         return 1;
     }
@@ -517,7 +504,7 @@ class API {
         if ( !isset( $this->app_info[$session_id] ) )
             $this->app_info[$session_id] = array( 'id' => $app_id, 'ver' => $app_ver );
 
-        $this->db->insert( array( "UtcTimestamp" => date( 'Y-m-d h:i:s', $timestamp ), "SessionId" => $session_id ), "events_uninstall" );
+        MySQL::getInstance()->insert( array( "UtcTimestamp" => date( 'Y-m-d h:i:s', $timestamp ), "SessionId" => $session_id ), "events_uninstall" );
         
         return 1;
     }
@@ -534,12 +521,12 @@ class API {
             return false;
         
         // Check if app id is in database
-        $this->db->select( "applications", array( "ApplicationId" => $app_id ), '', '0,1' );
-        if ( $this->db->records == 0 )
+        MySQL::getInstance()->select( "applications", array( "ApplicationId" => $app_id ), '', '0,1' );
+        if ( MySQL::getInstance()->records == 0 )
             return false;
         
         // Make sure application is recieving
-        if ( $this->db->arrayed_result['ApplicationRecieving'] == 0 )
+        if ( MySQL::getInstance()->arrayed_result['ApplicationRecieving'] == 0 )
             return false;
         
         return true;
@@ -595,12 +582,12 @@ class API {
      * @param string $session_id Session ID
      */
     private function update_last_recieved( $session_id ) {
-        $this->db->select( "sessions", array( "SessionId" => $session_id ) );
+        MySQL::getInstance()->select( "sessions", array( "SessionId" => $session_id ) );
         
-        if ( isset( $this->db->arrayed_result['UniqueUserId'] ) && $this->db->records > 0 ) {
-            $unique_id = $this->db->arrayed_result['UniqueUserId'];
+        if ( isset( MySQL::getInstance()->arrayed_result['UniqueUserId'] ) && MySQL::getInstance()->records > 0 ) {
+            $unique_id = MySQL::getInstance()->arrayed_result['UniqueUserId'];
             
-            $this->db->update( "uniqueusers", array( "LastRecieved" => time() ), array( "UniqueUserId" => $unique_id ) );
+            MySQL::getInstance()->update( "uniqueusers", array( "LastRecieved" => time() ), array( "UniqueUserId" => $unique_id ) );
         }
     }
 
@@ -658,7 +645,7 @@ class API {
         if ( isset( $this->fp_geo_ip ) )
             return false;
 
-        $api_key = get_option( 'geoips_api_key' );
+        API::getInstance()_key = get_option( 'geoips_api_key' );
         $url = 'http://api.geoips.com/ip/'.$this->ip_address.'/key/'.$api_key.'/output/xml';
 	
         if ( !( $data = get_page_contents( $url ) ) )
@@ -695,12 +682,12 @@ class API {
         if ( isset( $this->app_info[$session_id] ) ) {
             return $this->app_info[$session_id];
         } else {
-            $this->db->select( 'sessions', array( 'SessionId' => $session_id ), '', '0,1' );
+            MySQL::getInstance()->select( 'sessions', array( 'SessionId' => $session_id ), '', '0,1' );
 
-            if ( $this->db->records == 0 ) {
+            if ( MySQL::getInstance()->records == 0 ) {
                 $this->app_info[$session_id] = false;
             } else {
-                $this->app_info[$session_id] = array( 'id' => $this->db->arrayed_result['ApplicationId'], 'ver' => $this->db->arrayed_result['ApplicationVersion'] );
+                $this->app_info[$session_id] = array( 'id' => MySQL::getInstance()->arrayed_result['ApplicationId'], 'ver' => MySQL::getInstance()->arrayed_result['ApplicationVersion'] );
             }
 
             return $this->app_info[$session_id];

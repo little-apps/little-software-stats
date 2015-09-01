@@ -24,7 +24,7 @@ $events = array();
 
 $events_chart_data = array();
 
-$grouped_events = $db->select_events( 'eventperiod', $sanitized_input['id'], $sanitized_input['ver'], $sanitized_input['start'], $sanitized_input['end'], false, '', 'EventCategory, EventName' );
+$grouped_events = MySQL::getInstance()->select_events( 'eventperiod', $sanitized_input['id'], $sanitized_input['ver'], $sanitized_input['start'], $sanitized_input['end'], false, '', 'EventCategory, EventName' );
 
 $data_exists = false;
 
@@ -66,35 +66,35 @@ if ( $data_exists ) :
 
         $version_query = ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s.ApplicationVersion = '".$sanitized_input['ver']."' " ) : ( "" ) );
         
-        $category_selected_escaped = $db->secure_data( $category_selected );
-        $event_selected_escaped = $db->secure_data( $event_selected );
+        $category_selected_escaped = MySQL::getInstance()->secure_data( $category_selected );
+        $event_selected_escaped = MySQL::getInstance()->secure_data( $event_selected );
 
         $query = "SELECT e.EventName, e.EventCompleted, COUNT(*) AS total, ";
         $query .= "((SUM(e.EventDuration) / (";
-        $query .= "SELECT COUNT(*) FROM `" . $db->prefix . "events_eventperiod` AS e2 ";
-        $query .= "INNER JOIN `" . $db->prefix . "sessions` AS s2 ON s2.SessionId = e2.SessionId ";
+        $query .= "SELECT COUNT(*) FROM `" . MySQL::getInstance()->prefix . "events_eventperiod` AS e2 ";
+        $query .= "INNER JOIN `" . MySQL::getInstance()->prefix . "sessions` AS s2 ON s2.SessionId = e2.SessionId ";
         $query .= "WHERE s2.ApplicationId = '".$sanitized_input['id']."' ";
         $query .= ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s2.ApplicationVersion = '".$sanitized_input['ver']."' " ) : ( "" ) );
         $query .= "AND e2.UtcTimestamp BETWEEN FROM_UNIXTIME(".$start.") AND FROM_UNIXTIME(".$end.") AND e2.EventCategory = '". $category_selected_escaped."' AND e2.EventName = '".$event_selected_escaped."' AND e2.EventCompleted = e.EventCompleted))";
         $query .= ") AS 'average' ";
-        $query .= "FROM `" . $db->prefix . "events_eventperiod` AS e ";
-        $query .= "INNER JOIN `" . $db->prefix . "sessions` AS s ON s.SessionId = e.SessionId ";
+        $query .= "FROM `" . MySQL::getInstance()->prefix . "events_eventperiod` AS e ";
+        $query .= "INNER JOIN `" . MySQL::getInstance()->prefix . "sessions` AS s ON s.SessionId = e.SessionId ";
         $query .= "WHERE s.ApplicationId = '".$sanitized_input['id']."' " . $version_query;
         $query .= "AND e.UtcTimestamp BETWEEN FROM_UNIXTIME(".$start.") AND FROM_UNIXTIME(".$end.") ";
         $query .= "AND e.EventCategory = '".$category_selected_escaped."' AND e.EventName = '".$event_selected_escaped."' ";
         $query .= "GROUP BY e.EventCompleted";
 
-        $db->execute_sql( $query );
+        MySQL::getInstance()->execute_sql( $query );
 
         unset( $query, $start, $end );
 
         $rows = array();
 
-        if ( $db->records > 0 ) {
-            if ( $db->records == 1 )
-                $rows[] = $db->array_result();
-            else if ( $db->records > 1 )
-                $rows = $db->array_results();
+        if ( MySQL::getInstance()->records > 0 ) {
+            if ( MySQL::getInstance()->records == 1 )
+                $rows[] = MySQL::getInstance()->array_result();
+            else if ( MySQL::getInstance()->records > 1 )
+                $rows = MySQL::getInstance()->array_results();
 
             foreach ( $rows as $row ) {
                 if ( intval( $row['EventCompleted'] ) == 0 )

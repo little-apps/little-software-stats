@@ -28,12 +28,12 @@ $errors = array();
 
 // Import batch sql data
 function db_import_sql( $sql ) {
-    global $db, $errors, $engines, $config;
+    global $errors, $engines;
 
     $queries = array();
     $query = '';
     $comment = false;
-    $replace = array( '{:db_prefix}' => $config->mysql->prefix, '{:db_charset}' => 'utf8', '{:db_engine}' => ( in_array('innodb', $engines) ? 'InnoDB' : 'MyISAM' ) );
+    $replace = array( '{:db_prefix}' => Conifg::getInstance()->mysql->prefix, '{:db_charset}' => 'utf8', '{:db_engine}' => ( in_array('innodb', $engines) ? 'InnoDB' : 'MyISAM' ) );
 
     // read file into array
     $lines = explode("\n", $sql);
@@ -75,8 +75,8 @@ function db_import_sql( $sql ) {
                             $query = rtrim($query, ';');
 
                             // run query
-                            if ( !$db->execute_sql( $query ) ) {
-                                return "Execute failed: " . $db->last_error;
+                            if ( !MySQL::getInstance()->execute_sql( $query ) ) {
+                                return "Execute failed: " . MySQL::getInstance()->last_error;
                             }
 
                             // reset query
@@ -128,15 +128,15 @@ function remove_files($files) {
 
 // Get supported engines
 function get_engines() {
-	global $errors, $db, $engines;
+	global $errors, $engines;
 
-	if ( $db->execute_sql("SHOW ENGINES") ) {
+	if ( MySQL::getInstance()->execute_sql("SHOW ENGINES") ) {
 		$rows = array();
 
-		if( $db->records == 1 )
-			$rows[] = $ret = $db->array_result();
-		else if ( $db->records > 1 )
-			$rows = $ret = $db->array_results();
+		if( MySQL::getInstance()->records == 1 )
+			$rows[] = $ret = MySQL::getInstance()->array_result();
+		else if ( MySQL::getInstance()->records > 1 )
+			$rows = $ret = MySQL::getInstance()->array_results();
 			
 		if ($ret === false) {
 			return false;
@@ -215,7 +215,7 @@ function v02_pre_upgrade() {
 }
 
 function v02upgrade() {
-    global $db, $errors;
+    global $errors;
 
     // Update SQL
 
@@ -413,18 +413,15 @@ if ( ( isset($_POST['pre_update'] ) ) && $_POST['pre_update'] == 'true' && !empt
 	require_once( '../inc/class.config.php' );
 	
 	require_once( '../inc/class.mysql.php' );
-	
-	$config = Config::getInstance();
-	$db = MySQL::getInstance();
 
     // REMOVE THIS AFTER v0.2!
-    if ( !$db->execute_sql( "INSERT IGNORE INTO ".$config->mysql->prefix."options (`Name`, `Value`) VALUES('current_version', '0.1')" ) )
-        $errors[] = "Execute failed: " . $db->last_error;
+    if ( !MySQL::getInstance()->execute_sql( "INSERT IGNORE INTO ".Config::getInstance()->mysql->prefix."options (`Name`, `Value`) VALUES('current_version', '0.1')" ) )
+        $errors[] = "Execute failed: " . MySQL::getInstance()->last_error;
 
-    if ( !$db->select( 'options', array( 'name' => 'current_version' ) ) )
-        $errors[] = "Execute failed: " . $db->last_error;
+    if ( !MySQL::getInstance()->select( 'options', array( 'name' => 'current_version' ) ) )
+        $errors[] = "Execute failed: " . MySQL::getInstance()->last_error;
 
-    $install_version = $db->arrayed_result['value'];
+    $install_version = MySQL::getInstance()->arrayed_result['value'];
 
 	if (empty($errors)) {
 		if (!get_engines()) {
@@ -436,19 +433,19 @@ if ( ( isset($_POST['pre_update'] ) ) && $_POST['pre_update'] == 'true' && !empt
 				$errors[] = 'You already seem to be running an up to date version (v' . VERSION . ').';
 			} else {
 				// Block API calls
-				$db->execute_sql( "UPDATE ".$config->mysql->prefix."applications SET `ApplicationRecieving` = 0" );
+				MySQL::getInstance()->execute_sql( "UPDATE ".Config::getInstance()->mysql->prefix."applications SET `ApplicationRecieving` = 0" );
 			
 				if ( version_compare( $install_version, '0.2', '<' ) && empty( $errors ) )
 					v02upgrade();
 
 				if ( empty( $errors ) ) {
 					// Update installed version
-					if ( !$db->update( 'options', array( 'Value' => VERSION ), array( 'Name' => 'current_version' ) ) )
-						$errors[] = "Execute failed: " . $db->last_error;
+					if ( !MySQL::getInstance()->update( 'options', array( 'Value' => VERSION ), array( 'Name' => 'current_version' ) ) )
+						$errors[] = "Execute failed: " . MySQL::getInstance()->last_error;
 				}
 				
 				// Unblock API calls
-				$db->execute_sql( "UPDATE ".$config->mysql->prefix."applications SET `ApplicationRecieving` = 1" );
+				MySQL::getInstance()->execute_sql( "UPDATE ".Config::getInstance()->mysql->prefix."applications SET `ApplicationRecieving` = 1" );
 			}
 		}
 	}

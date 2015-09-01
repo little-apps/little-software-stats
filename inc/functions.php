@@ -91,7 +91,6 @@ if ( !function_exists( 'redirect' ) ) {
 if ( !function_exists( 'verify_user' ) ) {
     /**
      * Make sure users logged in, otherwise, redirect them to login page
-     * @global SecureLogin $login Secure login class
      */
     function verify_user( ) {
         global $site_url;
@@ -105,7 +104,6 @@ if ( !function_exists( 'verify_user' ) ) {
 if ( !function_exists( 'get_option' ) ) {
     /**
      * Gets value for option
-     * @global MySQL $db MySQL class
      * @param string $name Name to lookup
      * @return string|null Returns value as a string, otherwise null if name cannot be found
      */
@@ -120,7 +118,6 @@ if ( !function_exists( 'get_option' ) ) {
 if ( !function_exists( 'set_option' ) ) {
     /**
      * Sets option value
-     * @global MySQL $db MySQL class
      * @param string $name Name for option
      * @param string $value Value for option
      * @return bool True if value was set, otherwise false if there was an error
@@ -145,16 +142,14 @@ if ( !function_exists( 'generate_csrf_token' ) ) {
      * @return string If $echo is false, returns input field
      */
     function generate_csrf_token( $echo = true ) {
-    	$session = Session::getInstance();
-    	
         if ( Config::getInstance()->site->csrf == false )
             return;
         
-        if ( isset( $session->token ) )
-            $token = $session->token;
+        if ( isset( Session::getInstance()->token ) )
+            $token = Session::getInstance()->token;
         else {
             $token = md5( uniqid( rand(), true ) );
-            $session->token = $token;
+            Session::getInstance()->token = $token;
         }
 
         $ret = '<input name="token" type="hidden" value="'.$token.'" />';
@@ -171,23 +166,21 @@ if ( !function_exists( 'verify_csrf_token' ) ) {
      * Verifies that CSRF token is valid 
      */
     function verify_csrf_token() {
-    	$session = Session::getInstance();
-    	
         if ( Config::getInstance()->site->csrf == false )
             return true;
         
         $is_valid = true;
         
-        if ( !isset( $session->token ) || !isset( $_POST['token'] ) )
+        if ( !isset( Session::getInstance()->token ) || !isset( $_POST['token'] ) )
             $is_valid = false;
 
-        if ( $_POST['token'] != $session->token )
+        if ( $_POST['token'] != Session::getInstance()->token )
             $is_valid = false;
 
         if ( !$is_valid )
             die( __('Cross-site request forgery token is invalid') );
 
-        //unset( $session->token );
+        //unset( Session::getInstance()->token );
     }
 }
 
@@ -287,11 +280,9 @@ if ( !function_exists( 'is_geoip_update_available' ) ) {
         set_option( 'geoips_database_checked', date( "Y-m-d" ) );
 
         if ( strtotime( $last_version ) > strtotime( $current_version ) ) {
-        	$session = Session::getInstance();
-        	
-        	$session->geoip_update = true;
-            $session->geoip_update_url = $download_url;
-            $session->geoip_database_ver = $last_version;
+        	Session::getInstance()->geoip_update = true;
+            Session::getInstance()->geoip_update_url = $download_url;
+            Session::getInstance()->geoip_database_ver = $last_version;
             
             return true;
         } else {
@@ -327,11 +318,9 @@ if ( !function_exists( 'is_geoipv6_update_available' ) ) {
         set_option( 'geoips_database_v6_checked', date( "Y-m-d" ) );
 
         if ( strtotime( $last_version ) > strtotime( $current_version ) ) {
-        	$session = Session::getInstance();
-        	
-        	$session->geoip_update_v6 = true;
-            $session->geoip_update_v6_url = $download_url;
-            $session->geoip_database_v6_ver = $last_version;
+        	Session::getInstance()->geoip_update_v6 = true;
+            Session::getInstance()->geoip_update_v6_url = $download_url;
+            Session::getInstance()->geoip_database_v6_ver = $last_version;
             
             return true;
         } else {
@@ -346,51 +335,48 @@ if ( !function_exists( 'download_geoip_update' ) ) {
      * @return boolean True if update was successful, otherwise false
      */
     function download_geoip_update() {
-    	$session = Session::getInstance();
-    	$config = Config::getInstance();
-    	
-		if ( ( isset( $session->geoip_update ) ) && $session->geoip_update ) {
+    	if ( ( isset( Session::getInstance()->geoip_update ) ) && Session::getInstance()->geoip_update ) {
 			$ret = true;
 			
-			if ( !isset( $session->geoip_update_url ) ) 
+			if ( !isset( Session::getInstance()->geoip_update_url ) ) 
 	            $ret = false;
 	        
-	        if ( !is_string( $session->geoip_update_url ) )
+	        if ( !is_string( Session::getInstance()->geoip_update_url ) )
 	            $ret = false;
 	        
 	        if ( $ret ) {
-				$url = $session->geoip_update_url;
-		        $dst_file = $config->site->geoip_path;
+				$url = Session::getInstance()->geoip_update_url;
+		        $dst_file = Config::getInstance()->site->geoip_path;
 
 		        if ( get_page_contents( $url, $dst_file ) ) {
-		            set_option( 'geoips_database_version', $session->geoip_database_ver );
+		            set_option( 'geoips_database_version', Session::getInstance()->geoip_database_ver );
 		            
-		            unset( $session->geoip_update );
-		            unset( $session->geoip_database_ver );
-		            unset( $session->geoip_update_url );
+		            unset( Session::getInstance()->geoip_update );
+		            unset( Session::getInstance()->geoip_database_ver );
+		            unset( Session::getInstance()->geoip_update_url );
 		        }
 			}
 		}
 		
-		if ( ( isset( $session->geoip_update_v6 ) ) && $session->geoip_update_v6 ) {
+		if ( ( isset( Session::getInstance()->geoip_update_v6 ) ) && Session::getInstance()->geoip_update_v6 ) {
 			$ret = true;
 			
-			if ( !isset( $session->geoip_update_v6_url ) ) 
+			if ( !isset( Session::getInstance()->geoip_update_v6_url ) ) 
 	            $ret = false;
 	        
-	        if ( !is_string( $session->geoip_update_v6_url ) )
+	        if ( !is_string( Session::getInstance()->geoip_update_v6_url ) )
 	            $ret = false;
 	        
 	        if ( $ret ) {
-				$url = $session->geoip_update_v6_url;
-		        $dst_file = $config->site->geoipv6_path;
+				$url = Session::getInstance()->geoip_update_v6_url;
+		        $dst_file = Config::getInstance()->site->geoipv6_path;
 
 		        if ( get_page_contents( $url, $dst_file ) ) {
-		            set_option( 'geoips_database_v6_version', $session->geoip_database_v6_ver );
+		            set_option( 'geoips_database_v6_version', Session::getInstance()->geoip_database_v6_ver );
 		            
-		            unset( $session->geoip_update_v6 );
-		            unset( $session->geoip_database_v6_ver );
-		            unset( $session->geoip_update_v6_url );
+		            unset( Session::getInstance()->geoip_update_v6 );
+		            unset( Session::getInstance()->geoip_database_v6_ver );
+		            unset( Session::getInstance()->geoip_update_v6_url );
 		        }
 			}
 		}
@@ -478,7 +464,6 @@ if ( !function_exists( 'send_mail' ) ) {
 if ( !function_exists( 'get_language_by_lcid' ) ) {
     /**
      * Looks up LCID and returns information
-     * @global MySQL $db Class for MySQL
      * @param int $lcid LCID to lookup
      * @return string Returns language name, otherwise, 'Unknown' if it couldnt be found 
      */
@@ -691,23 +676,20 @@ if ( !function_exists( 'file_url' ) ) {
 if ( !function_exists( 'get_applications' ) ) {
     /**
      * Gets applications info and sets id if its not already
-     * @global MySQL $db Class for MySQL
      * @global bool $needs_refresh Variable for refresh page
      * @return array Applications
      */
     function get_applications() {
         global $needs_refresh, $sanitized_input;
-        
-        $db = MySQL::getInstance();
 
-        $db->select( "applications" );
+        MySQL::getInstance()->select( "applications" );
 
         $apps = array();
 
-        if ( $db->records == 1 ) {            
-            $apps[] = array( 'AppName' => $db->arrayed_result['ApplicationName'], 'AppId' => $db->arrayed_result['ApplicationId'] );
-        } else if ( $db->records > 1 ) {
-            foreach ( $db->arrayed_results as $row ) {
+        if ( MySQL::getInstance()->records == 1 ) {            
+            $apps[] = array( 'AppName' => MySQL::getInstance()->arrayed_result['ApplicationName'], 'AppId' => MySQL::getInstance()->arrayed_result['ApplicationId'] );
+        } else if ( MySQL::getInstance()->records > 1 ) {
+            foreach ( MySQL::getInstance()->arrayed_results as $row ) {
                 $apps[] = array( 'AppName' => $row['ApplicationName'], 'AppId' => $row['ApplicationId'] );
             }
         } else {
@@ -764,24 +746,21 @@ if ( !function_exists( 'get_current_app_name' ) ) {
 if ( !function_exists( 'app_versions' ) ) {
     /**
      * Gets application versions
-     * @global MySQL $db Class for MySQL
      * @return string HTML Code
      */
     function app_versions() {
         global $sanitized_input;
-        
-        $db = MySQL::getInstance();
 
         $html = '<select id="versions" class="styledselect">';
         $html .= '<option value="all" ' . ( ( $sanitized_input['ver'] == 'all' ) ? ( 'selected' ) : ( '' ) ) . '>'. __('All Versions') . '</option>';
 
-        $db->select_distinct( 'ApplicationVersion', 'sessions', array( 'ApplicationId' => $sanitized_input['id'] ), 'ApplicationVersion' );
+        MySQL::getInstance()->select_distinct( 'ApplicationVersion', 'sessions', array( 'ApplicationId' => $sanitized_input['id'] ), 'ApplicationVersion' );
 
-        if ( $db->records == 1 ) {
-            $ver = $db->arrayed_result['ApplicationVersion'];
+        if ( MySQL::getInstance()->records == 1 ) {
+            $ver = MySQL::getInstance()->arrayed_result['ApplicationVersion'];
             $html .= '<option value="'.$ver.'" '.( ( $sanitized_input['ver'] == $ver ) ? ( 'selected' ) : ( '' ) ).'>'.$ver.'</option>';
-        } else if ( $db->records > 1 ) {
-            foreach ( $db->arrayed_results as $row ) {
+        } else if ( MySQL::getInstance()->records > 1 ) {
+            foreach ( MySQL::getInstance()->arrayed_results as $row ) {
                 $ver = $row['ApplicationVersion'];
                 $html .= '<option value="'.$ver.'" '.( ( $sanitized_input['ver'] == $ver ) ? ( 'selected' ) : ( '' ) ).'>'.$ver.'</option>';
             } 
@@ -796,38 +775,32 @@ if ( !function_exists( 'app_versions' ) ) {
 if ( !function_exists( 'get_unique_user_info' ) ) {
     /**
      * Get user data for unique ID
-     * @global MySQL $db Class for MySQL
      * @param string $unique_id Unique ID
      * @return array|bool Returns user data or false if nothing found
      */
     function get_unique_user_info( $unique_id ) {
-        $db = MySQL::getInstance();
+        MySQL::getInstance()->select( 'uniqueusers', array( 'UniqueUserId' => $unique_id ), '', '0,1' );
 
-        $db->select( 'uniqueusers', array( 'UniqueUserId' => $unique_id ), '', '0,1' );
-
-        if ( $db->records == 0 )
+        if ( MySQL::getInstance()->records == 0 )
             return false;
 
-        return $db->arrayed_result;
+        return MySQL::getInstance()->arrayed_result;
     }
 }
 
 if ( !function_exists( 'get_unique_user_from_session_id' ) ) {
     /**
      * Get unique ID from session ID
-     * @global MySQL $db Class for MySQL
      * @param string $session_id Session ID
      * @return array|bool Returns unique ID or false if nothing found
      */
     function get_unique_user_from_session_id( $session_id ) {
-        $db = MySQL::getInstance();
+    	MySQL::getInstance()->select( 'sessions', array( 'SessionId' => $session_id ), '', '0,1' );
 
-        $db->select( 'sessions', array( 'SessionId' => $session_id ), '', '0,1' );
-
-        if ( $db->records == 0 )
+        if ( MySQL::getInstance()->records == 0 )
             return false;
 
-        return $db->arrayed_result['UniqueUserId'];
+        return MySQL::getInstance()->arrayed_result['UniqueUserId'];
     }
 }
 
@@ -1225,8 +1198,6 @@ if ( defined( 'LSS_API' ) ) {
 		 * @return int Returns status code
 		 */
 		function parse_data( $data ) { 
-		    $api = API::getInstance();
-		    
 		    $ret = '';
 		    
 		    if ( isset( $data['ID'] ) )
@@ -1238,7 +1209,7 @@ if ( defined( 'LSS_API' ) ) {
 		    switch ( $data['tp'] ) {
 		        // Start App
 		        case "strApp": 
-		            $ret = $api->start_app( $data['aid'], $data['aver'], $data['ID'], $data['ss'], $data['ts'],
+		            $ret = API::getInstance()->start_app( $data['aid'], $data['aver'], $data['ID'], $data['ss'], $data['ts'],
 		                    $data['osv'], $data['ossp'], $data['osar'], $data['osjv'],
 		                    $data['osnet'], $data['osnsp'], $data['oslng'], $data['osscn'],
 		                    $data['cnm'], $data['cbr'], $data['cfr'], $data['ccr'],
@@ -1246,39 +1217,39 @@ if ( defined( 'LSS_API' ) ) {
 		            break;
 		        // Stop App
 		        case "stApp":
-		            $ret = $api->stop_app( $data['ts'], $data['ss'] );
+		            $ret = API::getInstance()->stop_app( $data['ts'], $data['ss'] );
 		            break;
 		        // Event
 		        case "ev":
-		            $ret = $api->event( $data['ts'], $data['ss'], $data['ca'], $data['nm'] );
+		            $ret = API::getInstance()->event( $data['ts'], $data['ss'], $data['ca'], $data['nm'] );
 		            break;
 		        // Event Value
 		        case "evV":
-		            $ret = $api->event_value( $data['ts'], $data['ss'], $data['ca'], $data['nm'], $data['vl'] );
+		            $ret = API::getInstance()->event_value( $data['ts'], $data['ss'], $data['ca'], $data['nm'], $data['vl'] );
 		            break;
 		        // Event Period
 		        case "evP":
-		            $ret = $api->event_period( $data['ts'], $data['ss'], $data['ca'], $data['nm'], $data['tm'], $data['ec'] );
+		            $ret = API::getInstance()->event_period( $data['ts'], $data['ss'], $data['ca'], $data['nm'], $data['tm'], $data['ec'] );
 		            break;
 		        // Log
 		        case "lg":
-		            $ret = $api->log( $data['ts'], $data['ss'], $data['ms'] );
+		            $ret = API::getInstance()->log( $data['ts'], $data['ss'], $data['ms'] );
 		            break;
 		        // Custom Data
 		        case "ctD":
-		            $ret = $api->custom_data( $data['ts'], $data['ss'], $data['nm'], $data['vl'] );
+		            $ret = API::getInstance()->custom_data( $data['ts'], $data['ss'], $data['nm'], $data['vl'] );
 		            break;
 		        // Exception
 		        case "exC":
-		            $ret = $api->exception( $data['ts'], $data['ss'], $data['msg'], $data['stk'], $data['src'], $data['tgs'] );
+		            $ret = API::getInstance()->exception( $data['ts'], $data['ss'], $data['msg'], $data['stk'], $data['src'], $data['tgs'] );
 		            break;
 		        // Install
 		        case "ist":
-		            $ret = $api->install( $data['ts'], $data['ss'], $data['aid'], $data['aver'] );
+		            $ret = API::getInstance()->install( $data['ts'], $data['ss'], $data['aid'], $data['aver'] );
 		            break;
 		        // Uninstall
 		        case "ust":
-		            $ret = $api->uninstall( $data['ts'], $data['ss'], $data['aid'], $data['aver'] );
+		            $ret = API::getInstance()->uninstall( $data['ts'], $data['ss'], $data['aid'], $data['aver'] );
 		            break;
 		        // No event found
 		        default:

@@ -19,8 +19,8 @@ if ( !defined( 'LSS_LOADED' ) )
 verify_user( );
 
 function add_app() {
-    global $db, $site_url;
-    
+    global $site_url;
+
     // Verify CSRF token
     verify_csrf_token( );
     
@@ -29,8 +29,8 @@ function add_app() {
         return;
     }
 
-    $db->select( "applications", array( "ApplicationName" => $_POST['appname'] ), "", "0,1" );
-    if ( $db->records == 1 ) {
+    MySQL::getInstance()->select( "applications", array( "ApplicationName" => $_POST['appname'] ), "", "0,1" );
+    if ( MySQL::getInstance()->records == 1 ) {
         show_msg_box( __( "That application already exists." ), "red" );
         return;
     }
@@ -38,7 +38,7 @@ function add_app() {
     // Generate App ID
     $app_id = generate_app_id();
 
-    $db->insert( array( "ApplicationName" => $_POST['appname'], "ApplicationId" => $app_id ), "applications" );
+    MySQL::getInstance()->insert( array( "ApplicationName" => $_POST['appname'], "ApplicationId" => $app_id ), "applications" );
 
     show_msg_box( __( "You will be redirected in a moment to the settings page. Click" ) . " <a href='javascript: redirect()'> " . __( "here" ) . "</a> " . __( "if your not redirected" ), "green" );
     echo "<script type='text/javascript'>";

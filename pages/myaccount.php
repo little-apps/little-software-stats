@@ -30,8 +30,6 @@ $user_email = MySQL::getInstance()->arrayed_result['UserEmail'];
 function update_account() {
     global $user_email;
     
-    $db = MySQL::getInstance();
-    
     // Verify CSRF token
     verify_csrf_token( );
     
@@ -40,14 +38,14 @@ function update_account() {
 
     $current_username = Session::getInstance()->user_info['username'];
 
-    if ( !$db->select( "users", array( "UserName" => $current_username ), "", "0,1" ) ) {
-        show_msg_box( __( "Unable to query database: " ) . $db->last_error, "red" );
+    if ( !MySQL::getInstance()->select( "users", array( "UserName" => $current_username ), "", "0,1" ) ) {
+        show_msg_box( __( "Unable to query database: " ) . MySQL::getInstance()->last_error, "red" );
         return;
     }
 
-    $current_id = $db->arrayed_result['UserId'];
-    $current_email = $db->arrayed_result['UserEmail'];
-    $current_pass = $db->arrayed_result['UserPass'];
+    $current_id = MySQL::getInstance()->arrayed_result['UserId'];
+    $current_email = MySQL::getInstance()->arrayed_result['UserEmail'];
+    $current_pass = MySQL::getInstance()->arrayed_result['UserPass'];
 
     $verify_pass = trim( $_POST['password'] );
 
@@ -133,8 +131,8 @@ function update_account() {
         return;
     }
 
-    if ( !$db->update( "users", $new_config, array( "UserId" => $current_id ) ) ) {
-        show_msg_box( __( "Unable to query database: " ) . $db->last_error, "red" );
+    if ( !MySQL::getInstance()->update( "users", $new_config, array( "UserId" => $current_id ) ) ) {
+        show_msg_box( __( "Unable to query database: " ) . MySQL::getInstance()->last_error, "red" );
         return;
     }
 

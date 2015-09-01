@@ -57,7 +57,7 @@ if ( isset( $_POST['submitBtn'] ) ) {
     if ( !$valid ) {
         $error = __( "The CAPTCHA wasn't entered correctly. Go back and try it again." );
     } else {
-        $error = $login->login_user( $username, $password );
+        $error = SecureLogin::getInstance()->login_user( $username, $password );
 
         if ( empty( $error ) ) {
             redirect( $site_url );
@@ -67,12 +67,12 @@ if ( isset( $_POST['submitBtn'] ) ) {
     if ( !$valid )
         $error = __( "The CAPTCHA wasn't entered correctly. Go back and try it again." );
     else
-        $error = $login->forgot_password( $_POST['email'] );
+        $error = SecureLogin::getInstance()->forgot_password( $_POST['email'] );
 } else if ( isset( $_POST['changeBtn'] ) ) {
     if ( !$valid )
         $error = __( "The CAPTCHA wasn't entered correctly. Go back and try it again." );
     else
-        $error = $login->change_password( $_POST['username'], $_POST['password'], $_POST['password2'], $_POST['key'] );
+        $error = SecureLogin::getInstance()->change_password( $_POST['username'], $_POST['password'], $_POST['password2'], $_POST['key'] );
 
     if ( empty( $error ) ) {
         redirect( $site_url . "/login.php" );

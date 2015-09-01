@@ -21,24 +21,24 @@ verify_user( );
 $version_query = ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s.ApplicationVersion = '".$sanitized_input['ver']."' " ) : ( "" ) );
 
 $query = "SELECT u.Country, u.CountryCode, COUNT(*) AS 'total', COUNT(DISTINCT u.UniqueUserId) AS 'unique', ";
-$query .= "((COUNT(*) / (SELECT COUNT(*) FROM `".$db->prefix."sessions` AS s WHERE s.ApplicationId = '".$sanitized_input['id']."' " . $version_query . " AND s.StartApp BETWEEN FROM_UNIXTIME(".$sanitized_input['start'].") AND FROM_UNIXTIME(".$sanitized_input['end']."))) * 100) AS 'percent' ";
-$query .= "FROM `".$db->prefix."sessions` AS s ";
-$query .= "INNER JOIN `".$db->prefix."uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
+$query .= "((COUNT(*) / (SELECT COUNT(*) FROM `".MySQL::getInstance()->prefix."sessions` AS s WHERE s.ApplicationId = '".$sanitized_input['id']."' " . $version_query . " AND s.StartApp BETWEEN FROM_UNIXTIME(".$sanitized_input['start'].") AND FROM_UNIXTIME(".$sanitized_input['end']."))) * 100) AS 'percent' ";
+$query .= "FROM `".MySQL::getInstance()->prefix."sessions` AS s ";
+$query .= "INNER JOIN `".MySQL::getInstance()->prefix."uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
 $query .= "WHERE s.ApplicationId = '".$sanitized_input['id']."' " . $version_query;
 $query .= "AND s.StartApp BETWEEN FROM_UNIXTIME(".$sanitized_input['start'].") AND FROM_UNIXTIME(".$sanitized_input['end'].") ";
 $query .= "GROUP BY u.Country";
 
-$db->execute_sql( $query );
+MySQL::getInstance()->execute_sql( $query );
 
 unset( $query, $version_query );
 
-if ( $db->records > 0 ) :
+if ( MySQL::getInstance()->records > 0 ) :
     $map_chart_data = array();
 
-    if ( $db->records == 1 )
-        $map_chart_data[] = $db->array_result();
-    else if ( $db->records > 1 )
-        $map_chart_data = $db->array_results();
+    if ( MySQL::getInstance()->records == 1 )
+        $map_chart_data[] = MySQL::getInstance()->array_result();
+    else if ( MySQL::getInstance()->records > 1 )
+        $map_chart_data = MySQL::getInstance()->array_results();
 
     $map_chart_json = array();
 

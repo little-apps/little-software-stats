@@ -37,26 +37,26 @@ for ( $i = 0; $i < count( $date_range_day ) - 1; $i++ ) {
     $execute = $no_execute = 0;
 
     $query = "SELECT (";
-    $query .= "SELECT COUNT(*) FROM `" . $db->prefix . "sessions` ";
+    $query .= "SELECT COUNT(*) FROM `" . MySQL::getInstance()->prefix . "sessions` ";
     $query .= "WHERE UniqueUserId = u.UniqueUserId AND ApplicationId = '" . $sanitized_input['id'] . "' " . $version_query . "AND StartApp BETWEEN e.UtcTimestamp AND FROM_UNIXTIME(" . $end . ")";
     $query .= ") AS bounces ";
-    $query .= "FROM `" . $db->prefix . "events_install` AS e ";
-    $query .= "INNER JOIN `" . $db->prefix . "sessions` AS s ON e.SessionId = s.SessionId ";
-    $query .= "INNER JOIN `" . $db->prefix . "uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
+    $query .= "FROM `" . MySQL::getInstance()->prefix . "events_install` AS e ";
+    $query .= "INNER JOIN `" . MySQL::getInstance()->prefix . "sessions` AS s ON e.SessionId = s.SessionId ";
+    $query .= "INNER JOIN `" . MySQL::getInstance()->prefix . "uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
     $query .= "WHERE s.ApplicationId = '" . $sanitized_input['id'] . "' " . $version_query;
     $query .= "AND e.UtcTimestamp BETWEEN FROM_UNIXTIME(" . $start . ") AND FROM_UNIXTIME(" . $end . ")";
 
-    $db->execute_sql( $query );
+    MySQL::getInstance()->execute_sql( $query );
 
     unset( $query, $start, $end );
 
-    if ( $db->records > 0 ) {
+    if ( MySQL::getInstance()->records > 0 ) {
         $rows = array( );
 
-        if ( $db->records == 1 )
-            $rows[] = $db->array_result( );
-        else if ( $db->records > 1 )
-            $rows = $db->array_results( );
+        if ( MySQL::getInstance()->records == 1 )
+            $rows[] = MySQL::getInstance()->array_result( );
+        else if ( MySQL::getInstance()->records > 1 )
+            $rows = MySQL::getInstance()->array_results( );
 
         foreach ( $rows as $row ) {
             $bounces = intval( $row['bounces'] );
@@ -90,17 +90,17 @@ unset( $date_range_day );
 $no_execute_last_month_total = 0;
 
 $query = "SELECT COUNT(*) AS total ";
-$query .= "FROM `" . $db->prefix . "events_install` AS e ";
-$query .= "INNER JOIN `" . $db->prefix . "sessions` AS s ON e.SessionId = s.SessionId ";
-$query .= "INNER JOIN `" . $db->prefix . "uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
+$query .= "FROM `" . MySQL::getInstance()->prefix . "events_install` AS e ";
+$query .= "INNER JOIN `" . MySQL::getInstance()->prefix . "sessions` AS s ON e.SessionId = s.SessionId ";
+$query .= "INNER JOIN `" . MySQL::getInstance()->prefix . "uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
 $query .= "WHERE s.ApplicationId = '" . $sanitized_input['id'] . "' " . $version_query;
 $query .= "AND e.UtcTimestamp BETWEEN FROM_UNIXTIME(" . ( $sanitized_input['start'] - ( 30 * 24 * 3600 )) . ") AND FROM_UNIXTIME(" . $sanitized_input['start'] . ") AND (";
-$query .= "SELECT COUNT(*) FROM `" . $db->prefix . "sessions` ";
+$query .= "SELECT COUNT(*) FROM `" . MySQL::getInstance()->prefix . "sessions` ";
 $query .= "WHERE UniqueUserId = u.UniqueUserId AND ApplicationId = '" . $sanitized_input['id'] . "' " . $version_query . "AND StartApp BETWEEN e.UtcTimestamp AND FROM_UNIXTIME(" . $sanitized_input['start'] . ")) = 1";
 
-$db->execute_sql( $query );
+MySQL::getInstance()->execute_sql( $query );
 
-$row = $db->array_result( );
+$row = MySQL::getInstance()->array_result( );
 
 $no_execute_last_month_total = intval( $row['total'] );
 

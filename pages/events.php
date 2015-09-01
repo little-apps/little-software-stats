@@ -32,7 +32,7 @@ $auniqueusers = array();
 $events_chart_data = array();
 $pie_chart_data = array();
 
-$grouped_events = $db->select_events( 'event', $sanitized_input['id'], $sanitized_input['ver'], $sanitized_input['start'], $sanitized_input['end'], false, '', 'EventCategory, EventName' );
+$grouped_events = MySQL::getInstance()->select_events( 'event', $sanitized_input['id'], $sanitized_input['ver'], $sanitized_input['start'], $sanitized_input['end'], false, '', 'EventCategory, EventName' );
 foreach ( $grouped_events as $event ) {
     $event_category = $event['EventCategory'];
     $event_name = $event['EventName'];
@@ -61,24 +61,24 @@ for ( $i = 0; $i < count( $date_range_day ) - 1 ;$i++ ) {
     $end = $date_range_day[$i + 1];
 
     $query = "SELECT e.EventName, COUNT(" . ( ( $type == 'unique' ) ? ('DISTINCT s.UniqueUserId') : ( '*' ) ) . ") AS 'total' ";
-    $query .= "FROM `".$db->prefix."sessions` AS s ";
-    $query .= "INNER JOIN `".$db->prefix."events_event` AS e ON s.SessionId = e.SessionId ";
+    $query .= "FROM `".MySQL::getInstance()->prefix."sessions` AS s ";
+    $query .= "INNER JOIN `".MySQL::getInstance()->prefix."events_event` AS e ON s.SessionId = e.SessionId ";
     $query .= "WHERE s.ApplicationId = '".$sanitized_input['id']."' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s.ApplicationVersion = '".$sanitized_input['ver']."' " ) : ( "" ) );
     if ( $category_selected != 'all' )
-        $query .= "AND e.EventCategory = '" . $db->secure_data( $category_selected ) . "' ";
+        $query .= "AND e.EventCategory = '" . MySQL::getInstance()->secure_data( $category_selected ) . "' ";
     $query .= "AND e.EventName IS NOT NULL AND e.EventCategory IS NOT NULL ";
     $query .= "AND e.UtcTimestamp BETWEEN FROM_UNIXTIME(".$start.") AND FROM_UNIXTIME(".$end.") ";
     $query .= "GROUP BY e.EventName";
 
-    $db->execute_sql( $query );
+    MySQL::getInstance()->execute_sql( $query );
 
     $rows = array();
 
-    if ($db->records > 0 ) {
-        if ( $db->records == 1 )
-            $rows[] = $db->array_result();
-        elseif ( $db->records > 1 )
-            $rows = $db->array_results();
+    if (MySQL::getInstance()->records > 0 ) {
+        if ( MySQL::getInstance()->records == 1 )
+            $rows[] = MySQL::getInstance()->array_result();
+        elseif ( MySQL::getInstance()->records > 1 )
+            $rows = MySQL::getInstance()->array_results();
 
         foreach ( $rows as $row ) {
             $event_name = $row['EventName'];
@@ -139,25 +139,25 @@ for ( $i = 0; $i < 3; $i++ ) {
     }
 
     $query = "SELECT e.EventName, COUNT(" . ( ( $type == 'unique' ) ? ('DISTINCT s.UniqueUserId') : ( '*' ) ) . ") AS total ";
-    $query .= "FROM `".$db->prefix."sessions` AS s ";
-    $query .= "INNER JOIN `".$db->prefix."events_event` AS e ON s.SessionId = e.SessionId ";
+    $query .= "FROM `".MySQL::getInstance()->prefix."sessions` AS s ";
+    $query .= "INNER JOIN `".MySQL::getInstance()->prefix."events_event` AS e ON s.SessionId = e.SessionId ";
     $query .= "WHERE s.ApplicationId = '".$sanitized_input['id']."' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s.ApplicationVersion = '".$sanitized_input['ver']."' " ) : ( "" ) );
     if ( $category_selected != 'all' )
         $query .= "AND e.EventCategory = '".$category_selected."' ";
     $query .= "AND e.UtcTimestamp BETWEEN FROM_UNIXTIME(".$period_start.") AND FROM_UNIXTIME(".$period_end.") ";
     $query .= "GROUP BY e.EventName";
 
-    $db->execute_sql( $query );
+    MySQL::getInstance()->execute_sql( $query );
 
     unset( $query );
 
     $rows = array();
 
-    if ( $db->records > 0 ) {
-        if ( $db->records == 1 )
-            $rows[] = $db->array_result();
-        else if ( $db->records > 1 )
-            $rows = $db->array_results();
+    if ( MySQL::getInstance()->records > 0 ) {
+        if ( MySQL::getInstance()->records == 1 )
+            $rows[] = MySQL::getInstance()->array_result();
+        else if ( MySQL::getInstance()->records > 1 )
+            $rows = MySQL::getInstance()->array_results();
 
         foreach ( $rows as $row ) {
             $event_name = $row['EventName'];

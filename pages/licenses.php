@@ -48,7 +48,7 @@ for ( $i = 0; $i < count( $date_range_day ) - 1 ;$i++ ) {
     $registered = 0;
     $cracked = 0;
     
-    $custom_data = $db->select_events( 'customdata', $sanitized_input['id'], $sanitized_input['ver'], $start, $end, false, array( 'EventCustomName' => 'License' ) );
+    $custom_data = MySQL::getInstance()->select_events( 'customdata', $sanitized_input['id'], $sanitized_input['ver'], $start, $end, false, array( 'EventCustomName' => 'License' ) );
 
     unset( $start, $end );
 

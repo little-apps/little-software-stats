@@ -24,20 +24,20 @@ $start_point = $date_range_day[0];
 
 // Get lowest & highest date
 $query = "SELECT IFNULL( UNIX_TIMESTAMP( MIN( e.UtcTimestamp ) ), 0 ) AS lowest, IFNULL( UNIX_TIMESTAMP( MAX( e.UtcTimestamp ) ), 1 ) AS highest ";
-$query .= "FROM `".$db->prefix."events_uninstall` AS e ";
-$query .= "INNER JOIN `".$db->prefix."sessions` AS s ON e.SessionId = s.SessionId ";
+$query .= "FROM `".MySQL::getInstance()->prefix."events_uninstall` AS e ";
+$query .= "INNER JOIN `".MySQL::getInstance()->prefix."sessions` AS s ON e.SessionId = s.SessionId ";
 $query .= "WHERE s.ApplicationId = '".$sanitized_input['id']."' ". ( ( $sanitized_input['ver'] != 'all') ? ( "AND s.ApplicationVersion = '" . $sanitized_input['ver'] . "' " ) : ( '' ) );
 
-$db->execute_sql( $query );
+MySQL::getInstance()->execute_sql( $query );
 
 unset( $query );
 
-$db->array_result();
+MySQL::getInstance()->array_result();
 
-if ( is_numeric( $db->arrayed_result['lowest'] ) && is_numeric( $db->arrayed_result['highest'] ) ) :
+if ( is_numeric( MySQL::getInstance()->arrayed_result['lowest'] ) && is_numeric( MySQL::getInstance()->arrayed_result['highest'] ) ) :
 
-    $min_date = intval( $db->arrayed_result['lowest'] );
-    $max_date = intval( $db->arrayed_result['highest'] );
+    $min_date = intval( MySQL::getInstance()->arrayed_result['lowest'] );
+    $max_date = intval( MySQL::getInstance()->arrayed_result['highest'] );
 
     $area_chart_data_uninstalls = array();
     $chart_data_by_period = array();
@@ -47,7 +47,7 @@ if ( is_numeric( $db->arrayed_result['lowest'] ) && is_numeric( $db->arrayed_res
         $start = $date_range_day[$i];
         $end = $date_range_day[$i + 1];
 
-        $total_for_period = $db->select_events( 'uninstall', $sanitized_input['id'], $sanitized_input['ver'], $start, $end, true );
+        $total_for_period = MySQL::getInstance()->select_events( 'uninstall', $sanitized_input['id'], $sanitized_input['ver'], $start, $end, true );
 
         $chart_data_by_period[] = array(
             'start' => $start,
@@ -65,16 +65,16 @@ if ( is_numeric( $db->arrayed_result['lowest'] ) && is_numeric( $db->arrayed_res
     unset( $date_range_day );
 
     // Get execution stats
-    $total_uninstalls = $db->select_events( 'uninstall', $sanitized_input['id'], $sanitized_input['ver'], $min_date, $max_date, true );
-    $period_uninstalls = $db->select_events( 'uninstall', $sanitized_input['id'], $sanitized_input['ver'], $sanitized_input['start'], $sanitized_input['end'], true );
+    $total_uninstalls = MySQL::getInstance()->select_events( 'uninstall', $sanitized_input['id'], $sanitized_input['ver'], $min_date, $max_date, true );
+    $period_uninstalls = MySQL::getInstance()->select_events( 'uninstall', $sanitized_input['id'], $sanitized_input['ver'], $sanitized_input['start'], $sanitized_input['end'], true );
 
     $date_range_total_day = create_date_range_array( $min_date, $max_date, 'day' );
     $date_range_total_month = create_date_range_array( $min_date, $max_date, 'month' );
 
     unset( $min_date, $max_date );
 
-    $day_uninstalls_total = $db->select_events( 'uninstall', $sanitized_input['id'], $sanitized_input['ver'], $date_range_total_day[0], end( $date_range_total_day ), true );
-    $month_uninstalls_total = $db->select_events( 'uninstall', $sanitized_input['id'], $sanitized_input['ver'], $date_range_total_month[0], end( $date_range_total_month ), true );
+    $day_uninstalls_total = MySQL::getInstance()->select_events( 'uninstall', $sanitized_input['id'], $sanitized_input['ver'], $date_range_total_day[0], end( $date_range_total_day ), true );
+    $month_uninstalls_total = MySQL::getInstance()->select_events( 'uninstall', $sanitized_input['id'], $sanitized_input['ver'], $date_range_total_month[0], end( $date_range_total_month ), true );
 
     $day_uninstalls = 0;
     $month_uninstalls = 0;
@@ -90,7 +90,7 @@ if ( is_numeric( $db->arrayed_result['lowest'] ) && is_numeric( $db->arrayed_res
     unset( $month_uninstalls_total, $date_range_total_month );
 
     // Get percentage difference from last month
-    $last_month = $db->select_events( 'uninstall', $sanitized_input['id'], $sanitized_input['ver'], $sanitized_input['start'] - ( 30 * 24 * 3600 ), $sanitized_input['start'], true );
+    $last_month = MySQL::getInstance()->select_events( 'uninstall', $sanitized_input['id'], $sanitized_input['ver'], $sanitized_input['start'] - ( 30 * 24 * 3600 ), $sanitized_input['start'], true );
 
     $percentage_increase_up = false;
     $percentage_increase = calculate_percentage_increase( $last_month, $period_uninstalls );

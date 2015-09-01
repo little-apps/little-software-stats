@@ -25,89 +25,89 @@ $languages = array( );
 
 $version_query = ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s.ApplicationVersion = '" . $sanitized_input['ver'] . "' " ) : ( "" ));
 
-$inner_query = "SELECT COUNT(*) FROM `" . $db->prefix . "sessions` AS s2 WHERE s2.ApplicationId = '" . $sanitized_input['id'] . "' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s2.ApplicationVersion = '" . $sanitized_input['ver'] . "' " ) : ( "" )) . " AND s2.StartApp BETWEEN FROM_UNIXTIME(" . $sanitized_input['start'] . ") AND FROM_UNIXTIME(" . $sanitized_input['end'] . ")";
+$inner_query = "SELECT COUNT(*) FROM `" . MySQL::getInstance()->prefix . "sessions` AS s2 WHERE s2.ApplicationId = '" . $sanitized_input['id'] . "' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s2.ApplicationVersion = '" . $sanitized_input['ver'] . "' " ) : ( "" )) . " AND s2.StartApp BETWEEN FROM_UNIXTIME(" . $sanitized_input['start'] . ") AND FROM_UNIXTIME(" . $sanitized_input['end'] . ")";
 
 $query = "SELECT u.LangID, l.DisplayName, ";
 $query .= "((COUNT(*) / (".$inner_query.")) * 100) AS 'percent' ";
-$query .= "FROM `" . $db->prefix . "sessions` AS s ";
-$query .= "INNER JOIN `" . $db->prefix . "uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
-$query .= "INNER JOIN `" . $db->prefix . "locales` AS l ON u.LangID = l.LCID ";
+$query .= "FROM `" . MySQL::getInstance()->prefix . "sessions` AS s ";
+$query .= "INNER JOIN `" . MySQL::getInstance()->prefix . "uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
+$query .= "INNER JOIN `" . MySQL::getInstance()->prefix . "locales` AS l ON u.LangID = l.LCID ";
 $query .= "WHERE s.ApplicationId = '" . $sanitized_input['id'] . "' " . $version_query;
 $query .= "AND s.StartApp BETWEEN FROM_UNIXTIME(" . $sanitized_input['start'] . ") AND FROM_UNIXTIME(" . $sanitized_input['end'] . ") ";
 $query .= "GROUP BY u.LangID ";
 $query .= "ORDER BY percent DESC ";
 $query .= "LIMIT 0,5";
 
-$db->execute_sql( $query );
+MySQL::getInstance()->execute_sql( $query );
 
 $languages = array( );
 
-if ( $db->records == 1 )
-    $languages[] = $db->array_result( );
-else if ( $db->records > 1 )
-    $languages = $db->array_results( );
+if ( MySQL::getInstance()->records == 1 )
+    $languages[] = MySQL::getInstance()->array_result( );
+else if ( MySQL::getInstance()->records > 1 )
+    $languages = MySQL::getInstance()->array_results( );
 
 $query = "SELECT u.OSVersion, ";
 $query .= "((COUNT(*) / (".$inner_query.")) * 100) AS 'percent' ";
-$query .= "FROM `" . $db->prefix . "sessions` AS s ";
-$query .= "INNER JOIN `" . $db->prefix . "uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
+$query .= "FROM `" . MySQL::getInstance()->prefix . "sessions` AS s ";
+$query .= "INNER JOIN `" . MySQL::getInstance()->prefix . "uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
 $query .= "WHERE s.ApplicationId = '" . $sanitized_input['id'] . "' " . $version_query;
 $query .= "AND s.StartApp BETWEEN FROM_UNIXTIME(" . $sanitized_input['start'] . ") AND FROM_UNIXTIME(" . $sanitized_input['end'] . ") ";
 $query .= "GROUP BY u.OSVersion ";
 $query .= "ORDER BY percent DESC ";
 $query .= "LIMIT 0,5";
 
-$db->execute_sql( $query );
+MySQL::getInstance()->execute_sql( $query );
 
 $operating_systems = array( );
 
-if ( $db->records == 1 )
-    $operating_systems[] = $db->array_result( );
-else if ( $db->records > 1 )
-    $operating_systems = $db->array_results( );
+if ( MySQL::getInstance()->records == 1 )
+    $operating_systems[] = MySQL::getInstance()->array_result( );
+else if ( MySQL::getInstance()->records > 1 )
+    $operating_systems = MySQL::getInstance()->array_results( );
 
 $query = "SELECT u.Country, ";
 $query .= "((COUNT(*) / (".$inner_query.")) * 100) AS 'percent' ";
-$query .= "FROM `" . $db->prefix . "sessions` AS s ";
-$query .= "INNER JOIN `" . $db->prefix . "uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
+$query .= "FROM `" . MySQL::getInstance()->prefix . "sessions` AS s ";
+$query .= "INNER JOIN `" . MySQL::getInstance()->prefix . "uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
 $query .= "WHERE s.ApplicationId = '" . $sanitized_input['id'] . "' " . $version_query;
 $query .= "AND s.StartApp BETWEEN FROM_UNIXTIME(" . $sanitized_input['start'] . ") AND FROM_UNIXTIME(" . $sanitized_input['end'] . ") ";
 $query .= "GROUP BY u.Country ";
 $query .= "ORDER BY percent DESC ";
 $query .= "LIMIT 0,5";
 
-$db->execute_sql( $query );
+MySQL::getInstance()->execute_sql( $query );
 
 $countries = array( );
 
-if ( $db->records == 1 )
-    $countries[] = $db->array_result( );
-else if ( $db->records > 1 )
-    $countries = $db->array_results( );
+if ( MySQL::getInstance()->records == 1 )
+    $countries[] = MySQL::getInstance()->array_result( );
+else if ( MySQL::getInstance()->records > 1 )
+    $countries = MySQL::getInstance()->array_results( );
 
 // Get events
 $version_query = ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s.ApplicationVersion = '" . $sanitized_input['ver'] . "' " ) : ( "" ));
 
-$inner_query = "SELECT COUNT(*) FROM `" . $db->prefix . "events_event` AS e2 INNER JOIN `" . $db->prefix . "sessions` AS s2 ON s2.SessionId = e2.SessionId WHERE s2.ApplicationId = '" . $sanitized_input['id'] . "' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s2.ApplicationVersion = '" . $sanitized_input['ver'] . "' " ) : ( "" )) . " AND e2.UtcTimestamp BETWEEN FROM_UNIXTIME(" . $sanitized_input['start'] . ") AND FROM_UNIXTIME(" . $sanitized_input['end'] . ")";
+$inner_query = "SELECT COUNT(*) FROM `" . MySQL::getInstance()->prefix . "events_event` AS e2 INNER JOIN `" . MySQL::getInstance()->prefix . "sessions` AS s2 ON s2.SessionId = e2.SessionId WHERE s2.ApplicationId = '" . $sanitized_input['id'] . "' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s2.ApplicationVersion = '" . $sanitized_input['ver'] . "' " ) : ( "" )) . " AND e2.UtcTimestamp BETWEEN FROM_UNIXTIME(" . $sanitized_input['start'] . ") AND FROM_UNIXTIME(" . $sanitized_input['end'] . ")";
 
 $query = "SELECT EventName, ";
 $query .= "((COUNT(*) / (".$inner_query.")) * 100) AS 'percent' ";
-$query .= "FROM `" . $db->prefix . "events_event` AS e ";
-$query .= "INNER JOIN `" . $db->prefix . "sessions` AS s ON s.SessionId = e.SessionId ";
+$query .= "FROM `" . MySQL::getInstance()->prefix . "events_event` AS e ";
+$query .= "INNER JOIN `" . MySQL::getInstance()->prefix . "sessions` AS s ON s.SessionId = e.SessionId ";
 $query .= "WHERE s.ApplicationId = '" . $sanitized_input['id'] . "' " . $version_query;
 $query .= "AND e.UtcTimestamp BETWEEN FROM_UNIXTIME(" . $sanitized_input['start'] . ") AND FROM_UNIXTIME(" . $sanitized_input['end'] . ") ";
 $query .= "GROUP BY EventName ";
 $query .= "ORDER BY percent DESC ";
 $query .= "LIMIT 0,5";
 
-$db->execute_sql( $query );
+MySQL::getInstance()->execute_sql( $query );
 
 $events = array( );
 
-if ( $db->records == 1 )
-    $events[] = $db->array_result( );
-else if ( $db->records > 1 )
-    $events = $db->array_results( );
+if ( MySQL::getInstance()->records == 1 )
+    $events[] = MySQL::getInstance()->array_result( );
+else if ( MySQL::getInstance()->records > 1 )
+    $events = MySQL::getInstance()->array_results( );
 
 unset( $query, $version_query );
 
@@ -131,9 +131,9 @@ for ( $i = 0; $i < count( $date_range ) - 1; $i++ ) {
     $start = $date_range[$i];
     $end = $date_range[$i + 1];
 
-    $execs = $db->select_sessions( $sanitized_input['id'], $sanitized_input['ver'], $start, $end, '*', false, true );
-    $installs = $db->select_events( 'install', $sanitized_input['id'], $sanitized_input['ver'], $start, $end, true );
-    $uninstalls = $db->select_events( 'uninstall', $sanitized_input['id'], $sanitized_input['ver'], $start, $end, true );
+    $execs = MySQL::getInstance()->select_sessions( $sanitized_input['id'], $sanitized_input['ver'], $start, $end, '*', false, true );
+    $installs = MySQL::getInstance()->select_events( 'install', $sanitized_input['id'], $sanitized_input['ver'], $start, $end, true );
+    $uninstalls = MySQL::getInstance()->select_events( 'uninstall', $sanitized_input['id'], $sanitized_input['ver'], $start, $end, true );
 
     unset( $start, $end );
 

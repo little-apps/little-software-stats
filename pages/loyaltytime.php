@@ -25,7 +25,7 @@ $six_to_ten = 0;
 $eleven_to_twenty = 0;
 $twenty_one = 0;
 
-$unique_users_total = $db->select_sessions( $sanitized_input['id'], $sanitized_input['ver'], $sanitized_input['start'], $sanitized_input['end'], 'UniqueUserId', true, true );
+$unique_users_total = MySQL::getInstance()->select_sessions( $sanitized_input['id'], $sanitized_input['ver'], $sanitized_input['start'], $sanitized_input['end'], 'UniqueUserId', true, true );
 
 if ( $unique_users_total > 0 ) :
     for ( $i = 0; $i < 6; $i++ ) {
@@ -51,18 +51,18 @@ if ( $unique_users_total > 0 ) :
 
         $query = "SELECT COUNT(*) AS 'count' FROM (";
         $query .= "SELECT COUNT(*) AS total ";
-        $query .= "FROM `".$db->prefix."sessions` AS s ";
+        $query .= "FROM `".MySQL::getInstance()->prefix."sessions` AS s ";
         $query .= "WHERE s.ApplicationId = '".$sanitized_input['id']."' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s.ApplicationVersion = '".$sanitized_input['ver']."' " ) : ( "" ) );
         $query .= "AND s.StartApp BETWEEN FROM_UNIXTIME(".$sanitized_input['start'].") AND FROM_UNIXTIME(".$sanitized_input['end'].") ";
         $query .= "GROUP BY UniqueUserId ";
         $query .= "HAVING " . $having_query;
         $query .= ") AS t";
 
-        $db->execute_sql( $query );
+        MySQL::getInstance()->execute_sql( $query );
 
         unset( $query, $having_query );
 
-        $row = $db->array_result();
+        $row = MySQL::getInstance()->array_result();
         $var = intval( $row['count'] );
 
         unset( $row );

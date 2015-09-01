@@ -113,23 +113,21 @@ class MySQL {
      * @return bool Returns true if connection has been made 
      */
     private function connect( ) {
-    	global $config;
-    	
     	// Use persistant connection?
-    	$persistant = (bool)$config->mysql->persistent;
+    	$persistant = (bool)Config::getInstance()->mysql->persistent;
     	
         $this->mysqli_loaded = extension_loaded( 'mysqli' );
 
         if ( $this->mysqli_loaded ) {
             if ( $persistant )
-                $this->db_link = @mysqli_connect( 'p:' . $config->mysql->host, $config->mysql->user, $config->mysql->pass );
+                $this->db_link = @mysqli_connect( 'p:' . Config::getInstance()->mysql->host, $configConfig::getInstance()->mysql->user, Config::getInstance()->mysql->pass );
             else
-                $this->db_link = @mysqli_connect( $config->mysql->host, $config->mysql->user, $config->mysql->pass );
+                $this->db_link = @mysqli_connect( Config::getInstance()->mysql->host, Config::getInstance()->mysql->user, Config::getInstance()->mysql->pass );
         } else {
             if ( $persistant )
-                $this->db_link = @mysql_pconnect( $config->mysql->host, $config->mysql->user, $config->mysql->pass );
+                $this->db_link = @mysql_pconnect( Config::getInstance()->mysql->host, Config::getInstance()->mysql->user, Config::getInstance()->mysql->pass );
             else
-                $this->db_link = @mysql_connect( $config->mysql->host, $config->mysql->user, $config->mysql->pass );
+                $this->db_link = @mysql_connect( Config::getInstance()->mysql->host, Config::getInstance()->mysql->user, Config::getInstance()->mysql->pass );
         }
         
         $is_connected = ( $this->db_link ? true : false );
@@ -149,7 +147,7 @@ class MySQL {
         	die($message);
         }
 
-        if ( !$this->use_db( $config->mysql->db ) ) {
+        if ( !$this->use_db( Config::getInstance()->mysql->db ) ) {
         	if ( defined( 'LSS_API' ) ) {
 				$message = get_error( -7 );
 			} else {
@@ -159,7 +157,7 @@ class MySQL {
             die( $message );
         }
         
-        $this->prefix = $config->mysql->prefix;
+        $this->prefix = Config::getInstance()->mysql->prefix;
 
         return true;
     }

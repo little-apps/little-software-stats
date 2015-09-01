@@ -21,8 +21,6 @@ define( 'LSS_API', true );
 require_once dirname( __FILE__ ) .'/inc/main.php';
 require_once ROOTDIR . '/inc/class.api.php';
 
-$api = API::getInstance();
-
 $type = ( ( isset( $_GET['type'] ) ) ? ( strtolower( $_GET['type'] ) ) : ( 'json' ) );
 if ( $type != 'json' && $type != 'xml' )
     lss_exit( 'Invalid data format specified' );
@@ -122,7 +120,7 @@ if ( $type == 'json' ) {
 } else {
     $sorted_xml = array();
 
-    if ( $config->site->debug ) {
+    if ( Config::getInstance()->site->debug ) {
         $xml = simplexml_load_string( $post_data, 'SimpleXMLElement', LIBXML_NOCDATA );
     } else {
         // Suppress XML parsing errors

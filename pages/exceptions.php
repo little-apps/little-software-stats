@@ -30,7 +30,7 @@ for ( $i = 0; $i < count( $date_range_day ) - 1 ;$i++ ) {
     $start = $date_range_day[$i];
     $end = $date_range_day[$i + 1];
 
-    $exceptions = $db->select_events( 'exception', $sanitized_input['id'], $sanitized_input['ver'], $start, $end, true );
+    $exceptions = MySQL::getInstance()->select_events( 'exception', $sanitized_input['id'], $sanitized_input['ver'], $start, $end, true );
 
     $chart_data['Exceptions'][] = $exceptions;
 
@@ -44,24 +44,24 @@ unset( $date_range_day );
 
 if ( $exceptions_exist ) :
     $query = "SELECT e.ExceptionStackTrace, e.ExceptionMsg, e.ExceptionSource, e.ExceptionTargetSite, UNIX_TIMESTAMP(e.UtcTimestamp) AS `UtcTimestamp`, s.UniqueUserId, s.ApplicationVersion, u.OSVersion, u.OSServicePack ";
-    $query .= "FROM `".$db->prefix."events_exception` AS e ";
-    $query .= "INNER JOIN `".$db->prefix."sessions` AS s ON e.SessionId = s.SessionId ";
-    $query .= "INNER JOIN `".$db->prefix."uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
+    $query .= "FROM `".MySQL::getInstance()->prefix."events_exception` AS e ";
+    $query .= "INNER JOIN `".MySQL::getInstance()->prefix."sessions` AS s ON e.SessionId = s.SessionId ";
+    $query .= "INNER JOIN `".MySQL::getInstance()->prefix."uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
     $query .= "WHERE s.ApplicationId = '".$sanitized_input['id']."' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s.ApplicationVersion = '".$sanitized_input['ver']."' " ) : ( "" ) );
     $query .= "AND e.UtcTimestamp BETWEEN FROM_UNIXTIME(".$sanitized_input['start'].") AND FROM_UNIXTIME(".$sanitized_input['end'].") ";
     //$query .= "GROUP BY s.UniqueUserId";
 
-    $db->execute_sql( $query );
+    MySQL::getInstance()->execute_sql( $query );
 
     unset( $query );
 
     $event_rows = array();
 
-    if ( $db->records > 0 ) {
-        if ( $db->records == 1 )
-            $event_rows[] = $db->array_result();
-        else if ( $db->records > 1 )
-            $event_rows = $db->array_results();
+    if ( MySQL::getInstance()->records > 0 ) {
+        if ( MySQL::getInstance()->records == 1 )
+            $event_rows[] = MySQL::getInstance()->array_result();
+        else if ( MySQL::getInstance()->records > 1 )
+            $event_rows = MySQL::getInstance()->array_results();
 
         $exception_data = array();
 

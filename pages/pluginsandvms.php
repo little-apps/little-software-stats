@@ -38,21 +38,21 @@ for ( $i = 0; $i < count( $date_range_day ) - 1 ;$i++ ) {
     $end = $date_range_day[$i + 1];
     
     $query = "SELECT u.JavaVer, COUNT(" . ( ( $type == 'unique' ) ? ('DISTINCT s.UniqueUserId') : ( '*' ) ) . ") AS 'total'";
-    $query .= "FROM `".$db->prefix."sessions` AS s ";
-    $query .= "INNER JOIN `".$db->prefix."uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
+    $query .= "FROM `".MySQL::getInstance()->prefix."sessions` AS s ";
+    $query .= "INNER JOIN `".MySQL::getInstance()->prefix."uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
     $query .= "WHERE s.ApplicationId = '".$sanitized_input['id']."' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s.ApplicationVersion = '".$sanitized_input['ver']."' " ) : ( "" ) );
     $query .= "AND s.StartApp BETWEEN FROM_UNIXTIME(".$start.") AND FROM_UNIXTIME(".$end.") ";
     $query .= "GROUP BY u.JavaVer";
     
-    $db->execute_sql( $query );
+    MySQL::getInstance()->execute_sql( $query );
     
     $rows = array();
 
-    if ( $db->records > 0 ) {
-        if ( $db->records == 1 )
-            $rows[] = $db->array_result();
-        else if ( $db->records > 1 )
-            $rows = $db->array_results();
+    if ( MySQL::getInstance()->records > 0 ) {
+        if ( MySQL::getInstance()->records == 1 )
+            $rows[] = MySQL::getInstance()->array_result();
+        else if ( MySQL::getInstance()->records > 1 )
+            $rows = MySQL::getInstance()->array_results();
 
         foreach ( $rows as $row ) {
             $java_ver = 'v' . rtrim( (string)$row['JavaVer'], ".0" );
@@ -80,23 +80,23 @@ for ( $i = 0; $i < count( $date_range_day ) - 1 ;$i++ ) {
     }
     
     $query = "SELECT u.NetVer, COUNT(" . ( ( $type == 'unique' ) ? ('DISTINCT s.UniqueUserId') : ( '*' ) ) . ") AS 'total'";
-    $query .= "FROM `".$db->prefix."sessions` AS s ";
-    $query .= "INNER JOIN `".$db->prefix."uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
+    $query .= "FROM `".MySQL::getInstance()->prefix."sessions` AS s ";
+    $query .= "INNER JOIN `".MySQL::getInstance()->prefix."uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
     $query .= "WHERE s.ApplicationId = '".$sanitized_input['id']."' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s.ApplicationVersion = '".$sanitized_input['ver']."' " ) : ( "" ) );
     $query .= "AND s.StartApp BETWEEN FROM_UNIXTIME(".$start.") AND FROM_UNIXTIME(".$end.") ";
     $query .= "GROUP BY u.NetVer";
     
-    $db->execute_sql( $query );
+    MySQL::getInstance()->execute_sql( $query );
 
     unset( $query, $start, $end );
     
     $rows = array();
 
-    if ( $db->records > 0 ) {
-        if ( $db->records == 1 )
-            $rows[] = $db->array_result();
-        else if ( $db->records > 1 )
-            $rows = $db->array_results();
+    if ( MySQL::getInstance()->records > 0 ) {
+        if ( MySQL::getInstance()->records == 1 )
+            $rows[] = MySQL::getInstance()->array_result();
+        else if ( MySQL::getInstance()->records > 1 )
+            $rows = MySQL::getInstance()->array_results();
 
         foreach ( $rows as $row ) {
             $net_ver = 'v' . rtrim( (string)$row['NetVer'], ".0" );

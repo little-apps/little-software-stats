@@ -18,14 +18,14 @@ if ( !defined( 'LSS_LOADED' ) )
 // Make sure user is logged in
 verify_user( );
 
-if ( !$db->select( "applications", array( "ApplicationId" => $sanitized_input['id'] ), "", "0,1" ) )
-    die( "Unable to query database: " . $db->last_error );
+if ( !MySQL::getInstance()->select( "applications", array( "ApplicationId" => $sanitized_input['id'] ), "", "0,1" ) )
+    die( "Unable to query database: " . MySQL::getInstance()->last_error );
 
-if ( $db->records == 0 )
+if ( MySQL::getInstance()->records == 0 )
     die( "Unable to find application information" );
 
-$app_name = $db->arrayed_result['ApplicationName'];
-$application_recieving = $db->arrayed_result['ApplicationRecieving'];
+$app_name = MySQL::getInstance()->arrayed_result['ApplicationName'];
+$application_recieving = MySQL::getInstance()->arrayed_result['ApplicationRecieving'];
 
 if ( isset( $_POST['type'] ) ) {
     // Verify CSRF token
@@ -38,8 +38,8 @@ if ( isset( $_POST['type'] ) ) {
 
         if ( $application_name == '' ) {
             show_msg_box( __( "The application name cannot be empty" ), "red" );
-        } else if ( !$db->update( "applications", array( "ApplicationName" => $application_name ), array( "ApplicationId" => $sanitized_input['id'] ) ) ) {
-            show_msg_box( __( "Unable to query database: " ) . $db->last_error, "red" );
+        } else if ( !MySQL::getInstance()->update( "applications", array( "ApplicationName" => $application_name ), array( "ApplicationId" => $sanitized_input['id'] ) ) ) {
+            show_msg_box( __( "Unable to query database: " ) . MySQL::getInstance()->last_error, "red" );
         } else {
             show_msg_box( __( "This page will be refreshed in a moment. Click" ) . " <a href='javascript: refreshUrl()'>" . __( "here" ) . "</a> " . __( "if your not redirected" ), "green" );
             echo "<script type='text/javascript'>";
@@ -49,11 +49,11 @@ if ( isset( $_POST['type'] ) ) {
     } else if ( $_POST['type'] == 'reset' ) {
         // Remove all users + sessions + events w/ application id
         $query = "DELETE u.*, s.*, e.* ";
-        $query .= "FROM `".$db->prefix."uniqueusers` AS u, `".$db->prefix."sessions` AS s, `".$db->prefix."events` AS e ";
+        $query .= "FROM `".MySQL::getInstance()->prefix."uniqueusers` AS u, `".MySQL::getInstance()->prefix."sessions` AS s, `".MySQL::getInstance()->prefix."events` AS e ";
         $query .= "WHERE u.UniqueUserId = s.UniqueUserId AND s.SessionId = e.SessionId AND s.ApplicationId = '" . $sanitized_input['id'] . "'";
         
-        if ( !$db->execute_sql( $query ) ) {
-            show_msg_box( __( "Unable to query database: " ) . $db->last_error, "red" );
+        if ( !MySQL::getInstance()->execute_sql( $query ) ) {
+            show_msg_box( __( "Unable to query database: " ) . MySQL::getInstance()->last_error, "red" );
         } else {
             show_msg_box( __( "This page will be refreshed in a moment. Click" ) . " <a href='javascript: refreshUrl()'>" . __( "here" ) . "</a> " . __( "if your not redirected" ), "green" );
             echo "<script type='text/javascript'>";
@@ -65,8 +65,8 @@ if ( isset( $_POST['type'] ) ) {
     } else if ( $_POST['type'] == 'status' ) {
         // Start/Stop application
 
-        if ( !$db->update( "applications", array( "ApplicationRecieving" => !( $application_recieving ) ), array( "ApplicationId" => $sanitized_input['id'] ) ) ) {
-            show_msg_box( __( "Unable to query database: " ) . $db->last_error, "red" );
+        if ( !MySQL::getInstance()->update( "applications", array( "ApplicationRecieving" => !( $application_recieving ) ), array( "ApplicationId" => $sanitized_input['id'] ) ) ) {
+            show_msg_box( __( "Unable to query database: " ) . MySQL::getInstance()->last_error, "red" );
         } else {
             show_msg_box( __( "This page will be refreshed in a moment. Click" ) . " <a href='javascript: refreshUrl()'>" . __( "here" ) . "</a> " . __( "if your not redirected" ), "green" );
             echo "<script type='text/javascript'>";

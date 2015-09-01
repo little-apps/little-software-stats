@@ -36,18 +36,18 @@ for ( $i = 0; $i < count( $date_range_day ) - 1 ;$i++ ) {
     
     $query = "SELECT COUNT(*) AS 'count' FROM (";
     $query .= "SELECT COUNT(*) AS total ";
-    $query .= "FROM `".$db->prefix."sessions` ";
+    $query .= "FROM `".MySQL::getInstance()->prefix."sessions` ";
     $query .= "WHERE ApplicationId = '".$sanitized_input['id']."' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s.ApplicationVersion = '".$sanitized_input['ver']."' " ) : ( "" ) );
     $query .= "AND StartApp BETWEEN FROM_UNIXTIME(".$start.") AND FROM_UNIXTIME(".$end.") ";
     $query .= "GROUP BY UniqueUserId ";
     $query .= "HAVING (COUNT(*)) = 1 ";
     $query .= ") AS t";
     
-    $db->execute_sql( $query );
+    MySQL::getInstance()->execute_sql( $query );
 
     unset( $query );
 
-    $row = $db->array_result();
+    $row = MySQL::getInstance()->array_result();
     $count = intval( $row['count'] );
 
     if ( $count > 0 && !$data_exists )
@@ -60,18 +60,18 @@ for ( $i = 0; $i < count( $date_range_day ) - 1 ;$i++ ) {
     
     $query = "SELECT COUNT(*) AS 'count' FROM (";
     $query .= "SELECT COUNT(*) AS total ";
-    $query .= "FROM `".$db->prefix."sessions` ";
+    $query .= "FROM `".MySQL::getInstance()->prefix."sessions` ";
     $query .= "WHERE ApplicationId = '".$sanitized_input['id']."' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s.ApplicationVersion = '".$sanitized_input['ver']."' " ) : ( "" ) );
     $query .= "AND StartApp BETWEEN FROM_UNIXTIME(".$start.") AND FROM_UNIXTIME(".$end.") ";
     $query .= "GROUP BY UniqueUserId ";
     $query .= "HAVING (COUNT(*)) > 1";
     $query .= ") AS t";
     
-    $db->execute_sql( $query );
+    MySQL::getInstance()->execute_sql( $query );
 
     unset( $query );
     
-    $row = $db->array_result();
+    $row = MySQL::getInstance()->array_result();
     $count = intval( $row['count'] );
 
     if ( $count > 0 && !$data_exists )
@@ -88,16 +88,16 @@ unset( $date_range_day );
 // Get new users from last month   
 $query = "SELECT COUNT(*) AS 'count' FROM (";
 $query .= "SELECT COUNT(*) AS total ";
-$query .= "FROM `".$db->prefix."sessions` ";
+$query .= "FROM `".MySQL::getInstance()->prefix."sessions` ";
 $query .= "WHERE ApplicationId = '".$sanitized_input['id']."' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s.ApplicationVersion = '".$sanitized_input['ver']."' " ) : ( "" ) );
 $query .= "AND StartApp BETWEEN FROM_UNIXTIME(". ( $sanitized_input['start'] - ( 30 * 24 * 3600 ) ).") AND FROM_UNIXTIME(".$sanitized_input['start'].") ";
 $query .= "GROUP BY UniqueUserId ";
 $query .= "HAVING (COUNT(*)) = 1 ";
 $query .= ") AS t";
 
-$db->execute_sql( $query );
+MySQL::getInstance()->execute_sql( $query );
 
-$row = $db->array_result();
+$row = MySQL::getInstance()->array_result();
 $new_last_month_total = intval( $row['count'] );
 
 unset ( $query, $row );

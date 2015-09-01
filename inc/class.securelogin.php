@@ -44,13 +44,10 @@ class SecureLogin {
      * Constructor for SecureLogin class
      */
     function __construct( ) {
-        $session = Session::getInstance();
-
-        $this->db = MySQL::getInstance();
         $this->password_hash = new PasswordHash(8, false);
 
-        if( !isset( $session->user_info ) )
-            $session->user_info = false;
+        if( !isset( Session::getInstance()->user_info ) )
+            Session::getInstance()->user_info = false;
     }
     
     /**
@@ -73,10 +70,8 @@ class SecureLogin {
      * @return bool Returns true if user is logged in 
      */
     public function check_user() {
-    	$session = Session::getInstance();
-    	
-    	if ( !empty( $session->user_info ) )
-			return ( !empty( $session->user_info['username'] ) && $session->user_info['ip_address'] == get_ip_address() );
+    	if ( !empty( Session::getInstance()->user_info ) )
+			return ( !empty( Session::getInstance()->user_info['username'] ) && Session::getInstance()->user_info['ip_address'] == get_ip_address() );
 
         return false;
     }
@@ -89,29 +84,27 @@ class SecureLogin {
      * @return string Returns error if username/password is invalid, otherwise, a empty string
      */
     public function login_user( $user, $pass ) {
-    	$session = Session::getInstance();
-    	
-        // Trim username + password and turn username into lowercase
+    	// Trim username + password and turn username into lowercase
         $user = strtolower( trim( $user ) );
         $pass = trim( $pass );
 
         if ( $user == "" || $pass == "" )
             return __( "Username and/or password cannot be empty" );
 
-        if ( !$this->db->select( "users", array( "UserName" => $user ), "", "0,1" ) )
-            return __( "Unable to query database: " ) . $this->db->last_error;
+        if ( !MySQL::getInstance()->select( "users", array( "UserName" => $user ), "", "0,1" ) )
+            return __( "Unable to query database: " ) . MySQL::getInstance()->last_error;
 
-        if ( $this->db->records == 1 ) {
-            if ( $this->password_hash->check_password( $pass, $this->db->arrayed_result['UserPass'] ) ) {
+        if ( MySQL::getInstance()->records == 1 ) {
+            if ( $this->password_hash->check_password( $pass, MySQL::getInstance()->arrayed_result['UserPass'] ) ) {
                 // Clear activation key if its been set
-                if ( $this->db->arrayed_result['ActivateKey'] != "" )
-                    $this->db->update( "users", array( "ActivateKey" => "" ), array( "UserName" => $user ) );
+                if ( MySQL::getInstance()->arrayed_result['ActivateKey'] != "" )
+                    MySQL::getInstance()->update( "users", array( "ActivateKey" => "" ), array( "UserName" => $user ) );
 
                 // Prevent session hijacking 
                 session_regenerate_id( );
                 
                 // Set user info
-                $session->user_info = array(
+                Session::getInstance()->user_info = array(
                 	'username' => $user,
                 	'ip_address' => get_ip_address()
                 );
@@ -120,7 +113,7 @@ class SecureLogin {
             }
         } 
 
-        $session->user_info = false;
+        Session::getInstance()->user_info = false;
 
         return __( "Username and/or password is invalid" );
     }
@@ -156,22 +149,22 @@ class SecureLogin {
         else if ( strlen( $pass1 ) < 6 ) return __( "Password must be longer than 6 characters" );
 
         // Check if username already exists
-        if ( !$this->db->select( "users", array( "UserName" => $user ), "", "0,1" ) )
-            return __( "Unable to query database: " ) . $this->db->last_error;
-        if ( $this->db->records == 1 )
+        if ( !MySQL::getInstance()->select( "users", array( "UserName" => $user ), "", "0,1" ) )
+            return __( "Unable to query database: " ) . MySQL::getInstance()->last_error;
+        if ( MySQL::getInstance()->records == 1 )
             return __( "Another user has already registered that username" );
 
         // Check if email already exists
-        if ( !$this->db->select( "users", array( "UserEmail" => $email ), "", "0,1" ) )
-            return __( "Unable to query database: " ) . $this->db->last_error;
-        if ( $this->db->records == 1 )
+        if ( !MySQL::getInstance()->select( "users", array( "UserEmail" => $email ), "", "0,1" ) )
+            return __( "Unable to query database: " ) . MySQL::getInstance()->last_error;
+        if ( MySQL::getInstance()->records == 1 )
             return __( "Another user has already registered with that e-mail address" );
 
         $pass_hash = $this->password_hash->hash_password( $pass1 );
 
         // Add username to table
-        if ( !$this->db->insert( array( "UserName" => $user, "UserPass" => $pass_hash, "UserEmail" => $email ), "users" ) )
-            return __( "Unable to query database: " ) . $this->db->last_error;
+        if ( !MySQL::getInstance()->insert( array( "UserName" => $user, "UserPass" => $pass_hash, "UserEmail" => $email ), "users" ) )
+            return __( "Unable to query database: " ) . MySQL::getInstance()->last_error;
 
         return "";
     }
@@ -188,22 +181,22 @@ class SecureLogin {
         // Trim email and change to lower case
         $email = strtolower( trim( $email ) );
 
-        if (!$this->db->select( "users", array( "UserEmail" => $email ), "", "0,1" ) )
+        if (!MySQL::getInstance()->select( "users", array( "UserEmail" => $email ), "", "0,1" ) )
             return __( "E-mail address does not exist" ) . "\n";
 
         // Random key is 20 characters made up of a-z and 0-9
         $rand_key = $this->make_random_password( 20 );
 
-        if ( !$this->db->update( "users", array( "ActivateKey" => $rand_key ), array( "UserEmail" => $email ) ) )
-            return __( "Unable to query database: " ) . $this->db->last_error;
+        if ( !MySQL::getInstance()->update( "users", array( "ActivateKey" => $rand_key ), array( "UserEmail" => $email ) ) )
+            return __( "Unable to query database: " ) . MySQL::getInstance()->last_error;
 
         $subject = __( "Your password at " ) . SITE_NAME; 
         $message = __( "Someone requested that the password be reset for the following account:"  ) . "\r\n\r\n";
-        $message .= __( "Username: "  ) . $this->db->arrayed_result['UserName'] . "\r\n\r\n";
+        $message .= __( "Username: "  ) . MySQL::getInstance()->arrayed_result['UserName'] . "\r\n\r\n";
         $message .= $site_url . "\r\n\r\n";
         $message .= __( "If this was a mistake, just ignore this email and nothing will happen."  ) . "\r\n\r\n";
         $message .= __( "To reset your password, visit the following address:" ) . "\r\n\r\n";
-        $message .= "<". $site_url . "/login.php?action=resetPwd&key=".$rand_key."&login=".rawurlencode($this->db->arrayed_result['UserName']).">\r\n\r\n";
+        $message .= "<". $site_url . "/login.php?action=resetPwd&key=".$rand_key."&login=".rawurlencode(MySQL::getInstance()->arrayed_result['UserName']).">\r\n\r\n";
         $message .= __( "This is an automated response, please do not reply!" ) . "\n";
 
         if ( !send_mail( $email, $subject, $message ) ) 
@@ -228,10 +221,10 @@ class SecureLogin {
         $pass2 = trim( $pass2 );
         $key = strtolower( trim( $key ) );
 
-        if ( !$this->db->select( "users", array( "UserName" => $user ), "", "0,1" ) )
+        if ( !MySQL::getInstance()->select( "users", array( "UserName" => $user ), "", "0,1" ) )
             return __( "Username does not exist" );
 
-        if ( !$this->db->select( "users", array( "UserName" => $user, "ActivateKey" => $key ), "", "0,1" ) )
+        if ( !MySQL::getInstance()->select( "users", array( "UserName" => $user, "ActivateKey" => $key ), "", "0,1" ) )
             return __( "Activation key does not exist" );
 
         // Check passwords
@@ -242,15 +235,15 @@ class SecureLogin {
 
         $pass_hash = $this->password_hash->hash_password( trim ( $pass ) );
 
-        if ( !$this->db->update( "users", array( "ActivateKey" => "", "UserPass" => $pass_hash ), array( "UserName" => $user ) ) )
-            return __( "Unable to query database: " ) . $this->db->last_error;
+        if ( !MySQL::getInstance()->update( "users", array( "ActivateKey" => "", "UserPass" => $pass_hash ), array( "UserName" => $user ) ) )
+            return __( "Unable to query database: " ) . MySQL::getInstance()->last_error;
 
         // Notify user of password change
         $subject = __( "Your account at " ) . SITE_NAME;
         $message = __( "Password has been changed for user: " ) . " $user \r\n";
         $message .= __( "This is an automated response, please do not reply!" );
 
-        if ( !send_mail( $this->db->arrayed_result['UserEmail'], $subject, $message ) )
+        if ( !send_mail( MySQL::getInstance()->arrayed_result['UserEmail'], $subject, $message ) )
             return __( "Unable to send password notification e-mail" );
 
         $this->logout_user( );
@@ -285,12 +278,10 @@ class SecureLogin {
      * @access public
      */
     public function logout_user( ){
-    	global $session;
-    	
         // Unset user info
-        unset( $session->user_info );
+        unset( Session::getInstance()->user_info );
 
         // Destroy the session
-        $session->destroy();
+        Session::getInstance()->destroy();
     }
 }

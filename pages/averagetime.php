@@ -30,21 +30,21 @@ for ( $i = 0; $i < count( $date_range_day ) - 1; $i++ ) {
     $start = $date_range_day[$i];
     $end = $date_range_day[$i + 1];
 
-    $query = "SELECT TIMESTAMPDIFF(SECOND, StartApp, StopApp ) AS 'duration' FROM `" . $db->prefix . "sessions` ";
+    $query = "SELECT TIMESTAMPDIFF(SECOND, StartApp, StopApp ) AS 'duration' FROM `" . MySQL::getInstance()->prefix . "sessions` ";
     $query .= "WHERE `StartApp` >= FROM_UNIXTIME(" . $start . ") AND `StopApp` <= FROM_UNIXTIME(" . $end . ") AND `StopApp` > 0 ";
     $query .= "AND `ApplicationId` = '" . $sanitized_input['id'] . "' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND `ApplicationVersion` = '" . $sanitized_input['ver'] . "' " ) : ( "" ));
 
-    $db->execute_sql( $query );
+    MySQL::getInstance()->execute_sql( $query );
 
     unset( $start, $end, $query );
 
-    if ( $db->records > 0 ) {
+    if ( MySQL::getInstance()->records > 0 ) {
         $sessions = array( );
 
-        if ( $db->records == 1 )
-            $sessions[] = $db->array_result( );
-        else if ( $db->records > 1 )
-            $sessions = $db->array_results( );
+        if ( MySQL::getInstance()->records == 1 )
+            $sessions[] = MySQL::getInstance()->array_result( );
+        else if ( MySQL::getInstance()->records > 1 )
+            $sessions = MySQL::getInstance()->array_results( );
 
         $time_span_total = 0;
         $sessions_count = count( $sessions );
@@ -96,21 +96,21 @@ if ( $data_exists ) :
         $time_span_total = 0;
         $average_time = 0;
 
-        $query = "SELECT TIMESTAMPDIFF(SECOND, StartApp, StopApp ) AS 'duration' FROM `" . $db->prefix . "sessions` ";
+        $query = "SELECT TIMESTAMPDIFF(SECOND, StartApp, StopApp ) AS 'duration' FROM `" . MySQL::getInstance()->prefix . "sessions` ";
         $query .= "WHERE `StartApp` >= FROM_UNIXTIME(" . $start . ") AND `StopApp` <= FROM_UNIXTIME(" . $end . ") AND `StopApp` > FROM_UNIXTIME(0) ";
         $query .= "AND `ApplicationId` = '" . $sanitized_input['id'] . "' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND `ApplicationVersion` = '" . $sanitized_input['ver'] . "' " ) : ( "" ));
 
-        $db->execute_sql( $query );
+        MySQL::getInstance()->execute_sql( $query );
 
         unset( $query );
 
-        if ( $db->records > 0 ) {
+        if ( MySQL::getInstance()->records > 0 ) {
             $sessions = array( );
 
-            if ( $db->records == 1 )
-                $sessions[] = $db->array_result( );
-            else if ( $db->records > 1 )
-                $sessions = $db->array_results( );
+            if ( MySQL::getInstance()->records == 1 )
+                $sessions[] = MySQL::getInstance()->array_result( );
+            else if ( MySQL::getInstance()->records > 1 )
+                $sessions = MySQL::getInstance()->array_results( );
 
             $sessions_count = count( $sessions );
 

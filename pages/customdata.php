@@ -25,7 +25,7 @@ $data_exists = false;
 // Array containing custom data info
 $custom_data = array( );
 
-$grouped_events = $db->select_events( 'customdata', $sanitized_input['id'], $sanitized_input['ver'], $sanitized_input['start'], $sanitized_input['end'], false, '', 'EventCustomName, EventCustomValue' );
+$grouped_events = MySQL::getInstance()->select_events( 'customdata', $sanitized_input['id'], $sanitized_input['ver'], $sanitized_input['start'], $sanitized_input['end'], false, '', 'EventCustomName, EventCustomValue' );
 if ( count( $grouped_events ) > 0 ) {
     foreach ( $grouped_events as $event ) {
         $event_name = $event['EventCustomName'];
@@ -89,17 +89,17 @@ if ( $data_exists ) {
                 $pie_chart_data[$name] = 0;
             }
 
-            $query = "SELECT COUNT(*) AS 'count' FROM `" . $db->prefix . "events_customdata` AS e ";
-            $query .= "INNER JOIN `" . $db->prefix . "sessions` AS s ON e.SessionId = s.SessionId ";
+            $query = "SELECT COUNT(*) AS 'count' FROM `" . MySQL::getInstance()->prefix . "events_customdata` AS e ";
+            $query .= "INNER JOIN `" . MySQL::getInstance()->prefix . "sessions` AS s ON e.SessionId = s.SessionId ";
             $query .= "WHERE e.ApplicationId = '" . $sanitized_input['id'] . "' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND e.ApplicationVersion = '" . $sanitized_input['ver'] . "' " ) : ( "" ));
             $query .= "AND e.UtcTimestamp BETWEEN FROM_UNIXTIME(" . $start . ") AND FROM_UNIXTIME(" . $end . ") ";
             $query .= "AND e.EventCustomName = '" . $name . "'";
             if ( $type == 'unique' )
                 $query .= " GROUP BY s.UniqueUserId";
 
-            if ( $db->execute_sql( $query )) {
-                $db->array_result( );
-                $events = intval( $db->arrayed_result['count'] );
+            if ( MySQL::getInstance()->execute_sql( $query )) {
+                MySQL::getInstance()->array_result( );
+                $events = intval( MySQL::getInstance()->arrayed_result['count'] );
             } else {
                 $events = 0;
             }
@@ -124,23 +124,23 @@ if ( $data_exists ) {
     $data_table = array( );
 
     $query = "SELECT e.EventCustomValue, COUNT(" . ( ( $type == 'unique' ) ? ( 'DISTINCT s.UniqueUserId' ) : ( '*' )) . ") AS 'total' ";
-    $query .= "FROM `" . $db->prefix . "events_customdata` AS e ";
-    $query .= "INNER JOIN `" . $db->prefix . "sessions` AS s ON e.SessionId = s.SessionId ";
+    $query .= "FROM `" . MySQL::getInstance()->prefix . "events_customdata` AS e ";
+    $query .= "INNER JOIN `" . MySQL::getInstance()->prefix . "sessions` AS s ON e.SessionId = s.SessionId ";
     $query .= "WHERE e.ApplicationId = '" . $sanitized_input['id'] . "' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND e.ApplicationVersion = '" . $sanitized_input['ver'] . "' " ) : ( "" ));
     $query .= "AND e.UtcTimestamp BETWEEN FROM_UNIXTIME(" . $sanitized_input['start'] . ") AND FROM_UNIXTIME(" . $sanitized_input['end'] . ") ";
-    $query .= "AND e.EventCustomName = '" . $db->secure_data( $name_selected ) . "' ";
+    $query .= "AND e.EventCustomName = '" . MySQL::getInstance()->secure_data( $name_selected ) . "' ";
     $query .= "GROUP BY e.EventCustomValue ";
 
-    $db->execute_sql( $query );
+    MySQL::getInstance()->execute_sql( $query );
 
     unset( $query );
 
     $custom_data_chart_data = array( );
 
-    if ( $db->records == 1 )
-        $custom_data_chart_data[] = $db->array_result( );
-    else if ( $db->records > 1 )
-        $custom_data_chart_data = $db->array_results( );
+    if ( MySQL::getInstance()->records == 1 )
+        $custom_data_chart_data[] = MySQL::getInstance()->array_result( );
+    else if ( MySQL::getInstance()->records > 1 )
+        $custom_data_chart_data = MySQL::getInstance()->array_results( );
 }
 
 ?>

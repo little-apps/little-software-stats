@@ -34,7 +34,7 @@ $mail_sendmail_path = get_option( 'mail_sendmail_path' );
 
 $geoip_service = get_option( 'geoips_service' );
 $geoip_api_key = get_option( 'geoips_api_key' );
-$geoip_database_file = $config->site->geoip_path;
+$geoip_database_file = Config::getInstance()->site->geoip_path;
 
 function update_settings() {
     global $admin_email, $rewrite;
@@ -42,20 +42,18 @@ function update_settings() {
     global $mail_protocol, $mail_smtp_server, $mail_smtp_port, $mail_smtp_user, $mail_smtp_pass, $mail_sendmail_path;
     global $geoip_service, $geoip_api_key, $geoip_database_file;
     
-    $db = MySQL::getInstance();
-    
     // Verify CSRF token
     verify_csrf_token( );
 
     require_once( ROOTDIR . '/inc/class.passwordhash.php' );
     $password_hash = new PasswordHash(8, false);
 
-    if ( !$db->select( "users", array( "UserName" => Session::getInstance()->user_info['username'] ), "", "0,1" ) ) {
-        show_msg_box( __( "Unable to query database: " ) . $db->last_error, "red" );
+    if ( !MySQL::getInstance()->select( "users", array( "UserName" => Session::getInstance()->user_info['username'] ), "", "0,1" ) ) {
+        show_msg_box( __( "Unable to query database: " ) . MySQL::getInstance()->last_error, "red" );
         return;
     }
 
-    $current_pass = $db->arrayed_result['UserPass'];
+    $current_pass = MySQL::getInstance()->arrayed_result['UserPass'];
 
     if ( !$password_hash->check_password( trim( $_POST['password'] ), $current_pass ) ) {
         show_msg_box( __( "The password does not match your current password" ), "red" );

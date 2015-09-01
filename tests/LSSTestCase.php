@@ -15,13 +15,12 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 	}
 	
     public function setUp() {
-    	$db = MySQL::getInstance();
     	
     	if ( defined( 'TRAVISCI' ) && (bool)TRAVISCI ) {
 			foreach ( $this->create_tables_sql() as $sql ) {
 	    		$sql = str_replace( '{:db_prefix}', Config::getInstance()->mysql->prefix, $sql );
 	    		
-				$db->execute_sql( $sql );
+				MySQL::getInstance()->execute_sql( $sql );
 			}
 	    	
 	    	$this->add_application();

@@ -41,23 +41,23 @@ for ( $i = 0; $i < count( $date_range_day ) - 1; $i++ ) {
     $start = $date_range_day[$i];
     $end = $date_range_day[$i + 1];
 
-    $query = "SELECT u.CPUBrand, COUNT(" . ( ( $type == 'unique' ) ? ( 'DISTINCT s.UniqueUserId' ) : ( '*' )) . ") AS count FROM `" . $db->prefix . "sessions` AS s ";
-    $query .= "INNER JOIN `" . $db->prefix . "uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
+    $query = "SELECT u.CPUBrand, COUNT(" . ( ( $type == 'unique' ) ? ( 'DISTINCT s.UniqueUserId' ) : ( '*' )) . ") AS count FROM `" . MySQL::getInstance()->prefix . "sessions` AS s ";
+    $query .= "INNER JOIN `" . MySQL::getInstance()->prefix . "uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
     $query .= "WHERE s.ApplicationId = '" . $sanitized_input['id'] . "' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s.ApplicationVersion = '" . $sanitized_input['ver'] . "' " ) : ( "" ));
     $query .= "AND s.StartApp BETWEEN FROM_UNIXTIME(" . $start . ") AND FROM_UNIXTIME(" . $end . ") ";
     $query .= "GROUP BY u.CPUBrand";
 
-    $db->execute_sql( $query );
+    MySQL::getInstance()->execute_sql( $query );
 
     unset( $query );
 
-    if ( $db->records > 0 ) {
+    if ( MySQL::getInstance()->records > 0 ) {
         $rows = array( );
 
-        if ( $db->records == 1 )
-            $rows[] = $db->array_result( );
-        elseif ( $db->records > 1 )
-            $rows = $db->array_results( );
+        if ( MySQL::getInstance()->records == 1 )
+            $rows[] = MySQL::getInstance()->array_result( );
+        elseif ( MySQL::getInstance()->records > 1 )
+            $rows = MySQL::getInstance()->array_results( );
 
         foreach ( $rows as $row ) {
             $brand = $row['CPUBrand'];
@@ -81,23 +81,23 @@ for ( $i = 0; $i < count( $date_range_day ) - 1; $i++ ) {
     }
 
 
-    $query = "SELECT u.CPUArch, COUNT(" . ( ( $type == 'unique' ) ? ( 'DISTINCT s.UniqueUserId' ) : ( '*' )) . ") AS count FROM `" . $db->prefix . "sessions` AS s ";
-    $query .= "INNER JOIN `" . $db->prefix . "uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
+    $query = "SELECT u.CPUArch, COUNT(" . ( ( $type == 'unique' ) ? ( 'DISTINCT s.UniqueUserId' ) : ( '*' )) . ") AS count FROM `" . MySQL::getInstance()->prefix . "sessions` AS s ";
+    $query .= "INNER JOIN `" . MySQL::getInstance()->prefix . "uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId ";
     $query .= "WHERE s.ApplicationId = '" . $sanitized_input['id'] . "' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s.ApplicationVersion = '" . $sanitized_input['ver'] . "' " ) : ( "" ));
     $query .= "AND s.StartApp BETWEEN FROM_UNIXTIME(" . $start . ") AND FROM_UNIXTIME(" . $end . ") ";
     $query .= "GROUP BY u.CPUArch";
 
-    $db->execute_sql( $query );
+    MySQL::getInstance()->execute_sql( $query );
 
     unset( $query );
 
-    if ( $db->records > 0 ) {
+    if ( MySQL::getInstance()->records > 0 ) {
         $rows = array( );
 
-        if ( $db->records == 1 )
-            $rows[] = $db->array_result( );
-        elseif ( $db->records > 1 )
-            $rows = $db->array_results( );
+        if ( MySQL::getInstance()->records == 1 )
+            $rows[] = MySQL::getInstance()->array_result( );
+        elseif ( MySQL::getInstance()->records > 1 )
+            $rows = MySQL::getInstance()->array_results( );
 
         foreach ( $rows as $row ) {
             $arch = $row['CPUArch'];
@@ -115,23 +115,23 @@ for ( $i = 0; $i < count( $date_range_day ) - 1; $i++ ) {
             $arch_data_exists = true;
     }
 
-    $query = "SELECT u.CPUCores, COUNT(" . ( ( $type == 'unique' ) ? ( 'DISTINCT s.UniqueUserId' ) : ( '*' )) . ") AS count FROM `" . $db->prefix . "sessions` AS s ";
-    $query .= "INNER JOIN `" . $db->prefix . "uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId  ";
+    $query = "SELECT u.CPUCores, COUNT(" . ( ( $type == 'unique' ) ? ( 'DISTINCT s.UniqueUserId' ) : ( '*' )) . ") AS count FROM `" . MySQL::getInstance()->prefix . "sessions` AS s ";
+    $query .= "INNER JOIN `" . MySQL::getInstance()->prefix . "uniqueusers` AS u ON s.UniqueUserId = u.UniqueUserId  ";
     $query .= "WHERE s.ApplicationId = '" . $sanitized_input['id'] . "' " . ( ( $sanitized_input['ver'] != "all" ) ? ( "AND s.ApplicationVersion = '" . $sanitized_input['ver'] . "' " ) : ( "" ));
     $query .= "AND s.StartApp BETWEEN FROM_UNIXTIME(" . $start . ") AND FROM_UNIXTIME(" . $end . ") ";
     $query .= "GROUP BY u.CPUCores";
 
-    $db->execute_sql( $query );
+    MySQL::getInstance()->execute_sql( $query );
 
     unset( $query, $start, $end );
 
-    if ( $db->records > 0 ) {
+    if ( MySQL::getInstance()->records > 0 ) {
         $rows = array( );
 
-        if ( $db->records == 1 )
-            $rows[] = $db->array_result( );
-        elseif ( $db->records > 1 )
-            $rows = $db->array_results( );
+        if ( MySQL::getInstance()->records == 1 )
+            $rows[] = MySQL::getInstance()->array_result( );
+        elseif ( MySQL::getInstance()->records > 1 )
+            $rows = MySQL::getInstance()->array_results( );
 
         foreach ( $rows as $row ) {
             $cores = $row['CPUCores'];
