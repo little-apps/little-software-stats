@@ -11,6 +11,23 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 	public $app_id;
 	public $app_name;
 	
+	private $required_exts = 
+		array(
+			'mysqli',
+			'gd',
+			'hash',
+			'json',
+			'session',
+			'SimpleXML',
+			'zlib',
+			'mbstring'
+		);
+		
+	private $required_callables = 
+		array(
+			'curl_init'
+		);
+	
 	public function __construct() {
 	}
 	
@@ -104,5 +121,45 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 		}
 		
 		return $sql;
+	}
+	
+	public function testExtensionsLoaded() {
+		if ( empty( $this->required_exts ) )
+			return;
+			
+		foreach ( $this->required_exts as $ext ) {
+			$ext_loaded = extension_loaded( $ext );
+			$this->assertTrue( $ext_loaded, 'Extension "' . $ext . '" is not loaded' );
+		}
+	}
+	
+	public function testCallablesExist() {
+		if ( empty( $this->required_callables ) )
+			return;
+			
+		foreach ( $this->required_callables as $callable ) {
+			$callable_loaded = is_callable( $callable );
+			
+			$callable_str = $this->callable_to_string( $callable );
+			
+			$this->assertTrue( $callable_loaded, 'Callable "' . $callable_str . '" does not exist' );
+		}
+	}
+	
+	private function callable_to_string( $callable ) {
+		$callable_str = '(unknown)';
+		
+		if ( is_string( $callable ) ) {
+			$callable_str = $callable;
+		} else if ( is_array( $callable ) ) {
+			list( $class, $method ) = $callable;
+			
+			if ( is_object( $class ) )
+				$class = get_class( $class );
+				
+			$callable_str = $class . '::' . $method;
+		}
+		
+		return $callable_str;
 	}
 }
