@@ -164,13 +164,13 @@ function check_pre_upgrade_needed() {
 	// Check if v0.1 config
 	$config = include( ROOTDIR . '/inc/config.php' );
 	
-	if ($config === 1)
+	if ($config === 1) {
 		$preupgrade_funcs[] = 'v02_pre_upgrade';
+	}
+		
 }
 
-function v02_pre_upgrade() {
-	global $errors;
-	
+function v02_pre_upgrade_config($use_defines) {
 	if ( !defined( 'SITE_GEOIP_PATH' ) )
 		define( 'SITE_GEOIP_PATH', realpath( dirname( __FILE__ ) . '/../geoipdb/GeoIP.dat' ) );
 		
@@ -181,33 +181,129 @@ function v02_pre_upgrade() {
 	}
 	
 	// Upgrade config
-	// Convert config file from defines to array
-    $config_new = 
-        array(
-			'site' => array(
-				'url' => strval( SITE_URL ),
-				'path' => strval( SITE_PATH ),
-				'geoip_path' => strval( SITE_GEOIP_PATH ),
-				'geoipv6_path' => strval( SITE_GEOIPV6_PATH ),
-				'debug' => ( defined( 'SITE_DEBUG' ) ? (bool)SITE_DEBUG : false ),
-				'csrf' => ( defined( 'SITE_CSRF' ) ? (bool)SITE_CSRF : true ),
-				'header_ip_address' => true
-			),
-			'mysql' => array(
-				'host' => strval( MYSQL_HOST ),
-				'user' => strval( MYSQL_USER ),
-				'pass' => strval( MYSQL_PASS ),
-				'db' => strval( MYSQL_DB ),
-				'prefix' => strval( MYSQL_PREFIX ),
-				'persistent' => ( defined( 'MYSQL_PERSISTENT' ) ? (bool)MYSQL_PERSISTENT : false )
-			)
-		);
+	$config_default = 
+	        array(
+				'site' => array(
+					'url' => '',
+					'path' => '',
+					'geoip_path' => '',
+					'geoipv6_path' => '',
+					'debug' => false,
+					'csrf' => true,
+					'header_ip_address' => true
+				),
+				'mysql' => array(
+					'host' => '',
+					'user' => '',
+					'pass' => '',
+					'db' => '',
+					'prefix' => '',
+					'persistent' => false
+				)
+			);
+	
+	
+	if ( $use_defines ) {
+		// Convert config file from defines to array
+	    $config_new = 
+	        array(
+				'site' => array(
+					'url' => strval( SITE_URL ),
+					'path' => strval( SITE_PATH ),
+					'geoip_path' => strval( SITE_GEOIP_PATH ),
+					'geoipv6_path' => strval( SITE_GEOIPV6_PATH ),
+					'debug' => ( defined( 'SITE_DEBUG' ) ? (bool)SITE_DEBUG : false ),
+					'csrf' => ( defined( 'SITE_CSRF' ) ? (bool)SITE_CSRF : true ),
+					'header_ip_address' => true
+				),
+				'mysql' => array(
+					'host' => strval( MYSQL_HOST ),
+					'user' => strval( MYSQL_USER ),
+					'pass' => strval( MYSQL_PASS ),
+					'db' => strval( MYSQL_DB ),
+					'prefix' => strval( MYSQL_PREFIX ),
+					'persistent' => ( defined( 'MYSQL_PERSISTENT' ) ? (bool)MYSQL_PERSISTENT : false )
+				)
+			);
+			
+		if ( defined( 'SITE_NAME' ) )
+			$config_new['site']['name'] = strval( SITE_NAME );
+			
+		if ( defined( 'SITE_NOREPLYEMAIL' ) )
+			$config_new['site']['noreplyemail'] = strval( SITE_NOREPLYEMAIL );
+	} else {
+		// Use POST data
+		$config_new = array_merge( $config_default, $_POST );
+	}
+	
+	// Change relative path to absolute
+	$config_new['site']['path'] = realpath( $config_new['site']['path'] );
+	
+	return $config_new;
+}
+
+function v02_pre_upgrade_check_config( $config ) {
+	global $errors;
+	
+	if ( empty( $config['site']['url'] ) )
+		$errors[] = 'Site URL cannot be empty';
 		
-	if ( defined( 'SITE_NAME' ) )
-		$config_new['site']['name'] = strval( SITE_NAME );
+	if ( !filter_var( $config['site']['url'], FILTER_VALIDATE_URL ) )
+		$errors[] = 'Site URL is not a valid URL';
 		
-	if ( defined( 'SITE_NOREPLYEMAIL' ) )
-		$config_new['site']['noreplyemail'] = strval( SITE_NOREPLYEMAIL );
+	if ( empty( $config['site']['path'] ) )
+		$errors[] = 'Site path cannot be empty';
+		
+	if ( !is_dir( $config['site']['path'] ) )
+		$errors[] = 'Site path is not a directory or does not exist';
+	
+	if ( empty( $config['site']['geoip_path'] ) )
+		$errors[] = 'GeoIP path cannot be empty';
+		
+	if ( !file_exists( $config['site']['geoip_path'] ) )
+		$errors[] = 'GeoIP path does not exist';
+		
+	if ( empty( $config['site']['geoipv6_path'] ) )
+		$errors[] = 'GeoIPv6 path cannot be empty';
+		
+	if ( !file_exists( $config['site']['geoipv6_path'] ) )
+		$errors[] = 'GeoIPv6 path does not exist';
+		
+	if ( empty( $config['mysql']['host'] ) )
+		$errors[] = 'MySQL host cannot be empty';
+	
+	if ( empty( $config['mysql']['user'] ) )
+		$errors[] = 'MySQL username cannot be empty';
+		
+	if ( empty( $config['mysql']['pass'] ) )
+		$errors[] = 'MySQL password cannot be empty';
+		
+	if ( empty( $config['mysql']['db'] ) )
+		$errors[] = 'MySQL database cannot be empty';
+		
+	if ( empty( $config['mysql']['prefix'] ) )
+		$errors[] = 'MySQL prefix cannot be empty';
+		
+	if ( function_exists( 'mysqli_connect' ) ) {
+		mysqli_connect($config['mysql']['host'], $config['mysql']['user'], $config['mysql']['pass'], $config['mysql']['db'] );
+		
+		if ( mysqli_connect_error() )
+			$errors[] = 'Unable to connect MySQL server: ' . mysqli_connect_error();
+	} else {
+		if ( !mysql_connect($config['mysql']['host'], $config['mysql']['user'], $config['mysql']['pass'], $config['mysql']['db'] ) )
+			$errors[] = 'Unable to connect MySQL server: ' . mysql_error();
+	}
+		
+	return ( empty( $errors ) ? true : false );
+}
+
+function v02_pre_upgrade() {
+	global $errors;
+	
+	$config_new = v02_pre_upgrade_config(false);
+	
+	if ( !v02_pre_upgrade_check_config( $config_new ) )
+		return false;
 		
 	$config_file = '<?php'."\n";;
     $config_file .= '// See inc/config.sample.php for documentation and example'."\n";
@@ -517,7 +613,7 @@ if ( ( isset($_POST['pre_update'] ) ) && $_POST['pre_update'] == 'true' && !empt
 				margin: 20px 0;
 			}
 			
-			form > ul {
+			form > div {
 				width: 547px;
 				background-color: #f3f8fc;
 				border: 3px solid rgba(137, 199, 239, .40);
@@ -526,22 +622,64 @@ if ( ( isset($_POST['pre_update'] ) ) && $_POST['pre_update'] == 'true' && !empt
 				margin: 0 auto;
 			}
 			
-			form > ul > li {
+			form > div {
 				font-weight: 600;
 				font-family: 'Open Sans', sans-serif;
 				text-align: center;
 			}
 			
-			form > ul > li#title {
+			form > div > h1 {
 				font-size: 18px;
 			}
 			
-			form > ul > li#info {
+			form > div > h2 {
+				font-size: 16px;
+				margin-top: 13px;
+				font-weight: 900;
+			}
+			
+			form > div > h3 {
+				font-size: 15px;
+				margin-top: 10px;
+				
+			}
+			
+			form > div > p {
 				font-size: 14px;
 				margin: 15px 0;
 			}
 			
-			form > ul > li > input[type="submit"] {
+			form > div > ul {
+				display: block;
+			}
+			
+			form > div > ul > li {
+				height: 20px;
+				margin-top: 7px;
+			}
+			
+			form > div > ul > li > label {
+				text-align: right;
+				clear: both;
+				float:left;
+				margin-right:15px;
+				width: 195px;
+			}
+			
+			form > div > ul > li > input {
+				float: left;
+				height: 100%;
+			}
+			
+			form > div > ul > li > input[type="checkbox"] {
+				margin: 0px;
+			}
+			
+			form > div > ul > li > input[type="text"] {
+				width: 335px;
+			}
+			
+			form > div > input[type="submit"] {
 				margin-top: 15px;
 				background: #286398; /* Old browsers */
 				background: -moz-linear-gradient(top,  #286398 0%, #3b85c8 100%); /* FF3.6+ */
@@ -598,18 +736,47 @@ if ( ( isset($_POST['pre_update'] ) ) && $_POST['pre_update'] == 'true' && !empt
         <form action="update.php" method="post">
         	<?php if ( !empty( $preupgrade_funcs ) ) : ?>
         	<input type="hidden" name="pre_update" value="true" />
-            <ul>
-                <li id="title">Some things need to be done before Little Software Stats can be upgraded</li>
-				<li id="info">Click the button below to prepare Little Software Stats to be updated</li>
-                <li><input type="submit" name="submit" value="Pre-update" /></li>
-            </ul>
+            <div>
+	        	<h1>Some things need to be done before Little Software Stats can be upgraded</h1>
+	        	<h2>Please ensure the configuration below is correct</h2>
+	        	
+	        	<h3>Folder Settings</h3>
+	        	<ul>
+            		<li><label for="site[url]">URL: </label><input name="site[url]" type="text" value="" /></li>
+            		<li><label for="site[path]">Folder: </label><input name="site[path]" type="text" value="" /></li>
+            	</ul>
+				
+				<h3>Site Settings</h3>
+	        	<ul>
+					<li><label for="site[name]">Name (optional): </label><input name="site[name]" type="text" value="" /></li>
+					<li><label for="site[noreplyemail]">No-reply Email (optional): </label><input name="site[noreplyemail]" type="text" value="" /></li>
+            		<li><label for="site[geoip_path]">GeoIP Path: </label><input name="site[geoip_path]" type="text" value="" /></li>
+            		<li><label for="site[geoipv6_path]">GeoIPv6 Path: </label><input name="site[geoipv6_path]" type="text" value="" /></li>
+					<li><label for="site[debug]">Enable Debugging: </label><input name="site[debug]" type="checkbox" /></li>
+					<li><label for="site[csrf]">CSRF Protection: </label><input name="site[csrf]" type="checkbox" /></li>
+					<li><label for="site[header_ip_address]">Allow Header IP Address: </label><input name="site[header_ip_address]" type="checkbox" /></li>
+            	</ul>
+				
+				<h3>MySQL Settings</h3>
+				<ul>
+					<li><label for="mysql[host]">Host: </label><input name="mysql[host]" type="text" value="" /></li>
+					<li><label for="mysql[user]">Username: </label><input name="mysql[user]" type="text" value="" /></li>
+					<li><label for="mysql[pass]">Password: </label><input name="mysql[pass]" type="text" value="" /></li>
+					<li><label for="mysql[db]">Database: </label><input name="mysql[db]" type="text" value="" /></li>
+					<li><label for="mysql[prefix]">Prefix: </label><input name="mysql[prefix]" type="text" value="" /></li>
+					<li><label for="mysql[persistent]">Persistent Connection: </label><input name="mysql[persistent]" type="checkbox" /></li>
+				</ul>
+	        	
+	        	<p>Click the button below to prepare Little Software Stats to be updated</p>
+	        	<input type="submit" name="submit" value="Pre-update" />
+        	</div>
         	<?php else : ?>
-            <input type="hidden" name="update" value="true" />
-            <ul>
-                <li id="title">Click the button below to update Little Software Stats to v<?php echo VERSION ?></li>
-				<li id="info">Please make sure you have made a backup of Little Software Stats before updating it</li>
-                <li><input type="submit" name="submit" value="Update" /></li>
-            </ul>
+        	<input type="hidden" name="update" value="true" />
+        	<div>
+            	<h1>Click the button below to update Little Software Stats to v<?php echo VERSION ?></h1>
+				<h2>Please make sure you have made a backup of Little Software Stats before updating it</h2>
+	            <input type="submit" name="submit" value="Update" />
+            </div>
             <?php endif; ?>
         </form>
     </body>
