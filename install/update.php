@@ -284,9 +284,6 @@ function v02_pre_upgrade_check_config( $config ) {
 	if ( empty( $config['mysql']['db'] ) )
 		$errors[] = 'MySQL database cannot be empty';
 		
-	if ( empty( $config['mysql']['prefix'] ) )
-		$errors[] = 'MySQL prefix cannot be empty';
-		
 	if ( function_exists( 'mysqli_connect' ) ) {
 		mysqli_connect($config['mysql']['host'], $config['mysql']['user'], $config['mysql']['pass'], $config['mysql']['db'] );
 		
