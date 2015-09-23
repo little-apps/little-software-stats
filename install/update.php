@@ -179,7 +179,7 @@ function v02_pre_upgrade_config($use_defines) {
 		
 		define( 'SITE_GEOIPV6_PATH', rtrim( $geoips_dir, '/' ) . '/GeoIPv6.dat' );
 	}
-	
+
 	// Upgrade config
 	$config_default = 
 	        array(
@@ -256,6 +256,9 @@ function v02_pre_upgrade_check_config( $config ) {
 		
 	if ( !is_dir( $config['site']['path'] ) )
 		$errors[] = 'Site path is not a directory or does not exist';
+
+    if ( !empty( $config_new['site']['noreplyemail'] ) && !filter_var($config_new['site']['noreplyemail'], FILTER_VALIDATE_EMAIL ) )
+        $errors[] = 'The specified no-reply email is not a valid email address';
 	
 	if ( empty( $config['site']['geoip_path'] ) )
 		$errors[] = 'GeoIP path cannot be empty';
