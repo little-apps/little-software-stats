@@ -137,7 +137,7 @@ function get_engines() {
 			$rows[] = $ret = MySQL::getInstance()->array_result();
 		else if ( MySQL::getInstance()->records > 1 )
 			$rows = $ret = MySQL::getInstance()->array_results();
-			
+
 		if ($ret === false) {
 			return false;
 		}
@@ -148,40 +148,31 @@ function get_engines() {
 					$engines[] = strtolower($row['Engine']);
 				}
 			}
-			
+
 			return true;
 		}
 	}
-	
+
 	return false;
 }
 
 function check_pre_upgrade_needed() {
 	global $preupgrade_funcs;
-	
+
 	$preupgrade_funcs = array();
-	
+
 	// Check if v0.1 config
 	$config = include( ROOTDIR . '/inc/config.php' );
-	
+
 	if ($config === 1) {
 		$preupgrade_funcs[] = 'v02_pre_upgrade';
 	}
-		
+
 }
 
 function v02_pre_upgrade_config($use_defines) {
-	if ( !defined( 'SITE_GEOIP_PATH' ) )
-		define( 'SITE_GEOIP_PATH', realpath( dirname( __FILE__ ) . '/../geoipdb/GeoIP.dat' ) );
-		
-	if ( !defined( 'SITE_GEOIPV6_PATH' ) ) {
-		$geoips_dir = dirname( SITE_GEOIP_PATH );
-		
-		define( 'SITE_GEOIPV6_PATH', rtrim( $geoips_dir, '/' ) . '/GeoIPv6.dat' );
-	}
-
 	// Upgrade config
-	$config_default = 
+	$config_default =
 	        array(
 				'site' => array(
 					'url' => '',
@@ -201,11 +192,20 @@ function v02_pre_upgrade_config($use_defines) {
 					'persistent' => false
 				)
 			);
-	
-	
+
+
 	if ( $use_defines ) {
+ 	    if ( !defined( 'SITE_GEOIP_PATH' ) )
+		    define( 'SITE_GEOIP_PATH', realpath( dirname( __FILE__ ) . '/../geoipdb/GeoIP.dat' ) );
+
+    	if ( !defined( 'SITE_GEOIPV6_PATH' ) ) {
+    		$geoips_dir = dirname( SITE_GEOIP_PATH );
+
+    		define( 'SITE_GEOIPV6_PATH', rtrim( $geoips_dir, '/' ) . '/GeoIPv6.dat' );
+    	}
+
 		// Convert config file from defines to array
-	    $config_new = 
+	    $config_new =
 	        array(
 				'site' => array(
 					'url' => strval( SITE_URL ),
@@ -225,26 +225,26 @@ function v02_pre_upgrade_config($use_defines) {
 					'persistent' => ( defined( 'MYSQL_PERSISTENT' ) ? (bool)MYSQL_PERSISTENT : false )
 				)
 			);
-			
+
 		if ( defined( 'SITE_NAME' ) )
 			$config_new['site']['name'] = strval( SITE_NAME );
-			
+
 		if ( defined( 'SITE_NOREPLYEMAIL' ) )
 			$config_new['site']['noreplyemail'] = strval( SITE_NOREPLYEMAIL );
 	} else {
 		// Use POST data
 		$config_new = array_merge( $config_default, $_POST );
 	}
-	
+
 	// Change relative path to absolute
 	$config_new['site']['path'] = realpath( $config_new['site']['path'] );
-	
+
 	return $config_new;
 }
 
 function v02_pre_upgrade_check_config( $config ) {
 	global $errors;
-	
+
 	if ( empty( $config['site']['url'] ) )
 		$errors[] = 'Site URL cannot be empty';
 		
@@ -265,13 +265,13 @@ function v02_pre_upgrade_check_config( $config ) {
 		
 	if ( !file_exists( $config['site']['geoip_path'] ) )
 		$errors[] = 'GeoIP path does not exist';
-		
+
 	if ( empty( $config['site']['geoipv6_path'] ) )
 		$errors[] = 'GeoIPv6 path cannot be empty';
 		
 	if ( !file_exists( $config['site']['geoipv6_path'] ) )
 		$errors[] = 'GeoIPv6 path does not exist';
-		
+
 	if ( empty( $config['mysql']['host'] ) )
 		$errors[] = 'MySQL host cannot be empty';
 	
@@ -280,7 +280,7 @@ function v02_pre_upgrade_check_config( $config ) {
 		
 	if ( empty( $config['mysql']['pass'] ) )
 		$errors[] = 'MySQL password cannot be empty';
-		
+
 	if ( empty( $config['mysql']['db'] ) )
 		$errors[] = 'MySQL database cannot be empty';
 		
