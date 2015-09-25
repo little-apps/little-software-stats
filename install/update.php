@@ -156,18 +156,63 @@ function get_engines() {
 	return false;
 }
 
+function pre_upgrade_output() {
+	global $preupgrade_outputs;
+	
+	foreach ($preupgrade_outputs as $func) {
+		if (is_callable($func))
+			call_user_func( $func );
+	}
+}
+
 function check_pre_upgrade_needed() {
-	global $preupgrade_funcs;
+	global $preupgrade_funcs, $preupgrade_outputs;
 
 	$preupgrade_funcs = array();
-
+	$preupgrade_outputs = array();
+	
 	// Check if v0.1 config
 	$config = include( ROOTDIR . '/inc/config.php' );
 
 	if ($config === 1) {
 		$preupgrade_funcs[] = 'v02_pre_upgrade';
+		$preupgrade_outputs[] = 'v02_pre_upgrade_output';
 	}
 
+}
+
+function v02_pre_upgrade_output() {
+	$config = v02_pre_upgrade_config( ( empty( $_POST ) ? true : false ) ); 
+?>
+	<h2>Please ensure the configuration below is correct</h2>
+	        	
+	<h3>Folder Settings</h3>
+	<ul>
+		<li><label for="site[url]">URL: </label><input name="site[url]" type="text" value="<?php echo htmlspecialchars($config['site']['url']) ?>" /></li>
+		<li><label for="site[path]">Folder: </label><input name="site[path]" type="text" value="<?php echo htmlspecialchars($config['site']['url']) ?>" /></li>
+	</ul>
+		
+	<h3>Site Settings</h3>
+	<ul>
+		<li><label for="site[name]">Name (optional): </label><input name="site[name]" type="text" value="<?php echo htmlspecialchars($config['site']['name']) ?>" /></li>
+		<li><label for="site[noreplyemail]">No-reply Email (optional): </label><input name="site[noreplyemail]" type="text" value="<?php echo htmlspecialchars($config['site']['noreplyemail']) ?>" /></li>
+		<li><label for="site[geoip_path]">GeoIP Path: </label><input name="site[geoip_path]" type="text" value="<?php echo htmlspecialchars($config['site']['geoip_path']) ?>" /></li>
+		<li><label for="site[geoipv6_path]">GeoIPv6 Path: </label><input name="site[geoipv6_path]" type="text" value="<?php echo htmlspecialchars($config['site']['geoipv6_path']) ?>" /></li>
+		<li><label for="site[debug]">Enable Debugging: </label><input name="site[debug]" type="checkbox" <?php echo ( !empty( $config['site']['debug'] ) ? 'checked' : '' ); ?> /></li>
+		<li><label for="site[csrf]">CSRF Protection: </label><input name="site[csrf]" type="checkbox" <?php echo ( !empty( $config['site']['csrf'] ) ? 'checked' : '' ); ?> /></li>
+		<li><label for="site[header_ip_address]">Allow Header IP Address: </label><input name="site[header_ip_address]" type="checkbox" <?php echo ( !empty( $config['site']['header_ip_address'] ) ? 'checked' : '' ); ?> /></li>
+	</ul>
+		
+	<h3>MySQL Settings</h3>
+	<ul>
+		<li><label for="mysql[host]">Host: </label><input name="mysql[host]" type="text" value="<?php echo htmlspecialchars($config['mysql']['host']) ?>" /></li>
+		<li><label for="mysql[user]">Username: </label><input name="mysql[user]" type="text" value="<?php echo htmlspecialchars($config['mysql']['user']) ?>" /></li>
+		<li><label for="mysql[pass]">Password: </label><input name="mysql[pass]" type="text" value="<?php echo htmlspecialchars($config['mysql']['pass']) ?>" /></li>
+		<li><label for="mysql[db]">Database: </label><input name="mysql[db]" type="text" value="<?php echo htmlspecialchars($config['mysql']['db']) ?>" /></li>
+		<li><label for="mysql[prefix]">Prefix: </label><input name="mysql[prefix]" type="text" value="<?php echo htmlspecialchars($config['mysql']['prefix']) ?>" /></li>
+		<li><label for="mysql[persistent]">Persistent Connection: </label><input name="mysql[persistent]" type="checkbox" <?php echo ( !empty( $config['mysql']['persistent'] ) ? 'checked' : '' ); ?> /></li>
+	</ul>
+<?php
 }
 
 function v02_pre_upgrade_config($use_defines) {
@@ -738,34 +783,8 @@ if ( ( isset($_POST['pre_update'] ) ) && $_POST['pre_update'] == 'true' && !empt
         	<input type="hidden" name="pre_update" value="true" />
             <div>
 	        	<h1>Some things need to be done before Little Software Stats can be upgraded</h1>
-	        	<h2>Please ensure the configuration below is correct</h2>
 	        	
-	        	<h3>Folder Settings</h3>
-	        	<ul>
-            		<li><label for="site[url]">URL: </label><input name="site[url]" type="text" value="" /></li>
-            		<li><label for="site[path]">Folder: </label><input name="site[path]" type="text" value="" /></li>
-            	</ul>
-				
-				<h3>Site Settings</h3>
-	        	<ul>
-					<li><label for="site[name]">Name (optional): </label><input name="site[name]" type="text" value="" /></li>
-					<li><label for="site[noreplyemail]">No-reply Email (optional): </label><input name="site[noreplyemail]" type="text" value="" /></li>
-            		<li><label for="site[geoip_path]">GeoIP Path: </label><input name="site[geoip_path]" type="text" value="" /></li>
-            		<li><label for="site[geoipv6_path]">GeoIPv6 Path: </label><input name="site[geoipv6_path]" type="text" value="" /></li>
-					<li><label for="site[debug]">Enable Debugging: </label><input name="site[debug]" type="checkbox" /></li>
-					<li><label for="site[csrf]">CSRF Protection: </label><input name="site[csrf]" type="checkbox" /></li>
-					<li><label for="site[header_ip_address]">Allow Header IP Address: </label><input name="site[header_ip_address]" type="checkbox" /></li>
-            	</ul>
-				
-				<h3>MySQL Settings</h3>
-				<ul>
-					<li><label for="mysql[host]">Host: </label><input name="mysql[host]" type="text" value="" /></li>
-					<li><label for="mysql[user]">Username: </label><input name="mysql[user]" type="text" value="" /></li>
-					<li><label for="mysql[pass]">Password: </label><input name="mysql[pass]" type="text" value="" /></li>
-					<li><label for="mysql[db]">Database: </label><input name="mysql[db]" type="text" value="" /></li>
-					<li><label for="mysql[prefix]">Prefix: </label><input name="mysql[prefix]" type="text" value="" /></li>
-					<li><label for="mysql[persistent]">Persistent Connection: </label><input name="mysql[persistent]" type="checkbox" /></li>
-				</ul>
+	        	<?php pre_upgrade_output(); ?>
 	        	
 	        	<p>Click the button below to prepare Little Software Stats to be updated</p>
 	        	<input type="submit" name="submit" value="Pre-update" />
