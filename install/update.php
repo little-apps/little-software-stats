@@ -189,7 +189,7 @@ function v02_pre_upgrade_output() {
 	<h3>Folder Settings</h3>
 	<ul>
 		<li><label for="site[url]">URL: </label><input name="site[url]" type="text" value="<?php echo htmlspecialchars($config['site']['url']) ?>" /></li>
-		<li><label for="site[path]">Folder: </label><input name="site[path]" type="text" value="<?php echo htmlspecialchars($config['site']['url']) ?>" /></li>
+		<li><label for="site[path]">Folder: </label><input name="site[path]" type="text" value="<?php echo htmlspecialchars($config['site']['path']) ?>" /></li>
 	</ul>
 		
 	<h3>Site Settings</h3>
