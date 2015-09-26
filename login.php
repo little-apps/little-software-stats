@@ -145,7 +145,7 @@ if ( isset( $_POST['submitBtn'] ) ) {
                 <?php if ( ( isset( $_GET['action'] ) ) && $_GET['action'] == "resetPwd" && !empty( $_GET['key'] ) ) : ?>		
 		<div id="login-inner">
                     <form action="#" method="post">
-                        <input name="key" type="hidden" value="<?php echo $_GET['key']; ?>" />
+                        <input name="key" type="hidden" value="<?php echo htmlspecialchars( $_GET['key'] ); ?>" />
                         <table border="0" cellpadding="0" cellspacing="0">
                             <tr>
                                 <th><?php _e ( 'Username' ); ?></th>
