@@ -15,7 +15,7 @@
 
 if ( !defined( 'LSS_LOADED' ) ) die( 'This page cannot be loaded directly' );
 
-require_once ROOTDIR . '/inc/class.passwordhash.php';
+require_once ROOTDIR . '/inc/password_compat/lib/password.php';
 
 /**
  * Secure login class
@@ -31,11 +31,6 @@ class SecureLogin {
     private $db;
 
     /**
-     * @var resource PHP crypt() wrapper 
-     */
-    private $password_hash;
-
-    /**
      * @var resource Single instance of class
      */
     private static $m_pInstance;
@@ -44,8 +39,6 @@ class SecureLogin {
      * Constructor for SecureLogin class
      */
     function __construct( ) {
-        $this->password_hash = new PasswordHash(8, false);
-
         if( !isset( Session::getInstance()->user_info ) )
             Session::getInstance()->user_info = false;
     }
@@ -95,7 +88,7 @@ class SecureLogin {
             return __( "Unable to query database: " ) . MySQL::getInstance()->last_error;
 
         if ( MySQL::getInstance()->records == 1 ) {
-            if ( $this->password_hash->check_password( $pass, MySQL::getInstance()->arrayed_result['UserPass'] ) ) {
+        	if ( password_verify( $pass,  MySQL::getInstance()->arrayed_result['UserPass'] ) ) {
                 // Clear activation key if its been set
                 if ( MySQL::getInstance()->arrayed_result['ActivateKey'] != "" )
                     MySQL::getInstance()->update( "users", array( "ActivateKey" => "" ), array( "UserName" => $user ) );
@@ -160,7 +153,7 @@ class SecureLogin {
         if ( MySQL::getInstance()->records == 1 )
             return __( "Another user has already registered with that e-mail address" );
 
-        $pass_hash = $this->password_hash->hash_password( $pass1 );
+        $pass_hash = password_hash( $pass1 );
 
         // Add username to table
         if ( !MySQL::getInstance()->insert( array( "UserName" => $user, "UserPass" => $pass_hash, "UserEmail" => $email ), "users" ) )
@@ -233,7 +226,7 @@ class SecureLogin {
         else if ( strlen( trim( $pass ) ) < 6 ) 
             return __( "Password must be longer then 6 characters" );
 
-        $pass_hash = $this->password_hash->hash_password( trim ( $pass ) );
+        $pass_hash = password_hash( trim ( $pass ) );
 
         if ( !MySQL::getInstance()->update( "users", array( "ActivateKey" => "", "UserPass" => $pass_hash ), array( "UserName" => $user ) ) )
             return __( "Unable to query database: " ) . MySQL::getInstance()->last_error;

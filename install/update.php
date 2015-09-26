@@ -24,6 +24,8 @@ function error_handler($errno, $errstr, $errfile, $errline) {
 if ( DISPLAY_WARNINGS )
     set_error_handler( 'error_handler', E_WARNING | E_USER_WARNING );
 
+session_start();
+
 $errors = array();
 
 // Import batch sql data
@@ -212,6 +214,13 @@ function v02_pre_upgrade_output() {
 		<li><label for="mysql[prefix]">Prefix: </label><input name="mysql[prefix]" type="text" value="<?php echo htmlspecialchars($config['mysql']['prefix']) ?>" /></li>
 		<li><label for="mysql[persistent]">Persistent Connection: </label><input name="mysql[persistent]" type="checkbox" <?php echo ( !empty( $config['mysql']['persistent'] ) ? 'checked' : '' ); ?> /></li>
 	</ul>
+	
+	<h3>User Settings</h3>
+	<p>This version uses PHP's built-in password hashing functions. It is HIGHLY recommended that you enter a new password below in order to ensure compatiability and security.</p>
+	<ul>
+		<li><label for="user[pass]">New Password: </label><input name="user[pass]" type="password" value="" /></li>
+		<li><label for="user[pass_verify]">Confirm Password: </label><input name="user[pass_verify]" type="password" value="" /></li>
+	</ul>
 <?php
 }
 
@@ -342,12 +351,52 @@ function v02_pre_upgrade_check_config( $config ) {
 	return ( empty( $errors ) ? true : false );
 }
 
+function v02_pre_upgrade_validate_pass() {
+	global $errors;
+	
+	if ( empty( $_POST['user']['pass'] ) )
+		return true;
+		
+	if ( empty( $_POST['user']['pass_verify'] ) ) {
+		$errors[] = 'Please enter the password a second time';
+		return false;
+	}
+	
+	$pass1 = $_POST['user']['pass'];
+	$pass2 = $_POST['user']['pass_verify'];
+	
+	if ( preg_match( "/[^[:alnum:][:punct:]]/", $pass1 ) !== false ) {
+		$errors[] = 'The password can only contain letters, digits and punctuation';
+		return false;
+	}
+	
+	if ( strlen( $pass1 ) <= 5 ) {
+		$errors[] = 'The password must be at least 5 characters long';
+		return false;
+	}
+	
+	if ( strlen( $pass1 ) >= 20 ) {
+		$errors[] = 'The password cannot be longer than 5 characters long';
+		return false;
+	}
+	
+	if ( $pass1 != $pass2 ) {
+		$errors[] = 'The passwords entered do not match';
+		return false;
+	}
+	
+	return true;
+}
+
 function v02_pre_upgrade() {
 	global $errors;
 	
 	$config_new = v02_pre_upgrade_config(false);
 	
 	if ( !v02_pre_upgrade_check_config( $config_new ) )
+		return false;
+		
+	if ( !v02_pre_upgrade_validate_pass() )
 		return false;
 		
 	$config_file = '<?php'."\n";;
@@ -361,6 +410,14 @@ function v02_pre_upgrade() {
 		return false;
 	}
 	
+	// Update password during Upgrade
+	require( ROOTDIR . '/inc/password_compat/lib/password.php' );
+	
+	$pass_hash = password_hash( $_POST['user']['pass'] );
+	
+	$_SESSION['password_update'] = true;
+	$_SESSION['password_hash'] = $pass_hash;
+
 	return true;
 }
 
@@ -510,10 +567,30 @@ SQL;
         remove_files(
             array(
                 ROOTDIR . '/inc/class.geekmail.php',
+                ROOTDIR . '/inc/class.passwordhash.php',
                 ROOTDIR . '/js/jquery/jquery.highcharts.js'
             )
         );
-
+        
+        // Update password
+        if ( !empty( $_SESSION['password_update'] ) && !empty( $_SESSION['password_hash'] ) ) {
+			MySQL::getInstance()->select( "users", '', '', '0,1' );
+			
+			if ( MySQL::getInstance()->records > 1 ) {
+				$result = reset( MySQL::getInstance()->arrayed_results );
+				
+				$user_id = $result['UserId'];
+			} elseif ( MySQL::getInstance()->records == 1 ) {
+				$user_id = MySQL::getInstance()->arrayed_result['UserId'];
+			} else {
+				$errors[] = 'No users could be found';
+			}
+			
+			MySQL::getInstance()->update( "users", array( 'UserPass' => $_SESSION['password_hash'] ), array( 'UserId' => $user_id ) );
+			
+			// Clear hash
+			unset( $_SESSION['password_update'], $_SESSION['password_hash'] );
+		}
 	}
 
 }
