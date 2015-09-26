@@ -153,7 +153,7 @@ class SecureLogin {
         if ( MySQL::getInstance()->records == 1 )
             return __( "Another user has already registered with that e-mail address" );
 
-        $pass_hash = password_hash( $pass1 );
+        $pass_hash = password_hash( $pass1, PASSWORD_DEFAULT );
 
         // Add username to table
         if ( !MySQL::getInstance()->insert( array( "UserName" => $user, "UserPass" => $pass_hash, "UserEmail" => $email ), "users" ) )
@@ -226,7 +226,7 @@ class SecureLogin {
         else if ( strlen( trim( $pass ) ) < 6 ) 
             return __( "Password must be longer then 6 characters" );
 
-        $pass_hash = password_hash( trim ( $pass ) );
+        $pass_hash = password_hash( trim ( $pass ), PASSWORD_DEFAULT );
 
         if ( !MySQL::getInstance()->update( "users", array( "ActivateKey" => "", "UserPass" => $pass_hash ), array( "UserName" => $user ) ) )
             return __( "Unable to query database: " ) . MySQL::getInstance()->last_error;

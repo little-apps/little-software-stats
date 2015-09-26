@@ -413,7 +413,7 @@ function v02_pre_upgrade() {
 	// Update password during Upgrade
 	require( ROOTDIR . '/inc/password_compat/lib/password.php' );
 	
-	$pass_hash = password_hash( $_POST['user']['pass'] );
+	$pass_hash = password_hash( $_POST['user']['pass'], PASSWORD_DEFAULT );
 	
 	$_SESSION['password_update'] = true;
 	$_SESSION['password_hash'] = $pass_hash;
