@@ -449,7 +449,7 @@ if ( !function_exists( 'send_mail' ) ) {
 		}
 		
 		$php_mailer->SetFrom( SITE_NOREPLYEMAIL, __( 'Little Software Stats' ) );
-		$php_mailer->addAddress( $to_email );
+		$php_mailer->addAddress( $to );
 		$php_mailer->Subject = $subject;
 		$php_mailer->isHTML( false );
 		$php_mailer->Body = $message;
