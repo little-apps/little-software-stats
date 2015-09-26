@@ -213,6 +213,9 @@ class SecureLogin {
         $pass = trim( $pass );
         $pass2 = trim( $pass2 );
         $key = strtolower( trim( $key ) );
+        
+        if ( empty( $key ) )
+        	return __( "Activation key cannot be empty" );
 
         if ( !MySQL::getInstance()->select( "users", array( "UserName" => $user ), "", "0,1" ) )
             return __( "Username does not exist" );
