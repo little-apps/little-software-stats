@@ -149,7 +149,7 @@ if ( isset( $_POST['submitBtn'] ) ) {
                         <table border="0" cellpadding="0" cellspacing="0">
                             <tr>
                                 <th><?php _e ( 'Username' ); ?></th>
-                                <td><input name="username" type="text" class="login-inp" value="<?php echo ( ( isset( $_GET['login'] ) ) ? ( $_GET['login'] ) : ( '' ) ); ?>" /></td>
+                                <td><input name="username" type="text" class="login-inp" value="<?php echo ( ( isset( $_GET['login'] ) ) ? ( htmlspecialchars( $_GET['login'] ) ) : ( '' ) ); ?>" /></td>
                             </tr>
                             <tr>
                                 <th><?php _e ( 'Password' ); ?></th>
@@ -188,7 +188,7 @@ if ( isset( $_POST['submitBtn'] ) ) {
                         <table border="0" cellpadding="0" cellspacing="0">
                             <tr>
                                 <th><?php _e ( 'Username' ); ?></th>
-                                <td><input name="username" type="text" class="login-inp" value="<?php echo ( ( isset( $_POST['username'] ) ) ? ( $_POST['username'] ) : ( '' ) ); ?>" /></td>
+                                <td><input name="username" type="text" class="login-inp" value="<?php echo ( ( isset( $_POST['username'] ) ) ? ( htmlspecialchars( $_POST['username'] ) ) : ( '' ) ); ?>" /></td>
                             </tr>
                             <tr>
                                 <th><?php _e ( 'Password' ); ?></th>
