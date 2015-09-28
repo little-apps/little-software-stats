@@ -26,6 +26,7 @@ if ( DISPLAY_WARNINGS )
 
 session_start();
 
+$warnings = array();
 $errors = array();
 
 // Import batch sql data
@@ -183,6 +184,77 @@ function check_pre_upgrade_needed() {
 
 }
 
+function v02_pre_upgrade_get_users() {
+	$select_name = 'user[login_id]';
+	$input_name_login = 'user[login_input]';
+	$input_name_email = 'user[email]';
+	
+	$input_id = ( !empty( $_POST['user']['login_id'] ) ? $_POST['user']['login_id'] : '' );
+	$input_login = ( !empty( $_POST['user']['login_input'] ) ? htmlspecialchars( trim ( $_POST['user']['login_input'] ) ) : '' );
+	$input_email = ( !empty( $_POST['user']['email'] ) ? htmlspecialchars( trim ( $_POST['user']['email'] ) ) : '' );
+	
+	if ( function_exists( 'mysqli_connect' ) ) {
+		$db = mysqli_connect( MYSQL_HOST, MYSQL_USER, MYSQL_PASS, MYSQL_DB );
+		
+		if ( mysqli_connect_error() ) {
+			echo '<li><label for="'.$input_name_login.'">Username: </label><input name="'.$input_name_login.'" type="text" value="'.$input_login.'" /></li>';
+			echo '<li><label for="'.$input_name_email.'">User email: </label><input name="'.$input_name_email.'" type="text" value="'.$input_email.'" /></li>';
+			return;
+		}
+		
+		$result = $db->query( 'SELECT UserId, UserName FROM ' . MYSQL_PREFIX . 'users' );
+		
+		if ( !is_a( $result, 'mysqli_result' ) ) {
+			echo '<li><label for="'.$input_name_login.'">Username: </label><input name="'.$input_name_login.'" type="text" value="'.$input_login.'" /></li>';
+			echo '<li><label for="'.$input_name_email.'">User email: </label><input name="'.$input_name_email.'" type="text" value="'.$input_email.'" /></li>';
+			return;
+		}
+		
+		if ( $result->num_rows == 0 ) {
+			echo '<li><label for="'.$input_name_login.'">Username: </label><input name="'.$input_name_login.'" type="text" value="'.$input_login.'" /></li>';
+			echo '<li><label for="'.$input_name_email.'">User email: </label><input name="'.$input_name_email.'" type="text" value="'.$input_email.'" /></li>';
+			return;
+		}
+		
+		echo '<li>';
+		echo '<label for="'.$select_name.'">User: </label>';
+		echo '<select name="'.$select_name.'">';
+		
+		foreach ($result as $row) {
+			echo '<option value="' . htmlspecialchars( $row['UserId'] ) . '"'. ( $input_id == $row['UserId'] ? ' selected' : '' ) .'>' . htmlspecialchars( $row['UserName'] ) . '</option>';
+		}
+		
+		echo '</select>';
+		echo '</select>';
+		echo '</li>';
+	} else {
+		if ( !mysql_connect( MYSQL_HOST, MYSQL_USER, MYSQL_PASS, MYSQL_DB ) ) {
+			echo '<li><label for="'.$input_name_login.'">Username: </label><input name="'.$input_name_login.'" type="text" value="'.$input_login.'" /></li>';
+			echo '<li><label for="'.$input_name_email.'">User email: </label><input name="'.$input_name_email.'" type="text" value="'.$input_email.'" /></li>';
+			return;
+		}
+		
+		$result = mysql_query(  'SELECT UserId, UserName FROM ' . MYSQL_PREFIX . 'users' );
+		
+		if ( !$result ) {
+			echo '<li><label for="'.$input_name_login.'">Username: </label><input name="'.$input_name_login.'" type="text" value="'.$input_login.'" /></li>';
+			echo '<li><label for="'.$input_name_email.'">User email: </label><input name="'.$input_name_email.'" type="text" value="'.$input_email.'" /></li>';
+			return;
+		}
+		
+		echo '<li>';
+		echo '<label for="'.$select_name.'">User: </label>';
+		echo '<select name="'.$select_name.'">';
+		
+		while ( $row = mysql_fetch_assoc($result) ) {
+			echo '<option value="' . htmlspecialchars( $row['UserId'] ) . '"'. ( $input_id == $row['UserId'] ? ' selected' : '' ) .'>' . htmlspecialchars( $row['UserName'] ) . '</option>';
+		}
+		
+		echo '</select>';
+		echo '</li>';
+	}
+}
+
 function v02_pre_upgrade_output() {
 	$config = v02_pre_upgrade_config( ( empty( $_POST ) ? true : false ) ); 
 ?>
@@ -218,6 +290,7 @@ function v02_pre_upgrade_output() {
 	<h3>User Settings</h3>
 	<p>This version uses PHP's built-in password hashing functions. It is HIGHLY recommended that you enter a new password below in order to ensure compatiability and security.</p>
 	<ul>
+		<?php v02_pre_upgrade_get_users(); ?>
 		<li><label for="user[pass]">New Password: </label><input name="user[pass]" type="password" value="" /></li>
 		<li><label for="user[pass_verify]">Confirm Password: </label><input name="user[pass_verify]" type="password" value="" /></li>
 	</ul>
@@ -357,6 +430,53 @@ function v02_pre_upgrade_validate_pass() {
 	if ( empty( $_POST['user']['pass'] ) )
 		return true;
 		
+	if ( isset( $_POST['user']['login_id'] ) ) {
+		if ( !is_numeric( $_POST['user']['login_id'] ) ) {
+			$errors[] = 'User ID must be a number';
+			return false;
+		} 
+		
+		$_POST['user']['login_id'] = intval( $_POST['user']['login_id'] );
+	} else if ( isset( $_POST['user']['login_input'] ) ) {
+		$_POST['user']['login_input'] = trim( $_POST['user']['login_input'] );
+		
+		if ( empty( $_POST['user']['login_input'] ) ) {
+			$errors[] = 'Username cannot be empty';
+			return false;
+		}
+		
+		if ( !preg_match('#^([-a-z0-9_-])+$#i', $_POST['user']['login_input'] ) ) {
+			$errors[] = 'Username can only contain letters, numbers, underscores, and dashes';
+			return false;
+		}
+		
+		if ( strlen( $_POST['user']['login_input'] ) < 5 ) {
+			$errors[] = 'Username must be at least 5 characters long';
+			return false;
+		}
+		
+		if ( strlen( $_POST['user']['login_input'] ) > 20 ) {
+			$errors[] = 'Username cannot be longer than 20 characters';
+			return false;
+		}
+		
+		if ( empty( $_POST['user']['email'] ) ) {
+			$errors[] = 'User email must be specified';
+			return false;
+		}
+		
+		$_POST['user']['email'] = trim( $_POST['user']['email'] );
+		
+		if ( !filter_var( $_POST['user']['email'], FILTER_VALIDATE_EMAIL ) ) {
+			$errors[] = 'User email is not in correct format';
+			return false;
+		}
+	} else {
+		$errors[] = 'Password specified, but no user was specified';
+		return false;
+	}
+	
+		
 	if ( empty( $_POST['user']['pass_verify'] ) ) {
 		$errors[] = 'Please enter the password a second time';
 		return false;
@@ -410,13 +530,22 @@ function v02_pre_upgrade() {
 		return false;
 	}
 	
-	// Update password during Upgrade
-	require( ROOTDIR . '/inc/password_compat/lib/password.php' );
+	if ( ( !empty( $_POST['user']['login_id'] ) || !empty( $_POST['user']['login_input'] ) ) && !empty( $_POST['user']['pass'] ) ) {
+		$_SESSION['password_update'] = true;
+		
+		// Update password during Upgrade
+		require( ROOTDIR . '/inc/password_compat/lib/password.php' );
+		
+		if ( !empty( $_POST['user']['login_id'] ) )
+			$_SESSION['password_login_id'] = $_POST['user']['login_id'];
+		else {
+			$_SESSION['password_login_input'] = $_POST['user']['login_input'];
+			$_SESSION['password_login_email'] = $_POST['user']['email'];
+		}
+
+		$_SESSION['password_hash'] = password_hash( $_POST['user']['pass'], PASSWORD_DEFAULT );;
+	}
 	
-	$pass_hash = password_hash( $_POST['user']['pass'], PASSWORD_DEFAULT );
-	
-	$_SESSION['password_update'] = true;
-	$_SESSION['password_hash'] = $pass_hash;
 
 	return true;
 }
@@ -573,23 +702,26 @@ SQL;
         );
         
         // Update password
-        if ( !empty( $_SESSION['password_update'] ) && !empty( $_SESSION['password_hash'] ) ) {
-			MySQL::getInstance()->select( "users", '', '', '0,1' );
-			
-			if ( MySQL::getInstance()->records > 1 ) {
-				$result = reset( MySQL::getInstance()->arrayed_results );
-				
-				$user_id = $result['UserId'];
-			} elseif ( MySQL::getInstance()->records == 1 ) {
-				$user_id = MySQL::getInstance()->arrayed_result['UserId'];
+        if ( !empty( $_SESSION['password_update'] ) && ( !empty( $_SESSION['password_login_id'] ) || !empty( $_SESSION['password_login_input'] ) ) && !empty( $_SESSION['password_hash'] ) ) {
+        	if ( !empty( $_SESSION['password_login_id'] ) ) {
+				MySQL::getInstance()->update( "users", array( 'UserPass' => $_SESSION['password_hash'] ), array( 'UserId' => $user_id ) );
 			} else {
-				$errors[] = 'No users could be found';
+				if ( MySQL::getInstance()->select_count( "users", '*', array( 'UserName' => $_SESSION['password_login_input'] ) ) ) {
+					MySQL::getInstance()->update( "users", array( 'UserPass' => $_SESSION['password_hash'] ), array( 'UserName' => $_SESSION['password_login_input'] ) );
+				} else {
+					MySQL::getInstance()->insert( 
+						array(
+							'UserName' => $_SESSION['password_login_input'],
+							'UserEmail' => $_SESSION['password_login_email'],
+							'UserPass' => $_SESSION['password_hash']
+						),
+						"users"
+					);
+				}
 			}
-			
-			MySQL::getInstance()->update( "users", array( 'UserPass' => $_SESSION['password_hash'] ), array( 'UserId' => $user_id ) );
-			
+        
 			// Clear hash
-			unset( $_SESSION['password_update'], $_SESSION['password_hash'] );
+			unset( $_SESSION['password_update'],  $_SESSION['password_login_id'],  $_SESSION['password_login_input'], $_SESSION['password_hash'] );
 		}
 	}
 
@@ -776,8 +908,9 @@ if ( ( isset($_POST['pre_update'] ) ) && $_POST['pre_update'] == 'true' && !empt
 			}
 			
 			form > div > ul > li {
-				height: 20px;
-				margin-top: 7px;
+				height: 36px;
+				line-height: 36px;
+				margin-top: 15px;
 			}
 			
 			form > div > ul > li > label {
@@ -785,20 +918,55 @@ if ( ( isset($_POST['pre_update'] ) ) && $_POST['pre_update'] == 'true' && !empt
 				clear: both;
 				float:left;
 				margin-right:15px;
-				width: 195px;
+				width: 197px;
 			}
 			
-			form > div > ul > li > input {
+			form > div > ul > li > input, form > div > ul > li > select {
 				float: left;
-				height: 100%;
+				height: 36px;
+				border: 1px solid rgba(217,217,217,.7); /* stroke */
+				-moz-border-radius: 5px / 5px 5px 5px 5px;
+				-webkit-border-radius: 5px / 5px 5px 5px 5px;
+				border-radius: 5px / 5px 5px 5px 5px; /* border radius */
+				-moz-background-clip: padding;
+				-webkit-background-clip: padding-box;
+				background-clip: padding-box; /* prevents bg color from leaking outside the border */
+				-moz-box-shadow: 0 2px 4px rgba(0,0,0,.22), inset 0 2px 0 #fff, inset 0 0 2px rgba(255,255,255,.7); /* drop shadow, inner shadow and inner glow */
+				-webkit-box-shadow: 0 2px 4px rgba(0,0,0,.22), inset 0 2px 0 #fff, inset 0 0 2px rgba(255,255,255,.7); /* drop shadow, inner shadow and inner glow */
+				box-shadow: 0 2px 4px rgba(0,0,0,.22), inset 0 2px 0 #fff, inset 0 0 2px rgba(255,255,255,.7); /* drop shadow, inner shadow and inner glow */
+				background-image: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEzOSAzNiIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+PGxpbmVhckdyYWRpZW50IGlkPSJoYXQwIiBncmFkaWVudFVuaXRzPSJvYmplY3RCb3VuZGluZ0JveCIgeDE9IjUwJSIgeTE9IjEwMCUiIHgyPSI1MCUiIHkyPSItMS40MjEwODU0NzE1MjAyZS0xNCUiPgo8c3RvcCBvZmZzZXQ9IjAlIiBzdG9wLWNvbG9yPSIjZjRmNGY0IiBzdG9wLW9wYWNpdHk9IjEiLz4KPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZmRmZGZkIiBzdG9wLW9wYWNpdHk9IjEiLz4KICAgPC9saW5lYXJHcmFkaWVudD4KCjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxMzkiIGhlaWdodD0iMzYiIGZpbGw9InVybCgjaGF0MCkiIC8+Cjwvc3ZnPg==); /* gradient overlay */
+				background-image: -moz-linear-gradient(bottom, #f4f4f4 0%, #fdfdfd 100%); /* gradient overlay */
+				background-image: -o-linear-gradient(bottom, #f4f4f4 0%, #fdfdfd 100%); /* gradient overlay */
+				background-image: -webkit-linear-gradient(bottom, #f4f4f4 0%, #fdfdfd 100%); /* gradient overlay */
+				background-image: linear-gradient(bottom, #f4f4f4 0%, #fdfdfd 100%); /* gradient overlay */
+				
+				color: #5f5f5f; /* text color + color overlay */
+				font-family: 'Open Sans', sans-serif;
+				font-size: 15px;
+				font-weight: bold;
+				text-shadow: 0 1px 0 rgba(255,255,255,.5); /* drop shadow */
+
 			}
 			
 			form > div > ul > li > input[type="checkbox"] {
-				margin: 0px;
+				margin: 0;
 			}
 			
-			form > div > ul > li > input[type="text"] {
+			form > div > ul > li > input[type="text"], form > div > ul > li > input[type="password"] {
 				width: 335px;
+				height: 36px;
+				border: 1px solid rgba(217,217,217,.5); /* stroke */
+				-moz-border-radius: 5px;
+				-webkit-border-radius: 5px;
+				border-radius: 5px; /* border radius */
+				-moz-background-clip: padding;
+				-webkit-background-clip: padding-box;
+				background-clip: padding-box; /* prevents bg color from leaking outside the border */
+				background-color: #fff; /* color overlay */
+				font-family: 'Open Sans', sans-serif;
+				font-size: 15px;
+				padding-left: 10px;
+				padding-right: 10px;
 			}
 			
 			form > div > input[type="submit"] {
@@ -821,15 +989,25 @@ if ( ( isset($_POST['pre_update'] ) ) && $_POST['pre_update'] == 'true' && !empt
 				cursor: pointer;
 			}
 			
-			.errors {
+			.info-box {
 				width: 547px;
-				background-color: #FBE3E4;
-				border: 3px solid rgba(131, 31, 17, .40);
 				border-radius: 7px;
 				padding: 20px;
 				margin: 20px auto;
+				background-clip: padding-box; /* prevents bg color from leaking outside the border */
 			}
-			.errors > ul > li {
+			
+			.errors {
+				background-color: #FBE3E4;
+				border: 3px solid rgba(131, 31, 17, .40);
+			}
+			
+			.warnings {
+				background-color: #fefdec;
+				border: 3px solid #e6e4c4;
+			}
+			
+			.info-box > ul > li {
 				font: 700 16px 'Open Sans', sans-serif;
 				text-align: center;
 			}
@@ -846,8 +1024,17 @@ if ( ( isset($_POST['pre_update'] ) ) && $_POST['pre_update'] == 'true' && !empt
     </head>
     <body>
         <div class="logo"><img src="../images/shared/logo.png" /></div>
+        <?php if ( !empty( $warnings ) ) : ?>
+		<div class="info-box warnings">
+			<ul>
+				<?php foreach ( $warnings as $warning ) : ?>
+				<li><?php echo htmlspecialchars( $warning ); ?></li>
+				<?php endforeach; ?>
+			</ul>
+		</div>
+		<?php endif; ?>
 		<?php if ( !empty( $errors ) ) : ?>
-		<div class="errors">
+		<div class="info-box errors">
 			<ul>
 				<?php foreach ( $errors as $error ) : ?>
 				<li><?php echo htmlspecialchars( $error ); ?></li>
