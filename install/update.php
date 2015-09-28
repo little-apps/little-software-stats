@@ -530,13 +530,13 @@ function v02_pre_upgrade() {
 		return false;
 	}
 	
-	if ( ( !empty( $_POST['user']['login_id'] ) || !empty( $_POST['user']['login_input'] ) ) && !empty( $_POST['user']['pass'] ) ) {
+	if ( ( isset( $_POST['user']['login_id'] ) || !empty( $_POST['user']['login_input'] ) ) && !empty( $_POST['user']['pass'] ) ) {
 		$_SESSION['password_update'] = true;
 		
 		// Update password during Upgrade
 		require( ROOTDIR . '/inc/password_compat/lib/password.php' );
 		
-		if ( !empty( $_POST['user']['login_id'] ) )
+		if ( isset( $_POST['user']['login_id'] ) )
 			$_SESSION['password_login_id'] = $_POST['user']['login_id'];
 		else {
 			$_SESSION['password_login_input'] = $_POST['user']['login_input'];
@@ -702,9 +702,9 @@ SQL;
         );
         
         // Update password
-        if ( !empty( $_SESSION['password_update'] ) && ( !empty( $_SESSION['password_login_id'] ) || !empty( $_SESSION['password_login_input'] ) ) && !empty( $_SESSION['password_hash'] ) ) {
-        	if ( !empty( $_SESSION['password_login_id'] ) ) {
-				MySQL::getInstance()->update( "users", array( 'UserPass' => $_SESSION['password_hash'] ), array( 'UserId' => $user_id ) );
+        if ( !empty( $_SESSION['password_update'] ) && ( isset( $_SESSION['password_login_id'] ) || !empty( $_SESSION['password_login_input'] ) ) && !empty( $_SESSION['password_hash'] ) ) {
+        	if ( isset( $_SESSION['password_login_id'] ) ) {
+				MySQL::getInstance()->update( "users", array( 'UserPass' => $_SESSION['password_hash'] ), array( 'UserId' => intval( $_SESSION['password_login_id'] ) ) );
 			} else {
 				if ( MySQL::getInstance()->select_count( "users", '*', array( 'UserName' => $_SESSION['password_login_input'] ) ) ) {
 					MySQL::getInstance()->update( "users", array( 'UserPass' => $_SESSION['password_hash'] ), array( 'UserName' => $_SESSION['password_login_input'] ) );
