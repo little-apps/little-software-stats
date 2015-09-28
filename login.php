@@ -21,7 +21,7 @@ require_once( dirname( __FILE__ ) . '/inc/main.php' );
 $error = "";
 
 if ( ( isset( $_GET['action'] ) ) && $_GET['action'] == 'logout' ) {
-    $login->logout_user();
+    SecureLogin::getInstance()->logout_user();
     redirect( $site_url."/login.php" );
 }
 
