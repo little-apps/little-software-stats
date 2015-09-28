@@ -485,7 +485,7 @@ function v02_pre_upgrade_validate_pass() {
 	$pass1 = $_POST['user']['pass'];
 	$pass2 = $_POST['user']['pass_verify'];
 	
-	if ( preg_match( "/[^[:alnum:][:punct:]]/", $pass1 ) !== false ) {
+	if ( preg_match( '/\s/', $pass1 ) ) {
 		$errors[] = 'The password can only contain letters, digits and punctuation';
 		return false;
 	}
