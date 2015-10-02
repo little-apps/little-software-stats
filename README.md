@@ -12,7 +12,7 @@ Little Software Stats is the first free and open source application that allows 
 The following is required to run Little URL Shortener properly:
 
 * Web server (See [notes](#notes))
-* [PHP v5.3](http://php.net/) or higher (See [notes](#notes))
+* [PHP v5.3.6](http://php.net/) or higher
 * [MySQL](http://www.mysql.com/) or [MariaDB](https://www.mariadb.org) v5.5 or higher
 * PHP extensions:
  * [Original MySQL API](http://php.net/manual/en/book.mysql.php) (See [notes](#notes))
@@ -27,7 +27,6 @@ The following is required to run Little URL Shortener properly:
 
 #### Notes ####
  * URL rewrite support with the web server is recommended, but not required
- * PHP v5 or higher will work, but PHP v5.3 or higher is recommended.
  * MySQL Improved will be used if it is installed (as the original MySQL API is deprecated). If it is not installed, the original MySQL API will be used instead.
  * The appropriate web server and memory needed will depend on the scale of your software. For example, if your using Little Software Stats with a highly used software program then you may want to consider running Nginx or Lighttpd with lots of RAM. You should consider using something like suPHP which runs PHP at the user-level instead of the root user or the default PHP user.
 
@@ -53,6 +52,35 @@ If you would like to see Little Software Stats in action, please check out [demo
 * 0.1
  * First public release
  
+* 0.2
+ * Split events table into multiple tables, improving query performance
+ * Added LSS_API define to check if Little Software Stats was called via the API
+ * Sessions are no longer created if called via the API
+ * Outputs error in JSON or XML if unable to connect to database in API
+ * Fixed bug causing script not to exit properly if unable to connect database
+ * Fixed get_error() function from outputting error in wrong format
+ * URL returned by get_file_url() and get_page_url() is encoded with htmlspecialchars() (by default)
+ * If rewrite is disabled, query values return in get_page_url() are encoded with urlencode()
+ * Updated GeekMail to PHPMailer
+ * Fixed check for SMTP username and password options
+ * Added update script
+ * If page needs redirecting, URL returned by get_page_url() is not encoded
+ * Added Session class for storing and getting session data
+ * Login information is stored in one array instead of different keys in Session data
+ * Added Config class for reading config.php file
+ * Configuration is now returned as array by config.php file instead of defines
+ * If $_SERVER['REMOTE_ADDR'] is not set (because running in command line), a random IP address is set
+ * Fixed documentation for API::start_app() to show megabytes instead of bytes
+ * Added PHPUnit tests (which are executed with Travis CI)
+ * RewriteBase in _.htaccess is commented out by default
+ * Classes are called via static method instead of global variables
+ * Added support in API for IPv6 addresses
+ * Uses built-in (in PHP v5.5+) or user-defined (in PHP v5.3.7+ and v5.4.x) password_hash() and password_verify() for password hashing
+ * Fixed cross-site scripting (XSS) vulnerabilities
+ * Fixed vulnerability allowing an attacking with the the username to reset the password
+ * Uses CDN instead of local web server for HighCharts
+ * Various other bug fixes and improvements
+ 
 ### To Do ###
  * Remove unneeded JavaScript files
  * Translations for various languages
@@ -76,7 +104,7 @@ If you would like to see Little Software Stats in action, please check out [demo
 Little Software Stats itself is licensed under the GNU General Public License v3 and the Little Software Stats libraries are licensed under the GNU Lesser General Public License. 
 
 ### Show Your Support ###
-Little Apps relies on people like you to keep our software running. If you would like to show your support for Little Software Stats, then you can [make a donation](https://www.little-apps.com/?donate) using PayPal, Payza or Bitcoins. Please note that any amount helps (even just $1).
+Little Apps relies on people like you to keep our software running. If you would like to show your support for Little Software Stats, then you can [make a donation](https://www.little-apps.com/?donate) using PayPal, Payza or credit card (via Stripe). Please note that any amount helps (even just $1).
 
 ### Credits ###
 
