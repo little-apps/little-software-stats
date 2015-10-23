@@ -17,19 +17,21 @@ The following is required to run Little URL Shortener properly:
 * PHP extensions:
  * [Original MySQL API](http://php.net/manual/en/book.mysql.php) (See [notes](#notes))
  * [MySQL Improved](http://php.net/manual/en/book.mysqli.php) (See [notes](#notes))
- * [GD (Image Processing)](http://php.net/manual/en/book.image.php)
+ * [GD (Image Processing)](http://php.net/manual/en/book.image.php) (See [notes](#notes))
  * [Hash](http://php.net/manual/en/book.hash.php)
  * [Session](http://php.net/manual/en/book.session.php)
  * [JSON](http://php.net/manual/en/book.json.php)
  * [SimpleXML](http://php.net/manual/en/book.simplexml.php)
- * [ZLib](http://php.net/manual/en/book.mbstring.php)
+ * [ZLib](http://php.net/manual/en/book.zlib.php)
  * [Multibyte String](http://php.net/manual/en/book.mbstring.php)
+ * [Gettext](http://php.net/manual/en/book.gettext.php)
 
 #### Notes ####
  * URL rewrite support with the web server is recommended, but not required
  * MySQL Improved will be used if it is installed (as the original MySQL API is deprecated). If it is not installed, the original MySQL API will be used instead.
  * The appropriate web server and memory needed will depend on the scale of your software. For example, if your using Little Software Stats with a highly used software program then you may want to consider running Nginx or Lighttpd with lots of RAM. You should consider using something like suPHP which runs PHP at the user-level instead of the root user or the default PHP user.
-
+ * The FreeType and LibPNG libraries need to be included GD installation
+ 
 ### Installation ###
 1. Upload and extract Little Software Stats to your web server
 2. Create a MySQL database with a user that has full privileges to access and modify it
