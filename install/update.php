@@ -220,7 +220,7 @@ function v02_pre_upgrade_get_users() {
 		echo '<label for="'.$select_name.'">User: </label>';
 		echo '<select name="'.$select_name.'">';
 		
-		foreach ($result as $row) {
+		while ( $row = $result->fetch_assoc() ) {
 			echo '<option value="' . htmlspecialchars( $row['UserId'] ) . '"'. ( $input_id == $row['UserId'] ? ' selected' : '' ) .'>' . htmlspecialchars( $row['UserName'] ) . '</option>';
 		}
 		
