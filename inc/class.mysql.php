@@ -120,7 +120,7 @@ class MySQL {
 
         if ( $this->mysqli_loaded ) {
             if ( $persistant )
-                $this->db_link = @mysqli_connect( 'p:' . Config::getInstance()->mysql->host, $configConfig::getInstance()->mysql->user, Config::getInstance()->mysql->pass );
+                $this->db_link = @mysqli_connect( 'p:' . Config::getInstance()->mysql->host, Config::getInstance()->mysql->user, Config::getInstance()->mysql->pass );
             else
                 $this->db_link = @mysqli_connect( Config::getInstance()->mysql->host, Config::getInstance()->mysql->user, Config::getInstance()->mysql->pass );
         } else {
