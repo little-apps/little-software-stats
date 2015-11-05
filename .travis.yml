@@ -19,10 +19,14 @@ before_script:
   - sudo cp -f build/travis-ci-apache /etc/apache2/sites-available/default
   - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
   - sudo service apache2 restart
-  - cp tests/config.travisci.php inc/config.php
   - wget http://geolite.maxmind.com/download/geoip/database/GeoLiteCountry/GeoIP.dat.gz -P geoipdb/
   - gunzip -f geoipdb/GeoIP.dat.gz
   - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS test;" -uroot; fi
   
 script:
+  - mv -f tests/config.travisci-nopersist.php inc/config.php
+  - phpunit --configuration travis.phpunit.xml.dist
+  - mv -f tests/config.travisci-persist.php inc/config.php
+  - phpunit --configuration travis.phpunit.xml.dist
+  - mv -f tests/config.travisci-nopersist-debug.php inc/config.php
   - phpunit --configuration travis.phpunit.xml.dist
