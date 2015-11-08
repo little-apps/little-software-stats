@@ -12,7 +12,7 @@ Little Software Stats is the first free and open source application that allows 
 The following is required to run Little URL Shortener properly:
 
 * Web server (See [notes](#notes))
-* [PHP v5.3.6](http://php.net/) or higher
+* [PHP v5.3.7](http://php.net/) or higher
 * [MySQL](http://www.mysql.com/) or [MariaDB](https://www.mariadb.org) v5.5 or higher
 * PHP extensions:
  * [Original MySQL API](http://php.net/manual/en/book.mysql.php) (See [notes](#notes))
