@@ -123,7 +123,7 @@ Little Apps would like to thank the following for helping Little Software Stats:
  * jQuery SelectBox by Sadri Sahraoui
  * [jQuery Tooltip by Joern Zaefferer](http://bassistance.de/jquery-plugins/jquery-plugin-tooltip/)
  * [HighChartsPHP by Portugalmail Comunicações](http://www.goncaloqueiros.net/highcharts.php)
- * [Portable PHP password hashing framework (PHPass) by Openwall](http://www.openwall.com/phpass/)
+ * [password_compat by ircmaxell](https://github.com/ircmaxell/password_compat)
  * [GeoIP Database by MaxMind](https://www.maxmind.com/en/geoip2-databases)
  * [GeoIPs API by Bianet Solution Ltd.](http://www.geoips.com/en)
  * [Minify by Steve Clay and Ryan](https://code.google.com/p/minify/)
