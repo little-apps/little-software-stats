@@ -83,6 +83,13 @@ If you would like to see Little Software Stats in action, please check out [demo
  * Uses CDN instead of local web server for HighCharts
  * Various other bug fixes and improvements
  
+* 0.2.1
+ * Fixed up README.md
+ * Fixed bug causing username not to be displayed properly in PHP v5.3
+ * Fixed syntax error when trying create persistent connection with mysqli
+ * Updated minimum PHP version in inc/version.php to v5.3.7
+ * A few other minor bug changes
+ 
 ### To Do ###
  * Remove unneeded JavaScript files
  * Translations for various languages
