@@ -88,29 +88,21 @@ class ExternalAPITest extends LSSTestCase {
 		
 		$this->events->start( $this->app_id );
 		
-		if (mt_rand(0, 1))
-			$this->events->event();
+		$this->events->event();
 			
-		if (mt_rand(0, 1))
-			$this->events->event_value();
+		$this->events->event_value();
 			
-		if (mt_rand(0, 1))
-			$this->events->event_period();
+		$this->events->event_period();
 			
-		if (mt_rand(0, 1))
-			$this->events->log();
+		$this->events->log();
 			
-		if (mt_rand(0, 1))
-			$this->events->custom_data();
+		$this->events->custom_data();
 			
-		if (mt_rand(0, 1))
-			$this->events->exception();
+		$this->events->exception();
 			
-		if (mt_rand(0, 1))
-			$this->events->install();
+		$this->events->install();
 			
-		if (mt_rand(0, 1))
-			$this->events->uninstall();
+		$this->events->uninstall();
 		
 		$this->events->stop();
 		
