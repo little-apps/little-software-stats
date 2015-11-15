@@ -50,11 +50,11 @@ class ExternalAPITest extends LSSTestCase {
 		
 		$data = $this->generate_events();
 		
-		echo "Data to be sent: " . $data . PHP_EOL;
+		//echo "Data to be sent: " . $data . PHP_EOL;
 		
 		$ret = $this->call_api( $this->build_api_uri( self::FORMAT_JSON ), $data );
 		
-		echo "API Returned: " . $ret . PHP_EOL;
+		//echo "API Returned: " . $ret . PHP_EOL;
 		
 		$ret_decoded = json_decode( $ret );
 		
@@ -69,11 +69,11 @@ class ExternalAPITest extends LSSTestCase {
 		
 		$data = $this->generate_events();
 		
-		echo "Data to be sent: " . $data . PHP_EOL;
+		//echo "Data to be sent: " . $data . PHP_EOL;
 		
 		$ret = $this->call_api( $this->build_api_uri( self::FORMAT_XML ), $data );
 		
-		echo "API Returned: " . $ret . PHP_EOL;
+		//echo "API Returned: " . $ret . PHP_EOL;
 		
 		$ret_decoded = simplexml_load_string( $ret );
 		
