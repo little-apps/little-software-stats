@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <phpunit>
     <testsuites>
-        <testsuite name="Little Software Stats Tests">
-			<file>./tests/APITest.php</file>
-			<file>./tests/ExternalAPITest.php</file>
-			<file>./tests/FunctionsTest.php</file>
+        <testsuite name="Little Software Stats API Tests">
+			<directory>./tests/*APITest.php</directory>
         </testsuite>
+		<testsuite name="Little Software Stats Function Tests">
+			<file>./tests/FunctionsTest.php</file>
+		</testsuite>
     </testsuites>
 	<php>
 		<const name="TRAVISCI" value="1" />
