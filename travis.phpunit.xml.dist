@@ -2,7 +2,8 @@
 <phpunit>
     <testsuites>
         <testsuite name="Little Software Stats API Tests">
-			<directory>./tests/*APITest.php</directory>
+			<file>./tests/APITest.php</file>
+ 			<file>./tests/ExternalAPITest.php</file>
         </testsuite>
 		<testsuite name="Little Software Stats Function Tests">
 			<file>./tests/FunctionsTest.php</file>
