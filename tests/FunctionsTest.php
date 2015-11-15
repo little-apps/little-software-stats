@@ -7,6 +7,8 @@ class FunctionsTest extends LSSTestCase {
 		
 		if ( !is_callable( 'curl_init' ) )
 			throw new Exception( 'The cURL PHP extension must be installed' );
+			
+		echo "Doing function tests...\n";
 	}
 
 	public function setUp() {

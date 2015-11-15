@@ -12,8 +12,9 @@ class APITest extends LSSTestCase {
 
 	public function __construct() {
 		parent::__construct();
+		
+		echo "Doing internal API tests...\n";
 	}
-
 
 	public function setUp() {
 		parent::setUp();

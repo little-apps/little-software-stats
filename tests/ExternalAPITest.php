@@ -19,6 +19,8 @@ class ExternalAPITest extends LSSTestCase {
 			throw new Exception( 'The cURL PHP extension must be installed' );
 			
 		$this->events = new Events;
+		
+		echo "Doing external API tests...\n";
 	}
 
 	public function setUp() {
