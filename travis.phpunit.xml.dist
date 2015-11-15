@@ -4,6 +4,7 @@
         <testsuite name="Little Software Stats Tests">
 			<file>./tests/APITest.php</file>
 			<file>./tests/ExternalAPITest.php</file>
+			<file>./tests/FunctionsTest.php</file>
         </testsuite>
     </testsuites>
 	<php>
