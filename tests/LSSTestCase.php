@@ -5,6 +5,7 @@ define( 'ROOTDIR', realpath( dirname(__FILE__ ) . '/../' ) );
 
 require_once( ROOTDIR . '/inc/class.config.php' );
 require_once( ROOTDIR . '/inc/class.mysql.php' );
+require_once( ROOTDIR . '/inc/version.php' );
 require_once( ROOTDIR . '/inc/functions.php' );
 
 class LSSTestCase extends PHPUnit_Framework_TestCase {
