@@ -3,6 +3,8 @@ define( 'LSS_LOADED', true );
 
 define( 'ROOTDIR', realpath( dirname(__FILE__ ) . '/../' ) );
 
+@set_time_limit(300);
+
 require_once( ROOTDIR . '/inc/class.config.php' );
 require_once( ROOTDIR . '/inc/class.mysql.php' );
 require_once( ROOTDIR . '/inc/version.php' );
