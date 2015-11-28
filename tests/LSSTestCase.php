@@ -44,7 +44,7 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 			}
 	    	
 	    	$this->add_application();
-	    	$this->insert_options();
+	    	//$this->insert_options();
 		} else {
 			$this->get_application();
 		}
