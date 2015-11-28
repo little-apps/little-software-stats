@@ -32,7 +32,7 @@ class Callbacks extends Callbacks_Core {
 	        	'site' => array(
 					'url' => $_SESSION['params']['virtual_path'],
 					'path' => $_SESSION['params']['system_path'],
-					'geoip_path' =>  rtrim($_SESSION['params']['system_path'], '/') . '/geoipdb/GeoIP.dat',
+					'geoip_path' => rtrim($_SESSION['params']['system_path'], '/') . '/geoipdb/GeoIP.dat',
 					'geoipv6_path' => rtrim($_SESSION['params']['system_path'], '/') . '/geoipdb/GeoIPV6.dat',
 					'debug' => false,
 					'csrf' => true,
@@ -118,10 +118,12 @@ class Callbacks extends Callbacks_Core {
         $this->db_query("INSERT INTO `".$escaped_params['db_prefix']."options` (`Name`, `Value`) VALUES('geoips_service', '".$escaped_params['geoip_service']."')");
         $this->db_query("INSERT INTO `".$escaped_params['db_prefix']."options` (`Name`, `Value`) VALUES('geoips_api_key', '".$escaped_params['geoip_apikey']."')");
         
-        $geoip_version = $this->get_geoip_version($escaped_params['geoip_path']);
+        $geoip_version = $this->get_geoip_version( rtrim($_SESSION['params']['system_path'], '/') . '/geoipdb/GeoIP.dat' );
+        $geoipv6_version = $this->get_geoip_version( rtrim($_SESSION['params']['system_path'], '/') . '/geoipdb/GeoIPV6.dat' );
+        
         $this->db_query("INSERT INTO `".$escaped_params['db_prefix']."options` (`Name`, `Value`) VALUES('geoips_database_version', '".date('Y-m-d', $geoip_version)."')");
         $this->db_query("INSERT INTO `".$escaped_params['db_prefix']."options` (`Name`, `Value`) VALUES('geoips_database_update_url', 'http://little-software-stats.com/geolite.xml')");
-        $this->db_query("INSERT INTO `".$escaped_params['db_prefix']."options` (`Name`, `Value`) VALUES('geoips_database_v6_version', '".date('Y-m-d', $geoip_version)."')");
+        $this->db_query("INSERT INTO `".$escaped_params['db_prefix']."options` (`Name`, `Value`) VALUES('geoips_database_v6_version', '".date('Y-m-d', $geoipv6_version)."')");
         $this->db_query("INSERT INTO `".$escaped_params['db_prefix']."options` (`Name`, `Value`) VALUES('geoips_database_v6_update_url', 'http://little-software-stats.com/geolitev6.xml')");
         
         $this->db_close();
