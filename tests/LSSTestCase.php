@@ -41,6 +41,7 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 			}
 	    	
 	    	$this->add_application();
+	    	$this->insert_options();
 		} else {
 			$this->get_application();
 		}
@@ -206,7 +207,82 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 		
 		return $sql;
 	}
-    
+	
+	private function generate_options() {
+		return array(
+			'current_version' => VERSION,
+			'site_adminemail' => 'admin@' . str_shuffle('abcdefghijklmnopqrstuvwxyz') . '.com',
+			'site_rewrite' => 'true', // true or false
+			'recaptcha_enabled' => 'false', // true or false
+			'recaptcha_public_key' => '',
+			'recaptcha_private_key' => '',
+			'mail_protocol' => 'mail', // mail, smtp, or sendmail
+			'mail_smtp_server' => 'localhost',
+			'mail_smtp_port' => '25',
+			'mail_smtp_username' => 'username',
+			'mail_smtp_password' => 'password',
+			'mail_sendmail_path' => '/usr/sbin/sendmail',
+			'geoips_service' => 'database', // database or api
+			'geoips_api_key' => '',
+			'geoips_database_version' => $this->geoip_get_version(Config::getInstance()->site->geoip_path),
+			'geoips_database_update_url' => 'http://little-software-stats.com/geolite.xml',
+			'geoips_database_v6_version' => $this->geoip_get_version(Config::getInstance()->site->geoipv6_path),
+			'geoips_database_v6_update_url' => 'http://little-software-stats.com/geolitev6.xml'
+		);
+	}
+	
+    private function insert_options() {
+		foreach ($this->generate_options() as $name => $value) {
+			if ( !is_string( $value) )
+	            $value = strval( $value );
+	        
+	        MySQL::getInstance()->insert( array( 'name' => $name, 'value' => $value ), 'options');
+		}
+	}
+	
+	private function geoip_get_version($file) {
+		$fp = fopen($file,"rb") or die( "Can not open $file\n" );
+        
+        define("STRUCTURE_INFO_MAX_SIZE", 20);
+        define("DATABASE_INFO_MAX_SIZE", 100);
+        
+        $hasStructureInfo = false;
+        fseek($fp,-3,SEEK_END);  
+        for ($i = 0;$i < STRUCTURE_INFO_MAX_SIZE;$i++) {
+            $buf = fread($fp,3);
+            if ($buf == (chr(255) . chr(255) . chr(255))) {
+                $hasStructureInfo = true;
+                break;
+            }
+            fseek($fp,-4,SEEK_CUR);
+        }  
+        if ($hasStructureInfo == true) {
+            fseek($fp,-6,SEEK_CUR);
+        } else {
+            # no structure info, must be pre Sep 2002 database, go back to
+            fseek($fp,-3,SEEK_END);
+        }
+        for ($i = 0;$i < DATABASE_INFO_MAX_SIZE;$i++){
+            $buf = fread($fp,3);
+            if ($buf == (chr(0). chr(0). chr(0))){
+                $retval = fread($fp,$i);            
+                fclose($fp);
+                
+                // Convert to unix timestamp
+                for ($i = 0; $i < strlen($retval) - 9; $i++) {
+                    if (ctype_space(substr($retval, $i, 1))) {
+                        $date_str = substr($retval, $i+1, 8);
+
+                        return strtotime($date_str);
+                    }
+                }
+            }
+            fseek($fp,-4,SEEK_CUR);
+        } 
+
+        fclose($fp);
+        return time();
+	}
     
     public function tearDown() {
     	if ( defined( 'TRAVISCI' ) && (bool)TRAVISCI ) {
