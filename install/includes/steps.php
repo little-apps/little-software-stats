@@ -523,19 +523,6 @@ $steps = array(
             
             // Text box
             array(
-                'label' => 'GeoLite Path',
-                'name' => 'geoip_path',
-                'type' => 'text',
-                'default' => rtrim(preg_replace('#/install/$#', '', BASE_PATH), '/').'/inc/GeoIP.dat',
-                'validate' => array(
-                    array('rule' => 'validate_file'), // make sure file exists
-                    //array('rule' => 'alpha_numeric'), // Key is alpha numeric
-                    //array('rule' => 'exact_length', 'params' => 32), // Keys are exactly 32 characters
-                ),
-            ),
-            
-            // Text box
-            array(
                 'label' => 'GeoIPs API Key',
                 'name' => 'geoip_apikey',
                 'type' => 'text',

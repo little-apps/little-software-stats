@@ -117,7 +117,6 @@ class Callbacks extends Callbacks_Core {
         
         $this->db_query("INSERT INTO `".$escaped_params['db_prefix']."options` (`Name`, `Value`) VALUES('geoips_service', '".$escaped_params['geoip_service']."')");
         $this->db_query("INSERT INTO `".$escaped_params['db_prefix']."options` (`Name`, `Value`) VALUES('geoips_api_key', '".$escaped_params['geoip_apikey']."')");
-        $this->db_query("INSERT INTO `".$escaped_params['db_prefix']."options` (`Name`, `Value`) VALUES('geoips_database', '".$escaped_params['geoip_path']."')");
         
         $geoip_version = $this->get_geoip_version($escaped_params['geoip_path']);
         $this->db_query("INSERT INTO `".$escaped_params['db_prefix']."options` (`Name`, `Value`) VALUES('geoips_database_version', '".date('Y-m-d', $geoip_version)."')");
