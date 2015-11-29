@@ -219,11 +219,15 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 			$this->fail("The following exception was thrown trying to get the GeoIP version: " . $e->getMessage());
 		}
 		
+		echo 'GeoIPv6 database date: ' . $geoips_database_version . "\n";
+		
 		try {
 			$geoips_database_v6_version = $this->geoip_get_version(Config::getInstance()->site->geoipv6_path);
 		} catch (Exception $e) {
 			$this->fail("The following exception was thrown trying to get the GeoIPv6 version: " . $e->getMessage());
 		}
+		
+		echo 'GeoIPv6 database date: ' . $geoips_database_v6_version . "\n";
 		
 		return array(
 			'current_version' => VERSION,
@@ -240,9 +244,9 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 			'mail_sendmail_path' => '/usr/sbin/sendmail',
 			'geoips_service' => 'database', // database or api
 			'geoips_api_key' => '',
-			'geoips_database_version' => date('Y-m-d', $geoips_database_version),
+			'geoips_database_version' => $geoips_database_version,
 			'geoips_database_update_url' => 'http://little-software-stats.com/geolite.xml',
-			'geoips_database_v6_version' => date('Y-m-d', $geoips_database_v6_version),
+			'geoips_database_v6_version' => $geoips_database_v6_version,
 			'geoips_database_v6_update_url' => 'http://little-software-stats.com/geolitev6.xml'
 		);
 	}
@@ -277,8 +281,6 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 			if (strlen($str) == 8 && is_numeric($str)) {
 				$geoips_database_version_time = strtotime($str);
 				
-				echo 'Unix time for GeoIP database is ' . $geoips_database_version_time . "\n";
-                
                 break;
 			}
 		}
@@ -294,7 +296,7 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 		
 		geoip_close($geoip_fp);
 		
-        return $geoips_database_version_time;
+        return date('Y-m-d', $geoips_database_version_time);
 	}
     
     public function tearDown() {
