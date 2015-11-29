@@ -269,6 +269,8 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 		
 		$geoips_database_version_str = geoip_version($geoip_fp);
 		
+		echo 'GeoIP database version: '. $geoips_database_version_str . "\n";
+		
 		for ($i = 0; $i < strlen($geoips_database_version_str) - 9; $i++) {
             if (ctype_space(substr($geoips_database_version_str, $i, 1))) {
             	geoip_close($geoip_fp);
