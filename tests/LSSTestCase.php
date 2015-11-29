@@ -282,7 +282,7 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
             }
         }
 		
-		geoip_close($geoip_fp);
+		//geoip_close($geoip_fp);
 		
         return $geoips_database_version_time;
 	}
