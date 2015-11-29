@@ -215,13 +215,22 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 		$site_adminemail = 'admin@' . str_shuffle('abcdefghijklmnopqrstuvwxyz') . '.com';
 		echo 'Site admin email: ' . $site_adminemail . "\n";
 		
-		echo 'Getting GeoIP database version from file ' . Config::getInstance()->site->geoip_path . "\n";
-		$geoips_database_version = $this->geoip_get_version(Config::getInstance()->site->geoip_path);
-		echo 'GeoIP database version (IPv4): ' . $geoips_database_version . "\n";
+		try {
+			echo 'Getting GeoIP database version from file ' . Config::getInstance()->site->geoip_path . "\n";
+			$geoips_database_version = $this->geoip_get_version(Config::getInstance()->site->geoip_path);
+			echo 'GeoIP database version (IPv4): ' . $geoips_database_version . "\n";
+		} catch (Exception $e) {
+			$this->fail("The following exception was thrown trying to get the GeoIP version: " . $e->getMessage());
+		}
 		
-		echo 'Getting GeoIPv6 database version from file ' . Config::getInstance()->site->geoipv6_path . "\n";
-		$geoips_database_v6_version = $this->geoip_get_version(Config::getInstance()->site->geoipv6_path);
-		echo 'GeoIP database version (IPv6): ' . $geoips_database_v6_version . "\n";
+		try {
+			echo 'Getting GeoIPv6 database version from file ' . Config::getInstance()->site->geoipv6_path . "\n";
+			$geoips_database_v6_version = $this->geoip_get_version(Config::getInstance()->site->geoipv6_path);
+			echo 'GeoIP database version (IPv6): ' . $geoips_database_v6_version . "\n";
+			
+		} catch (Exception $e) {
+			$this->fail("The following exception was thrown trying to get the GeoIPv6 version: " . $e->getMessage());
+		}
 		
 		return array(
 			'current_version' => VERSION,
@@ -257,8 +266,9 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 	}
 	
 	private function geoip_get_version($file) {
-		$fp = fopen($file,"rb") or die( "Can not open $file\n" );
-        
+		if (!($fp = fopen($file, "rb")))
+			throw new Exception("Can not open $file");
+
         define("STRUCTURE_INFO_MAX_SIZE", 20);
         define("DATABASE_INFO_MAX_SIZE", 100);
         
