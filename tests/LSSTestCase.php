@@ -264,7 +264,7 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 			
 		echo 'Getting GeoIP database version from file ' . $file . "\n";
 		if (!($geoip_fp = geoip_open($file, GEOIP_STANDARD)))
-			throw new Exception("Unable to open GeoIPv4 database file");
+			throw new Exception("Unable to open GeoIP database file");
 		
 		$geoips_database_version_str = geoip_version($geoip_fp);
 		
