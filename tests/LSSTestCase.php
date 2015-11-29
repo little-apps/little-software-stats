@@ -44,7 +44,7 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 			}
 	    	
 	    	$this->add_application();
-	    	//$this->insert_options();
+	    	$this->insert_options();
 		} else {
 			$this->get_application();
 		}
@@ -212,9 +212,18 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 	}
 	
 	private function generate_options() {
+		$site_adminemail = 'admin@' . str_shuffle('abcdefghijklmnopqrstuvwxyz') . '.com';
+		echo 'Site admin email: ' . $site_adminemail . "\n";
+		
+		$geoips_database_version = $this->geoip_get_version(Config::getInstance()->site->geoip_path);
+		echo 'GeoIP database version (IPv4): ' . $geoips_database_version . "\n";
+		
+		$geoips_database_v6_version = $this->geoip_get_version(Config::getInstance()->site->geoipv6_path);
+		echo 'GeoIP database version (IPv6): ' . $geoips_database_v6_version . "\n";
+		
 		return array(
 			'current_version' => VERSION,
-			'site_adminemail' => 'admin@' . str_shuffle('abcdefghijklmnopqrstuvwxyz') . '.com',
+			'site_adminemail' => $site_adminemail,
 			'site_rewrite' => 'true', // true or false
 			'recaptcha_enabled' => 'false', // true or false
 			'recaptcha_public_key' => '',
@@ -227,9 +236,9 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 			'mail_sendmail_path' => '/usr/sbin/sendmail',
 			'geoips_service' => 'database', // database or api
 			'geoips_api_key' => '',
-			'geoips_database_version' => $this->geoip_get_version(Config::getInstance()->site->geoip_path),
+			'geoips_database_version' => $geoips_database_version,
 			'geoips_database_update_url' => 'http://little-software-stats.com/geolite.xml',
-			'geoips_database_v6_version' => $this->geoip_get_version(Config::getInstance()->site->geoipv6_path),
+			'geoips_database_v6_version' => $geoips_database_version,
 			'geoips_database_v6_update_url' => 'http://little-software-stats.com/geolitev6.xml'
 		);
 	}
@@ -238,6 +247,8 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 		foreach ($this->generate_options() as $name => $value) {
 			if ( !is_string( $value) )
 	            $value = strval( $value );
+	            
+	        echo 'Inserting option ' . $name . ' value: ' . $value . "\n";
 	        
 	        MySQL::getInstance()->insert( array( 'name' => $name, 'value' => $value ), 'options');
 		}
