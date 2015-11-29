@@ -266,6 +266,9 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 	}
 	
 	private function geoip_get_version($file) {
+		if (!is_readable($file))
+			throw new Exception("File $file is not readable\n");
+		
 		echo "Opening file $file...\n";
 		if (!($fp = fopen($file, "rb")))
 			throw new Exception("Can not open $file");
