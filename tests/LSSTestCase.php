@@ -9,6 +9,7 @@ require_once( ROOTDIR . '/inc/class.config.php' );
 require_once( ROOTDIR . '/inc/class.mysql.php' );
 require_once( ROOTDIR . '/inc/version.php' );
 require_once( ROOTDIR . '/inc/functions.php' );
+require_once( ROOTDIR . '/inc/geoip.php' );
 
 class LSSTestCase extends PHPUnit_Framework_TestCase {
 	public $app_id;
@@ -215,7 +216,19 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 		$site_adminemail = 'admin@' . str_shuffle('abcdefghijklmnopqrstuvwxyz') . '.com';
 		echo 'Site admin email: ' . $site_adminemail . "\n";
 		
-		try {
+		echo 'Getting GeoIP database version from file ' . Config::getInstance()->site->geoip_path . "\n";
+		$geoipv4 = geoip_open(Config::getInstance()->site->geoip_path, GEOIP_STANDARD);
+		$geoips_database_version = geoip_version($geoipv4);
+		echo 'GeoIP database version (IPv4): ' . $geoips_database_version . "\n";
+		geoip_close($geoipv4);
+		
+		echo 'Getting GeoIPv6 database version from file ' . Config::getInstance()->site->geoipv6_path . "\n";
+		$geoipv6 = geoip_open(Config::getInstance()->site->geoipv6_path, GEOIP_STANDARD);
+		$geoips_database_v6_version = geoip_version($geoipv6);
+		echo 'GeoIP database version (IPv6): ' . $geoips_database_v6_version . "\n";
+		geoip_close($geoipv6);
+		
+		/*try {
 			echo 'Getting GeoIP database version from file ' . Config::getInstance()->site->geoip_path . "\n";
 			$geoips_database_version = $this->geoip_get_version(Config::getInstance()->site->geoip_path);
 			echo 'GeoIP database version (IPv4): ' . $geoips_database_version . "\n";
@@ -230,7 +243,7 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 			
 		} catch (Exception $e) {
 			$this->fail("The following exception was thrown trying to get the GeoIPv6 version: " . $e->getMessage());
-		}
+		}*/
 		
 		return array(
 			'current_version' => VERSION,
