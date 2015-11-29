@@ -273,16 +273,24 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 		
 		$geoips_database_version_time = time();
 		
-		for ($i = 0; $i < strlen($geoips_database_version_str) - 9; $i++) {
+		foreach (explode(' ', $geoips_database_version_str) as $str) {
+			if (strlen($str) == 8 && is_numeric($str)) {
+				$geoips_database_version_time = strtotime($str);
+                
+                break;
+			}
+		}
+		
+		/*for ($i = 0; $i < strlen($geoips_database_version_str) - 9; $i++) {
             if (ctype_space(substr($geoips_database_version_str, $i, 1))) {
                 $date_str = substr($geoips_database_version_str, $i+1, 8);
                 $geoips_database_version_time = strtotime($date_str);
                 
                 break;
             }
-        }
+        }*/
 		
-		//geoip_close($geoip_fp);
+		geoip_close($geoip_fp);
 		
         return $geoips_database_version_time;
 	}
