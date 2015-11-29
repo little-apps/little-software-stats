@@ -10,7 +10,7 @@ return array(
     	'url' => 'http://localhost/',
     	'path' => ROOTDIR,
     	'geoip_path' => ROOTDIR . '/geoipdb/GeoIP.dat',
-    	'geoipv6_path' => ROOTDIR . '/geoipdb/GeoIPV6.dat',
+    	'geoipv6_path' => ROOTDIR . '/geoipdb/GeoIPv6.dat',
     	'debug' => false,
     	'csrf' => true,
     	'header_ip_address' => true
