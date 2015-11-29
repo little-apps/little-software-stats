@@ -276,6 +276,8 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 		foreach (explode(' ', $geoips_database_version_str) as $str) {
 			if (strlen($str) == 8 && is_numeric($str)) {
 				$geoips_database_version_time = strtotime($str);
+				
+				echo 'Unix time for GeoIP database is ' . $geoips_database_version_time . "\n";
                 
                 break;
 			}
