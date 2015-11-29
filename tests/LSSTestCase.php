@@ -219,19 +219,15 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 			$this->fail("The following exception was thrown trying to get the GeoIP version: " . $e->getMessage());
 		}
 		
-		echo 'GeoIPv6 database date: ' . $geoips_database_version . "\n";
-		
 		try {
 			$geoips_database_v6_version = $this->geoip_get_version(Config::getInstance()->site->geoipv6_path);
 		} catch (Exception $e) {
 			$this->fail("The following exception was thrown trying to get the GeoIPv6 version: " . $e->getMessage());
 		}
 		
-		echo 'GeoIPv6 database date: ' . $geoips_database_v6_version . "\n";
-		
 		return array(
 			'current_version' => VERSION,
-			'site_adminemail' => $site_adminemail,
+			'site_adminemail' => 'admin@' . str_shuffle('abcdefghijklmnopqrstuvwxyz') . '.com',
 			'site_rewrite' => 'true', // true or false
 			'recaptcha_enabled' => 'false', // true or false
 			'recaptcha_public_key' => '',
@@ -269,11 +265,7 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 		if (!($geoip_fp = geoip_open($file, GEOIP_STANDARD)))
 			throw new Exception("Unable to open GeoIP database file");
 			
-		echo 'Getting GeoIP database version from file ' . $file . "\n";
-		
 		$geoips_database_version_str = geoip_version($geoip_fp);
-		
-		echo 'GeoIP database version: '. $geoips_database_version_str . "\n";
 		
 		$geoips_database_version_time = time();
 		
@@ -284,15 +276,6 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
                 break;
 			}
 		}
-		
-		/*for ($i = 0; $i < strlen($geoips_database_version_str) - 9; $i++) {
-            if (ctype_space(substr($geoips_database_version_str, $i, 1))) {
-                $date_str = substr($geoips_database_version_str, $i+1, 8);
-                $geoips_database_version_time = strtotime($date_str);
-                
-                break;
-            }
-        }*/
 		
 		geoip_close($geoip_fp);
 		
