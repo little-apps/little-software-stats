@@ -266,12 +266,14 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 	}
 	
 	private function geoip_get_version($file) {
+		echo "Opening file $file...\n";
 		if (!($fp = fopen($file, "rb")))
 			throw new Exception("Can not open $file");
 
         define("STRUCTURE_INFO_MAX_SIZE", 20);
         define("DATABASE_INFO_MAX_SIZE", 100);
         
+        echo "Determining if database has structure info\n";
         $hasStructureInfo = false;
         fseek($fp,-3,SEEK_END);  
         for ($i = 0;$i < STRUCTURE_INFO_MAX_SIZE;$i++) {
@@ -281,30 +283,46 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
                 break;
             }
             fseek($fp,-4,SEEK_CUR);
-        }  
+        }
+          
         if ($hasStructureInfo == true) {
+        	echo "Database has structure info\n";
             fseek($fp,-6,SEEK_CUR);
         } else {
+        	echo "Database does not have structure info\n";
             # no structure info, must be pre Sep 2002 database, go back to
             fseek($fp,-3,SEEK_END);
         }
+        
+        echo "Iterating through database info\n";
         for ($i = 0;$i < DATABASE_INFO_MAX_SIZE;$i++){
             $buf = fread($fp,3);
             if ($buf == (chr(0). chr(0). chr(0))){
-                $retval = fread($fp,$i);            
+            	$offset = ftell($fp);
+            	echo "Three null characters found at offset $offset\n";
+            	
+                $retval = fread($fp,$i);
+                echo "Return value is $retval\n";
+                
+                echo "Closing file pointer\n";
                 fclose($fp);
                 
                 // Convert to unix timestamp
                 for ($i = 0; $i < strlen($retval) - 9; $i++) {
                     if (ctype_space(substr($retval, $i, 1))) {
                         $date_str = substr($retval, $i+1, 8);
+                        
+                        echo "Date found in database: $date_str\n";
 
                         return strtotime($date_str);
                     }
                 }
             }
+            
             fseek($fp,-4,SEEK_CUR);
         } 
+
+		echo "No date found in database. Returning current unix time.\n";
 
         fclose($fp);
         return time();
