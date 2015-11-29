@@ -217,13 +217,15 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 		echo 'Site admin email: ' . $site_adminemail . "\n";
 		
 		echo 'Getting GeoIP database version from file ' . Config::getInstance()->site->geoip_path . "\n";
-		$geoipv4 = geoip_open(Config::getInstance()->site->geoip_path, GEOIP_STANDARD);
+		if (!($geoipv4 = geoip_open(Config::getInstance()->site->geoip_path, GEOIP_STANDARD)))
+			throw new Exception("Unable to open GeoIPv4 database file");
 		$geoips_database_version = geoip_version($geoipv4);
 		echo 'GeoIP database version (IPv4): ' . $geoips_database_version . "\n";
 		geoip_close($geoipv4);
 		
 		echo 'Getting GeoIPv6 database version from file ' . Config::getInstance()->site->geoipv6_path . "\n";
-		$geoipv6 = geoip_open(Config::getInstance()->site->geoipv6_path, GEOIP_STANDARD);
+		if (!($geoipv6 = geoip_open(Config::getInstance()->site->geoipv6_path, GEOIP_STANDARD)))
+			throw new Exception("Unable to open GeoIPv6 database file");
 		$geoips_database_v6_version = geoip_version($geoipv6);
 		echo 'GeoIP database version (IPv6): ' . $geoips_database_v6_version . "\n";
 		geoip_close($geoipv6);
