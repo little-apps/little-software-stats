@@ -272,6 +272,8 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 		echo "Opening file $file...\n";
 		if (!($fp = fopen($file, "rb")))
 			throw new Exception("Can not open $file");
+			
+		echo "File $file was opened\n";
 
         define("STRUCTURE_INFO_MAX_SIZE", 20);
         define("DATABASE_INFO_MAX_SIZE", 100);
