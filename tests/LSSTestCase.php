@@ -273,9 +273,10 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 		
 		for ($i = 0; $i < strlen($geoips_database_version_str) - 9; $i++) {
             if (ctype_space(substr($geoips_database_version_str, $i, 1))) {
-            	geoip_close($geoip_fp);
             	
                 $date_str = substr($geoips_database_version_str, $i+1, 8);
+                
+                geoip_close($geoip_fp);
                 
                 return strtotime($date_str);
             }
