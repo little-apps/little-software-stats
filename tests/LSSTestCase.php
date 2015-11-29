@@ -215,9 +215,11 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 		$site_adminemail = 'admin@' . str_shuffle('abcdefghijklmnopqrstuvwxyz') . '.com';
 		echo 'Site admin email: ' . $site_adminemail . "\n";
 		
+		echo 'Getting GeoIP database version from file ' . Config::getInstance()->site->geoip_path . "\n";
 		$geoips_database_version = $this->geoip_get_version(Config::getInstance()->site->geoip_path);
 		echo 'GeoIP database version (IPv4): ' . $geoips_database_version . "\n";
 		
+		echo 'Getting GeoIPv6 database version from file ' . Config::getInstance()->site->geoipv6_path . "\n";
 		$geoips_database_v6_version = $this->geoip_get_version(Config::getInstance()->site->geoipv6_path);
 		echo 'GeoIP database version (IPv6): ' . $geoips_database_v6_version . "\n";
 		
