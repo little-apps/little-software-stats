@@ -213,39 +213,17 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 	}
 	
 	private function generate_options() {
-		$site_adminemail = 'admin@' . str_shuffle('abcdefghijklmnopqrstuvwxyz') . '.com';
-		echo 'Site admin email: ' . $site_adminemail . "\n";
-		
-		echo 'Getting GeoIP database version from file ' . Config::getInstance()->site->geoip_path . "\n";
-		if (!($geoipv4 = geoip_open(Config::getInstance()->site->geoip_path, GEOIP_STANDARD)))
-			throw new Exception("Unable to open GeoIPv4 database file");
-		$geoips_database_version = geoip_version($geoipv4);
-		echo 'GeoIP database version (IPv4): ' . $geoips_database_version . "\n";
-		geoip_close($geoipv4);
-		
-		echo 'Getting GeoIPv6 database version from file ' . Config::getInstance()->site->geoipv6_path . "\n";
-		if (!($geoipv6 = geoip_open(Config::getInstance()->site->geoipv6_path, GEOIP_STANDARD)))
-			throw new Exception("Unable to open GeoIPv6 database file");
-		$geoips_database_v6_version = geoip_version($geoipv6);
-		echo 'GeoIP database version (IPv6): ' . $geoips_database_v6_version . "\n";
-		geoip_close($geoipv6);
-		
-		/*try {
-			echo 'Getting GeoIP database version from file ' . Config::getInstance()->site->geoip_path . "\n";
+		try {
 			$geoips_database_version = $this->geoip_get_version(Config::getInstance()->site->geoip_path);
-			echo 'GeoIP database version (IPv4): ' . $geoips_database_version . "\n";
 		} catch (Exception $e) {
 			$this->fail("The following exception was thrown trying to get the GeoIP version: " . $e->getMessage());
 		}
 		
 		try {
-			echo 'Getting GeoIPv6 database version from file ' . Config::getInstance()->site->geoipv6_path . "\n";
 			$geoips_database_v6_version = $this->geoip_get_version(Config::getInstance()->site->geoipv6_path);
-			echo 'GeoIP database version (IPv6): ' . $geoips_database_v6_version . "\n";
-			
 		} catch (Exception $e) {
 			$this->fail("The following exception was thrown trying to get the GeoIPv6 version: " . $e->getMessage());
-		}*/
+		}
 		
 		return array(
 			'current_version' => VERSION,
@@ -262,9 +240,9 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 			'mail_sendmail_path' => '/usr/sbin/sendmail',
 			'geoips_service' => 'database', // database or api
 			'geoips_api_key' => '',
-			'geoips_database_version' => $geoips_database_version,
+			'geoips_database_version' => date('Y-m-d', $geoips_database_version),
 			'geoips_database_update_url' => 'http://little-software-stats.com/geolite.xml',
-			'geoips_database_v6_version' => $geoips_database_version,
+			'geoips_database_v6_version' => date('Y-m-d', $geoips_database_v6_version),
 			'geoips_database_v6_update_url' => 'http://little-software-stats.com/geolitev6.xml'
 		);
 	}
@@ -283,68 +261,25 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 	private function geoip_get_version($file) {
 		if (!is_readable($file))
 			throw new Exception("File $file is not readable\n");
-		
-		echo "Opening file $file...\n";
-		if (!($fp = fopen($file, "rb")))
-			throw new Exception("Can not open $file");
 			
-		echo "File $file was opened\n";
-
-        define("STRUCTURE_INFO_MAX_SIZE", 20);
-        define("DATABASE_INFO_MAX_SIZE", 100);
-        
-        echo "Determining if database has structure info\n";
-        $hasStructureInfo = false;
-        fseek($fp,-3,SEEK_END);  
-        for ($i = 0;$i < STRUCTURE_INFO_MAX_SIZE;$i++) {
-            $buf = fread($fp,3);
-            if ($buf == (chr(255) . chr(255) . chr(255))) {
-                $hasStructureInfo = true;
-                break;
-            }
-            fseek($fp,-4,SEEK_CUR);
-        }
-          
-        if ($hasStructureInfo == true) {
-        	echo "Database has structure info\n";
-            fseek($fp,-6,SEEK_CUR);
-        } else {
-        	echo "Database does not have structure info\n";
-            # no structure info, must be pre Sep 2002 database, go back to
-            fseek($fp,-3,SEEK_END);
-        }
-        
-        echo "Iterating through database info\n";
-        for ($i = 0;$i < DATABASE_INFO_MAX_SIZE;$i++){
-            $buf = fread($fp,3);
-            if ($buf == (chr(0). chr(0). chr(0))){
-            	$offset = ftell($fp);
-            	echo "Three null characters found at offset $offset\n";
+		echo 'Getting GeoIP database version from file ' . $file . "\n";
+		if (!($geoip_fp = geoip_open($file, GEOIP_STANDARD)))
+			throw new Exception("Unable to open GeoIPv4 database file");
+		
+		$geoips_database_version_str = geoip_version($geoip_fp);
+		
+		for ($i = 0; $i < strlen($geoips_database_version_str) - 9; $i++) {
+            if (ctype_space(substr($geoips_database_version_str, $i, 1))) {
+            	geoip_close($geoip_fp);
             	
-                $retval = fread($fp,$i);
-                echo "Return value is $retval\n";
+                $date_str = substr($geoips_database_version_str, $i+1, 8);
                 
-                echo "Closing file pointer\n";
-                fclose($fp);
-                
-                // Convert to unix timestamp
-                for ($i = 0; $i < strlen($retval) - 9; $i++) {
-                    if (ctype_space(substr($retval, $i, 1))) {
-                        $date_str = substr($retval, $i+1, 8);
-                        
-                        echo "Date found in database: $date_str\n";
-
-                        return strtotime($date_str);
-                    }
-                }
+                return strtotime($date_str);
             }
-            
-            fseek($fp,-4,SEEK_CUR);
-        } 
-
-		echo "No date found in database. Returning current unix time.\n";
-
-        fclose($fp);
+        }
+		
+		geoip_close($geoip_fp);
+		
         return time();
 	}
     
