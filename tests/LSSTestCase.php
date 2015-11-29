@@ -261,10 +261,11 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 	private function geoip_get_version($file) {
 		if (!is_readable($file))
 			throw new Exception("File $file is not readable\n");
-			
-		echo 'Getting GeoIP database version from file ' . $file . "\n";
+
 		if (!($geoip_fp = geoip_open($file, GEOIP_STANDARD)))
 			throw new Exception("Unable to open GeoIP database file");
+			
+		echo 'Getting GeoIP database version from file ' . $file . "\n";
 		
 		$geoips_database_version_str = geoip_version($geoip_fp);
 		
