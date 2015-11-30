@@ -99,4 +99,12 @@ class FunctionsTest extends LSSTestCase {
 	public function testGetOptionValid() {
 		$this->assertNotNull( get_option( 'current_version' ) );
 	}
+	
+	public function testSetOption() {
+		$option_value = str_shuffle( 'abcdefghijklmnopqrstuvwxzy0123456789' );
+		
+		$this->assertTrue( set_option( 'test_option', $option_value ) );
+		
+		$this->assertSame( get_option( 'test_option' ), $option_value );
+	}
 }
