@@ -112,4 +112,13 @@ class FunctionsTest extends LSSTestCase {
 		$this->assertRegExp( '/<input name=\"token\" type=\"hidden\" value=\"[a-z0-9]{32}\" \/>/', generate_csrf_token( false ) );
 		$this->assertRegExp( '/[a-z0-9]{32}/', Session::getInstance()->token );
 	}
+	
+	public function testValidateCsrfTokenValid() {
+		$token = md5( uniqid( rand(), true ) );
+		
+		Session::getInstance()->token = $token;
+		$_POST['token'] = $token;
+		
+		$this->assertTrue( verify_csrf_token( false ) );
+	}
 }
