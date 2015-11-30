@@ -164,23 +164,24 @@ if ( !function_exists( 'generate_csrf_token' ) ) {
 if ( !function_exists( 'verify_csrf_token' ) ) {
     /**
      * Verifies that CSRF token is valid 
+     * @param bool $die_if_invalid If set to true, PHP will die if the token is invalid. Otherwise, this function will return true/false. The default is true.
+     * @return bool Returns true if the CSRF token is valid or if CSRF validation is disabled, otherwise, false.
      */
-    function verify_csrf_token() {
+    function verify_csrf_token( $die_if_invalid = true ) {
         if ( Config::getInstance()->site->csrf == false )
             return true;
         
         $is_valid = true;
         
-        if ( !isset( Session::getInstance()->token ) || !isset( $_POST['token'] ) )
+        if ( !empty( Session::getInstance()->token ) || !empty( $_POST['token'] ) )
+            $is_valid = false;
+        else if ( $_POST['token'] != Session::getInstance()->token )
             $is_valid = false;
 
-        if ( $_POST['token'] != Session::getInstance()->token )
-            $is_valid = false;
-
-        if ( !$is_valid )
-            die( __('Cross-site request forgery token is invalid') );
-
-        //unset( Session::getInstance()->token );
+        if ( !$is_valid && $die_if_invalid )
+			die( __( 'Cross-site request forgery token is invalid') );
+		
+		return $is_valid;
     }
 }
 
