@@ -252,7 +252,7 @@ class LSSTestCase extends PHPUnit_Framework_TestCase {
 			if ( !is_string( $value) )
 	            $value = strval( $value );
 	            
-	        echo 'Inserting option ' . $name . ' value: ' . $value . "\n";
+	        //echo 'Inserting option ' . $name . ' value: ' . $value . "\n";
 	        
 	        MySQL::getInstance()->insert( array( 'name' => $name, 'value' => $value ), 'options');
 		}
