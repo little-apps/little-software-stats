@@ -91,4 +91,12 @@ class FunctionsTest extends LSSTestCase {
 		
 		$this->assertTrue(redirect($url, $status_code));
 	}
+	
+	public function testGetOptionInvalid() {
+		$this->assertNull( get_option( 'non_existent_option' ) );
+	}
+	
+	public function testGetOptionValid() {
+		$this->assertNotNull( get_option( 'current_version' ) );
+	}
 }
