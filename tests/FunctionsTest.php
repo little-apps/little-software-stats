@@ -107,4 +107,9 @@ class FunctionsTest extends LSSTestCase {
 		
 		$this->assertSame( get_option( 'test_option' ), $option_value );
 	}
+	
+	public function testGenerateCsrfToken() {
+		$this->assertRegExp( '/<input name=\"token\" type=\"hidden\" value=\"[a-z0-9]{32}\" \/>/', generate_csrf_token( false ) );
+		$this->assertRegExp( '/[a-z0-9]{32}/', Session::getInstance()->token );
+	}
 }
