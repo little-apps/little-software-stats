@@ -32,9 +32,6 @@ function update_account() {
     
     // Verify CSRF token
     verify_csrf_token( );
-    
-    require_once( ROOTDIR . '/inc/class.passwordhash.php' );
-    $password_hash = new PasswordHash(8, false);
 
     $current_username = Session::getInstance()->user_info['username'];
 
@@ -60,7 +57,7 @@ function update_account() {
     $change_pass = false;
     $change_email = false;
 
-    if ( !$password_hash->check_password( $verify_pass, $current_pass ) ) {
+    if ( !password_verify( $verify_pass, $current_pass ) ) {
         show_msg_box( __( "The password does not match your current password" ), "red" );
         return;
     }
@@ -120,7 +117,7 @@ function update_account() {
             show_msg_box( __( "Password must be less than 20 characters" ), "red" );
             return;
         } else {
-            $new_config['UserPass'] = $password_hash->hash_password( $new_pass );
+            $new_config['UserPass'] = password_hash( $new_pass, PASSWORD_DEFAULT );
 
             $change_pass = true;
         }
