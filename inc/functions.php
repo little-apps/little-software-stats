@@ -173,7 +173,7 @@ if ( !function_exists( 'verify_csrf_token' ) ) {
         
         $is_valid = true;
         
-        if ( !empty( Session::getInstance()->token ) || !empty( $_POST['token'] ) )
+        if ( empty( Session::getInstance()->token ) || empty( $_POST['token'] ) )
             $is_valid = false;
         else if ( $_POST['token'] != Session::getInstance()->token )
             $is_valid = false;
