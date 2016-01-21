@@ -1024,16 +1024,18 @@ if ( !function_exists( 'show_msg_box' ) ) {
      * Generates a message box
      * @param string $text Caption of message box
      * @param string $type Type of message box (green, red, or yellow)
-     * @param bool $echo If true, echoes HTML code, otherwise, returns it
+     * @param bool $echo If true, echoes HTML code, otherwise, returns it (default is true)
+     * @param bool $encode_html If true, the $text variable is encoded with htmlspecialchars() (default is true)
      * @return string HTML code (or nothing if type was invalid)
      */
-    function show_msg_box( $text, $type, $echo = true ) {
+    function show_msg_box( $text, $type, $echo = true, $encode_html = true ) {
         $valid_types = array( 'green', 'red', 'yellow' );
 
         $ret = '';
 
         if ( in_array( $type, $valid_types ) && ( is_string( $type ) ) ) {
-        	$text = htmlspecialchars( $text );
+        	if ( $encode_html )
+        		$text = htmlspecialchars( $text );
         	
             $ret = "<div id=\"message-".$type."\">
                     <table width=\"100%\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\">

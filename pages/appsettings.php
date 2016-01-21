@@ -41,7 +41,7 @@ if ( isset( $_POST['type'] ) ) {
         } else if ( !MySQL::getInstance()->update( "applications", array( "ApplicationName" => $application_name ), array( "ApplicationId" => $sanitized_input['id'] ) ) ) {
             show_msg_box( __( "Unable to query database: " ) . MySQL::getInstance()->last_error, "red" );
         } else {
-            show_msg_box( __( "This page will be refreshed in a moment. Click" ) . " <a href='javascript: refreshUrl()'>" . __( "here" ) . "</a> " . __( "if your not redirected" ), "green" );
+            show_msg_box( __( "This page will be refreshed in a moment. Click" ) . " <a href='javascript: refreshUrl()'>" . __( "here" ) . "</a> " . __( "if your not redirected" ), "green", true, false );
             echo "<script type='text/javascript'>";
             echo "window.setTimeout('refreshUrl()', 3000);";
             echo "</script>";
@@ -55,7 +55,7 @@ if ( isset( $_POST['type'] ) ) {
         if ( !MySQL::getInstance()->execute_sql( $query ) ) {
             show_msg_box( __( "Unable to query database: " ) . MySQL::getInstance()->last_error, "red" );
         } else {
-            show_msg_box( __( "This page will be refreshed in a moment. Click" ) . " <a href='javascript: refreshUrl()'>" . __( "here" ) . "</a> " . __( "if your not redirected" ), "green" );
+            show_msg_box( __( "This page will be refreshed in a moment. Click" ) . " <a href='javascript: refreshUrl()'>" . __( "here" ) . "</a> " . __( "if your not redirected" ), "green", true, false );
             echo "<script type='text/javascript'>";
             echo "window.setTimeout('refreshUrl()', 3000);";
             echo "</script>";
@@ -68,7 +68,7 @@ if ( isset( $_POST['type'] ) ) {
         if ( !MySQL::getInstance()->update( "applications", array( "ApplicationRecieving" => !( $application_recieving ) ), array( "ApplicationId" => $sanitized_input['id'] ) ) ) {
             show_msg_box( __( "Unable to query database: " ) . MySQL::getInstance()->last_error, "red" );
         } else {
-            show_msg_box( __( "This page will be refreshed in a moment. Click" ) . " <a href='javascript: refreshUrl()'>" . __( "here" ) . "</a> " . __( "if your not redirected" ), "green" );
+            show_msg_box( __( "This page will be refreshed in a moment. Click" ) . " <a href='javascript: refreshUrl()'>" . __( "here" ) . "</a> " . __( "if your not redirected" ), "green", true, false );
             echo "<script type='text/javascript'>";
             echo "window.setTimeout('refreshUrl()', 3000);";
             echo "</script>";

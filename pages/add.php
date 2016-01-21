@@ -40,7 +40,7 @@ function add_app() {
 
     MySQL::getInstance()->insert( array( "ApplicationName" => $_POST['appname'], "ApplicationId" => $app_id ), "applications" );
 
-    show_msg_box( __( "You will be redirected in a moment to the settings page. Click" ) . " <a href='javascript: redirect()'> " . __( "here" ) . "</a> " . __( "if your not redirected" ), "green" );
+    show_msg_box( __( "You will be redirected in a moment to the settings page. Click" ) . " <a href='javascript: redirect()'> " . __( "here" ) . "</a> " . __( "if your not redirected" ), "green", true, false );
     echo "<script type='text/javascript'>";
     echo "function redirect() { window.location.href = '" . $site_url . "/?id=" . $app_id . "&page=appsettings'; }";
     echo "window.setTimeout('redirect()', 3000);";
