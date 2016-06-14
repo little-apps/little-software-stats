@@ -84,7 +84,7 @@ class SecureLogin {
             return __( "Username and/or password cannot be empty" );
 
         if ( !MySQL::getInstance()->select( "users", array( "UserName" => $user ), "", "0,1" ) )
-            return __( "Unable to query database: " ) . MySQL::getInstance()->last_error;
+            return __( "Username and/or password is invalid" );
 
         if ( MySQL::getInstance()->records == 1 ) {
         	if ( password_verify( $pass,  MySQL::getInstance()->arrayed_result['UserPass'] ) ) {
