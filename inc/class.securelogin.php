@@ -78,8 +78,7 @@ class SecureLogin {
      */
     public function login_user( $user, $pass ) {
     	// Trim username + password and turn username into lowercase
-        $user = strtolower( trim( $user ) );
-        $pass = trim( $pass );
+        $user = strtolower( $user );
 
         if ( $user == "" || $pass == "" )
             return __( "Username and/or password cannot be empty" );
