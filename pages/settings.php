@@ -45,8 +45,7 @@ function update_settings() {
     // Verify CSRF token
     verify_csrf_token( );
 
-    require_once( ROOTDIR . '/inc/class.passwordhash.php' );
-    $password_hash = new PasswordHash(8, false);
+    require_once ROOTDIR . '/inc/password_compat/lib/password.php';
 
     if ( !MySQL::getInstance()->select( "users", array( "UserName" => Session::getInstance()->user_info['username'] ), "", "0,1" ) ) {
         show_msg_box( __( "Unable to query database: " ) . MySQL::getInstance()->last_error, "red" );
@@ -55,7 +54,7 @@ function update_settings() {
 
     $current_pass = MySQL::getInstance()->arrayed_result['UserPass'];
 
-    if ( !$password_hash->check_password( trim( $_POST['password'] ), $current_pass ) ) {
+    if ( !password_verify( $_POST['password'], $current_pass ) ) {
         show_msg_box( __( "The password does not match your current password" ), "red" );
         return;
     }
