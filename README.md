@@ -90,6 +90,12 @@ If you would like to see Little Software Stats in action, please check out [demo
  * Updated minimum PHP version in inc/version.php to v5.3.7
  * A few other minor bug changes
  
+* 0.2.2
+ * Fixed data types created in install
+ * Changed pages/settings.php to use builtin password hash functions
+ * GeoIP database paths are specified by the user during installs
+ * Various other fixes and updates
+ 
 ### To Do ###
  * Remove unneeded JavaScript files
  * Translations for various languages
