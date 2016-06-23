@@ -132,7 +132,8 @@ class Callbacks extends Callbacks_Core {
     }
     
     function get_geoip_version($file) {
-        $fp = fopen($file,"rb") or die( "Can not open $file\n" );
+		if (($fp = fopen($file,"rb")) === false)
+			die( "Can not open $file\n" );
         
         define("STRUCTURE_INFO_MAX_SIZE", 20);
         define("DATABASE_INFO_MAX_SIZE", 100);
