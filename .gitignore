@@ -10,3 +10,4 @@ tests.old/*.*
 .bzrignore
 Thumbs.db
 *.clpprj
+nbproject/*
