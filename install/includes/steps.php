@@ -162,6 +162,30 @@ $steps = array(
                     array('rule' => 'validate_system_path'), // run "validate_system_path" function the "includes/validation.php" file upon form submission
                 ),
             ),
+			
+			// Text box
+            array(
+                'type' => 'text',
+                'label' => 'GeoIP.dat database path',
+                'name' => 'geoipdb_path',
+                'default' => rtrim(preg_replace('#/install/$#', '', BASE_PATH), '/').'/geoipdb/GeoIP.dat',
+                'validate' => array(
+                    array('rule' => 'required'), // make it required
+                    array('rule' => 'validate_file'), // run "validate_file" function the "includes/validation.php" file upon form submission
+                ),
+            ),
+			
+			// Text box
+            array(
+                'type' => 'text',
+                'label' => 'GeoIPv6.dat database path',
+                'name' => 'geoipdbv6_path',
+                'default' => rtrim(preg_replace('#/install/$#', '', BASE_PATH), '/').'/geoipdb/GeoIPv6.dat',
+                'validate' => array(
+                    array('rule' => 'required'), // make it required
+                    array('rule' => 'validate_file'), // run "validate_file" function the "includes/validation.php" file upon form submission
+                ),
+            ),
         ),
     ),
 

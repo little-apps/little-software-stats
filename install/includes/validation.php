@@ -16,6 +16,11 @@ class Validation extends Validation_Core
 
         return true;
     }
+	
+	function validate_geoip_path($value, $params = array()) {
+		$this->validate_file(rtrim($value, '/').'/GeoIP.dat');
+		$this->validate_file(rtrim($value, '/').'/GeoIPv6.dat');
+	}
     
     function no_spaces($value, $params = array()) {
         return ( strstr($value, ' ' ) ? false : true );
