@@ -55,7 +55,8 @@ class Callbacks extends Callbacks_Core {
 		$config_file .= "\t".'die( \'This page cannot be loaded directly\' );'."\n\n";
         $config_file .= 'return ' . var_export( $config, true ). '; ' . "\n";
 
-        @file_put_contents(rtrim($_SESSION['params']['system_path'], '/').'/inc/config.php', $config_file);
+        if (file_put_contents(rtrim($_SESSION['params']['system_path'], '/').'/inc/config.php', $config_file) === false)
+			return false;
 
         return true;
     }
