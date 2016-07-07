@@ -9,7 +9,7 @@ Little Software Stats is the first free and open source application that allows 
 
 ### Requirements ###
 
-The following is required to run Little URL Shortener properly:
+The following is required to run Little Software Stats properly:
 
 * Web server (See [notes](#notes))
 * [PHP v5.3.7](http://php.net/) or higher
