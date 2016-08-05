@@ -727,6 +727,54 @@ SQL;
 
 }
 
+function v023upgrade() {
+	global $errors;
+	
+	$database = Config::getInstance()->mysql->db;
+	
+	$fields = array(
+		'sessions.StartApp' => 'TIMESTAMP NULL DEFAULT NULL',
+		'sessions.StopApp' => 'TIMESTAMP NULL DEFAULT NULL',
+		'uniqueusers.Created' => 'TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP',
+		'uniqueusers.LastRecieved' => 'TIMESTAMP NOT NULL'
+	);
+	
+	$expected_data_type = 'timestamp';
+	
+	$sql_update = 
+<<<SQL
+
+	ALTER TABLE `{:db_prefix}{:table}` ADD COLUMN `{:tempcolumn}` TIMESTAMP NULL DEFAULT NULL AFTER `{:column}`;
+	UPDATE `{:db_prefix}{:table}` SET `{:tempcolumn}`=FROM_UNIXTIME(`{:column}`);
+	ALTER TABLE `{:db_prefix}{:table}` DROP `{:column}`;
+	ALTER TABLE `{:db_prefix}{:table}` CHANGE `{:tempcolumn}` `{:column}` {:datatype};
+SQL;
+	
+	$sql = '';
+	
+	foreach ($fields as $field => $data_type) {
+		list($table, $column) = explode('.', $field, 2);
+		
+		MySQL::getInstance()->execute_sql(sprintf("SELECT data_type FROM information_schema.columns WHERE table_schema = '%s' AND table_name = '%s%s' AND column_name = '%s' LIMIT 1", $database, $prefix, $table, $column));
+		$records = MySQL::getInstance()->array_result();
+
+		if ($records['data_type'] != $expected_data_type) {
+			$temp_column = $column . '2';
+			
+			$sql .= str_replace(array('{:table}', '{:column}', '{:tempcolumn}', '{:datatype}'), array($table, $column, $temp_column, $data_type), $sql_update);
+		}
+
+	}
+	
+	if (!empty($sql)) {
+		$ret = db_import_sql( $sql );
+		
+		if ( $ret !== true )
+			$errors[] = "Error converting tables to v0.2.3. (" . $ret . ")";
+	}
+	
+}
+
 if ( !file_exists( '../inc/config.php' ) )
     die( 'File config.php is not found.' );
     
@@ -796,6 +844,9 @@ if ( ( isset($_POST['pre_update'] ) ) && $_POST['pre_update'] == 'true' && !empt
 			
 				if ( version_compare( $install_version, '0.2', '<' ) && empty( $errors ) )
 					v02upgrade();
+					
+				if ( version_compare( $install_version, '0.2.3', '<' ) && empty( $errors ) )
+					v023upgrade();
 
 				if ( empty( $errors ) ) {
 					// Update installed version
