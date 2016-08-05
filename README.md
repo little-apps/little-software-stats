@@ -96,6 +96,9 @@ If you would like to see Little Software Stats in action, please check out [demo
  * GeoIP database paths are specified by the user during installs
  * Various other fixes and updates
  
+* 0.2.3
+ * Fixed data types in sessions and uniqueusers tables
+ 
 ### To Do ###
  * Remove unneeded JavaScript files
  * Translations for various languages
