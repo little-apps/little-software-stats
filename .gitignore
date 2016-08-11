@@ -4,7 +4,6 @@ cron/*
 database backup/*.*
 template files/*.*
 tests.old/*.*
-*.mwb
 .htaccess
 .bzr/*
 .bzrignore
