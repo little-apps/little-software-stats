@@ -11,13 +11,13 @@ Little Software Stats is the first free and open source application that allows 
 
 The following is required to run Little Software Stats properly:
 
-* Web server (See [notes](#notes))
+* Web server[<sup>1</sup>](#notes)
 * [PHP v5.3.7](http://php.net/) or higher
 * [MySQL](http://www.mysql.com/) or [MariaDB](https://www.mariadb.org) v5.5 or higher
 * PHP extensions:
- * [Original MySQL API](http://php.net/manual/en/book.mysql.php) (See [notes](#notes))
- * [MySQL Improved](http://php.net/manual/en/book.mysqli.php) (See [notes](#notes))
- * [GD (Image Processing)](http://php.net/manual/en/book.image.php) (See [notes](#notes))
+ * [Original MySQL API](http://php.net/manual/en/book.mysql.php) [<sup>2</sup>](#notes)
+ * [MySQL Improved](http://php.net/manual/en/book.mysqli.php) [<sup>2</sup>](#notes)
+ * [GD (Image Processing)](http://php.net/manual/en/book.image.php) [<sup>4</sup>](#notes)
  * [Hash](http://php.net/manual/en/book.hash.php)
  * [Session](http://php.net/manual/en/book.session.php)
  * [JSON](http://php.net/manual/en/book.json.php)
@@ -27,10 +27,10 @@ The following is required to run Little Software Stats properly:
  * [Gettext](http://php.net/manual/en/book.gettext.php)
 
 #### Notes ####
- * URL rewrite support with the web server is recommended, but not required
- * MySQL Improved will be used if it is installed (as the original MySQL API is deprecated). If it is not installed, the original MySQL API will be used instead.
- * The appropriate web server and memory needed will depend on the scale of your software. For example, if your using Little Software Stats with a highly used software program then you may want to consider running Nginx or Lighttpd with lots of RAM. You should consider using something like suPHP which runs PHP at the user-level instead of the root user or the default PHP user.
- * The FreeType and LibPNG libraries need to be included GD installation
+ 1. URL rewrite support with the web server is recommended, but not required
+ 2. MySQL Improved will be used if it is installed (as the original MySQL API is deprecated). If it is not installed, the original MySQL API will be used instead.
+ 3. The appropriate web server and memory needed will depend on the scale of your software. For example, if your using Little Software Stats with a highly used software program then you may want to consider running Nginx or Lighttpd with lots of RAM. You should consider using something like suPHP which runs PHP at the user-level instead of the root user or the default PHP user.
+ 4. The FreeType and LibPNG libraries need to be included with the GD installation
  
 ### Installation ###
 1. Upload and extract Little Software Stats to your web server
@@ -147,4 +147,4 @@ Little Apps would like to thank the following for helping Little Software Stats:
  
 ### More Info ###
 
-For more information, please visit [http://www.little-software-stats.com](http://www.little-software-stats.com)
+For more information, please visit <http://www.little-software-stats.com>
