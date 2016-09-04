@@ -10,3 +10,4 @@ tests.old/*.*
 Thumbs.db
 *.clpprj
 nbproject/*
+*.csprj
