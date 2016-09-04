@@ -1140,11 +1140,8 @@ if ( !function_exists( 'get_ip_address' ) ) {
 	 */
 	function get_ip_address() {
 		if ( !isset( $_SERVER['REMOTE_ADDR'] ) ) {
-			// Most likely being run from command line, use fake IP address
-			
-			mt_srand( );
-			
-			return mt_rand(1, 255) . '.' . mt_rand(1, 255) . '.' . mt_rand(1, 255) . '.' . mt_rand(1, 255);
+			// Most likely being run from command line, use local IP address
+			return '127.0.0.1';
 		}
 		
 	    // Get ip address
