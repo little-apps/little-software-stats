@@ -1149,25 +1149,25 @@ if ( !function_exists( 'get_ip_address' ) ) {
 		
 	    // Get ip address
 	    if ( Config::getInstance()->site->header_ip_address ) {
-			if ( ( isset( $_SERVER['HTTP_CLIENT_IP'] ) ) && $this->check_ip_address( $_SERVER['HTTP_CLIENT_IP'] ) )
+			if ( ( isset( $_SERVER['HTTP_CLIENT_IP'] ) ) && check_ip_address( $_SERVER['HTTP_CLIENT_IP'] ) )
 		        return $_SERVER['HTTP_CLIENT_IP'];
 		    
 		    if ( isset( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
 		        $ip_array = explode( ",", $_SERVER['HTTP_X_FORWARDED_FOR'] );
-		        if ( $this->check_ip_address( trim( $ip_array[count( $ip_array ) - 1] ) ) )
+		        if ( check_ip_address( trim( $ip_array[count( $ip_array ) - 1] ) ) )
 		            return trim( $ip_array[count( $ip_array ) - 1] );
 		    }
 		    
-		    if ( ( isset( $_SERVER['HTTP_X_FORWARDED'] ) ) && $this->check_ip_address( $_SERVER['HTTP_X_FORWARDED'] ) )
+		    if ( ( isset( $_SERVER['HTTP_X_FORWARDED'] ) ) && check_ip_address( $_SERVER['HTTP_X_FORWARDED'] ) )
 		        return $_SERVER['HTTP_X_FORWARDED'];
 		    
-		    if ( ( isset( $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] ) ) && $this->check_ip_address( $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] ) )
+		    if ( ( isset( $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] ) ) && check_ip_address( $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'] ) )
 		        return $_SERVER['HTTP_X_CLUSTER_CLIENT_IP'];
 		    
-		    if ( ( isset( $_SERVER['HTTP_FORWARDED_FOR'] ) ) && $this->check_ip_address( $_SERVER['HTTP_FORWARDED_FOR'] ) )
+		    if ( ( isset( $_SERVER['HTTP_FORWARDED_FOR'] ) ) && check_ip_address( $_SERVER['HTTP_FORWARDED_FOR'] ) )
 		        return $_SERVER['HTTP_FORWARDED_FOR'];
 		    
-		    if ( ( isset( $_SERVER['HTTP_FORWARDED'] ) ) && $this->check_ip_address( $_SERVER['HTTP_FORWARDED'] ) )
+		    if ( ( isset( $_SERVER['HTTP_FORWARDED'] ) ) && check_ip_address( $_SERVER['HTTP_FORWARDED'] ) )
 		        return $_SERVER['HTTP_FORWARDED'];
 		}
 
