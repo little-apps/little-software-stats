@@ -12,7 +12,7 @@
  * @since		Version 0.1
  */
 
-$page_load_start = microtime();
+$page_load_start = microtime(true);
 
 // Prevents other pages from being loaded directly
 define( 'LSS_LOADED', true );
@@ -370,7 +370,7 @@ $app_data_exists = ( MySQL::getInstance()->select_count( 'sessions', '*', array(
             $( "#from" ).datepicker( "setDate", new Date( fromYear, fromMonth, fromDay ) );
             $( "#to" ).datepicker( "setDate", new Date( toYear, toMonth, toDay ) );
 
-            <?php if ( Config::getInstance()->site->debug ) : $page_load_dur = number_format( microtime() - $page_load_start, 3 ) . ' seconds'; ?>
+            <?php if ( Config::getInstance()->site->debug ) : $page_load_dur = number_format( microtime(true) - $page_load_start, 3 ) . ' seconds'; ?>
                 $("#loadtime").html('<?php echo MySQL::getInstance()->total_queries . __( ' queries executed in ' ) . $page_load_dur . "<br /><br />" ?>');
             <?php endif; ?>
         });
